@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Highlights by HTML5 UP</title>
+		<title>ビブリオ組版</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -16,8 +16,8 @@
 		<!-- Header -->
 			<section id="header">
 				<header class="major">
-					<h1>Highlights</h1>
-					<p>A fun little { responsive } single pager by <a href="http://html5up.net">HTML5 UP</a></p>
+					<h1>vivlio kumihan.com</h1>
+					<p>広報誌のWEB化を提案するサイト</a></p>
 				</header>
 				<div class="container">
 					<ul class="actions special">
@@ -46,7 +46,7 @@
 					<span class="image fit primary"><img src="images/pic02.jpg" alt="" /></span>
 					<div class="content">
 						<header class="major">
-							<h2>Stuff I do</h2>
+							<h2>実績</h2>
 						</header>
 						<p>Consequat sed ultricies rutrum. Sed adipiscing eu amet interdum lorem blandit vis ac commodo aliquet vulputate.</p>
 						<ul class="icons-grid">
@@ -58,22 +58,22 @@
 								<span class="icon solid major fa-pencil-alt"></span>
 								<h3>Lorem Ipsum</h3>
 							</li>
-							<li>
+							<!-- <li>
 								<span class="icon solid major fa-code"></span>
 								<h3>Nulla Tempus</h3>
 							</li>
 							<li>
 								<span class="icon solid major fa-coffee"></span>
 								<h3>Sed Feugiat</h3>
-							</li>
+							</li> -->
 						</ul>
 					</div>
-					<a href="#three" class="goto-next scrolly">Next</a>
+					<a href="#footer" class="goto-next scrolly">Next</a>
 				</div>
 			</section>
 
 		<!-- Three -->
-			<section id="three" class="main special">
+			<!-- <section id="three" class="main special">
 				<div class="container">
 					<span class="image fit primary"><img src="images/pic03.jpg" alt="" /></span>
 					<div class="content">
@@ -84,7 +84,7 @@
 					</div>
 					<a href="#footer" class="goto-next scrolly">Next</a>
 				</div>
-			</section>
+			</section> -->
 
 		<!-- Four -->
 		<!--
@@ -411,39 +411,71 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<section id="footer">
 				<div class="container">
 					<header class="major">
-						<h2>Get in touch</h2>
+						<h2>お問い合わせ</h2>
 					</header>
-					<form method="post" action="#">
+					<form action="https://api.staticforms.xyz/submit" method="post" id="staticform">
+						<!-- Replace with your StaticForms accessKey -->
+						<input type="hidden" name="accessKey" value="replace-with-your-access-key">
+						<input type="hidden" name="subject" value="Test from jsfiddle">
+						<!-- Replace with the url you want to redirect to -->
+						<input type="hidden" name="redirectTo" value="https://www.google.com">
 						<div class="row gtr-uniform">
-							<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
-							<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
-							<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
+							<div class="col-6 col-12-xsmall">
+								<input type="text" name="name" id="name" placeholder="Enter Your Name" required>
+							</div>
+							<div class="col-6 col-12-xsmall">
+								<input type="email" name="email" id="email" placeholder="Enter Your Email" required>
+							</div>
+							<div class="col-12">
+								<textarea name="message" id="message" placeholder="Enter Your Message" rows="4" required>
+								</textarea>
+							</div>
 							<div class="col-12">
 								<ul class="actions special">
-									<li><input type="submit" value="Send Message" class="primary" /></li>
+									<li>
+										<input type="submit" value="Send Message" class="primary" />
+									</li>
 								</ul>
 							</div>
 						</div>
 					</form>
 
+					<!-- origin static form -->
+					<!-- <form action="https://api.staticforms.xyz/submit" method="post" id="staticform"> -->
+						<!-- Replace with your StaticForms accessKey -->
+						<!-- <input type="hidden" name="accessKey" value="replace-with-your-access-key">
+						<input type="hidden" name="subject" value="Test from jsfiddle"> -->
+						<!-- Replace with the url you want to redirect to -->
+						<!-- <input type="hidden" name="redirectTo" value="https://www.google.com">
+						<div class="field"> -->
+							<!-- <label class="label">Name</label> -->
+							<!-- <div class="control">
+								<input class="input" type="text" name="name" placeholder="Enter Your Name" required>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label">Email</label>
+							<div class="control">
+								<input class="input" type="email" name="email" placeholder="Enter Your Email" required>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label">Message</label>
+							<div class="control">
+								<textarea class="textarea" name="message" placeholder="Enter Your Message" required>
+								</textarea>
+							</div>
+						</div>
+						<button class="button is-primary" type="Submit">Submit</button>
+					</form> -->
 
-
-
-
-
-
-
-
-
-					
 				</div>
 				<footer>
 					<ul class="icons">
-						<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon brands alt fa-dribbble"><span class="label">Dribbble</span></a></li>
-						<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
+						<li><a href="https://twitter.com/vivlioKumihan" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="https://facebook.com/vivlioKumihan" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+						<li><a href="https://github.com/vivlio-kumihan" class="icon brands alt fa-github"><span class="label">Github</span></a></li>
+						<!-- <li><a href="vivlio@kumihan.com" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li> -->
 					</ul>
 					<ul class="copyright">
 						<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li><li>Demo Images: <a href="http://unsplash.com">Unsplash</a></li>
