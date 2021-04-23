@@ -2809,31 +2809,34 @@ input, select, textarea {
 		}
 
 			#header header h1, #header header h2, #header header h3, #header header h4, #header header h5, #header header h6, #header header strong, #header header b {
-				color: #ffffff;
+				color: white;
 			}
 
 			#header header a {
 				color: inherit;
 			}
-
-				#header header a:hover {
-					color: #ffffff !important;
-				}
-
+			
+			#header header a:hover {
+				color: #ffffff !important;
+			}
+			
 			#header header h1 {
 				font-size: 3em;
 				line-height: 1.25em;
 				margin: 0;
+				color: #ffff66;
+				text-shadow: 0px 0px 28px #330000;
 			}
-
-				#header header h1:after {
-					margin-top: 0.5em;
-				}
-
+			
+			#header header h1:after {
+				margin-top: 0.5em;
+			}
+			
 			#header header p {
 				color: #ffffff;
 				font-weight: 700;
 				margin: 1.5em 0 0 0;
+				text-shadow: 0px 0px 10px #330000;
 			}
 
 		#header .container {
@@ -3124,6 +3127,7 @@ input, select, textarea {
 					margin: -2em 0 2.5em 0;
 				}
 
+
 		/* Footer */
 
 			#footer .container {
@@ -3141,4 +3145,33 @@ input, select, textarea {
 					padding: 0;
 				}
 
+	}
+
+	.thanks {
+		/* display: block; */
+		width: 90%;
+		margin: 0 auto;
+		padding: 30px 0;
+		text-align: center;
+		background-color: rgba(255, 255, 255, 0.9);
+		color: white;
+	}
+	
+	.thanks h4 {
+		font-size: 1.1rem;
+		line-height: 1;
+		font-weight: 800;
+		color: brown;
+	}
+
+	.thanks p {
+		font-size: 0.9rem;
+		line-height: 1.5;
+		font-weight: 600;
+		color: rgba(0, 0, 0, 0.8);
+	}
+
+	.thanks a {
+		font-weight: 700;
+		color: brown;
 	}
