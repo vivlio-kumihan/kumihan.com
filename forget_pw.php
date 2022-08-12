@@ -1,0 +1,115 @@
+<?php
+$err_mesg = array();
+$complete = false;
+if ($_POST) {
+  // POST情報がある場合の処理
+  // 1. 入力チェック。
+  // Eメールアドレス
+  if (!$_POST['email']) {
+    $err_mesg[] = 'Eメールアドレスを入力してください。';
+  } elseif (mb_strlen($_POST['email']) > 100) {
+    $err_mesg[] = '100文字以内で入力してください。';
+  }
+  //  認証チェック
+  $user_file = '../tmp/user_info.txt';
+  if (file_exists($user_file)) {
+    $users = file_get_contents($user_file);
+    $users = explode("\n", $users);
+    foreach ($users as $idx => $user) {
+      $user_info = str_getcsv($user);
+      // Eメールアドレスが一致しているかどうかを問い。
+      if ($user_info[0] === $_POST['email']) {
+        // 入力したEメールアドレス『$_POST['email']』が『user_info.txt』に記載されていれば、
+        // 再発行するパスワードを生成する。
+        $pw = bin2hex(random_bytes(5));
+        // メール送信
+        $mesg = "パスワードを変更しました。\r\n" . $pw . "\r\n";
+        mail($_POST['email'], 'パスワードの再発行について', $mesg);
+        // user_info.txt（後のDB）の全文変更作業
+        $pw_hash = password_hash($pw, PASSWORD_DEFAULT);
+        // CSVの文字列を作るのならこちらでいいかもしれない。
+        $line = "{$_POST['email']},{$pw_hash}";
+        // $line = '"'.$_POST['email'].'","'.$pw_hash.'"'; // 一応置いておく。
+        $users[$idx] = $line;
+        // 配列の区切りに『\n（改行）』を入れ替えて文字列に変更する。
+        $tmp_users = implode("\n", $users);
+        // この文字列をもってファイルを全て上書きする。大胆な書き換えですな。
+        $ret = file_put_contents($user_file, $tmp_users);
+        // 処理が上手くいった場合、ここで処理を完了したい。
+        // 処理が不良だった場合、エラーメッセージを出すことを想定した変数の生成。
+        // 変数に『true』を代入する場合。初期化で代入する値『false』
+        $complete = true;
+        // 処理を終える。
+        break;
+      }
+    }
+    // falseではない => trueであれば、メッセージを変数に代入する。
+    //そそもそも、このエラーメッセージ要るか？
+    if (!$complete) {
+      $err_mesg[] = 'Eメールアドレスが不正です。';
+    }
+  } else {
+    // GETの時の処理
+    // 初回アクセスですでにsessionを持っている状態であればloginを通過させてmemberonlyへ行かせる。
+    // 連想配列『$_SESSION['email']』要素があり、その内容が存在しているならば。。。という意味。
+    if (isset($_SESSION['email']) && $_SESSION['email']) {
+      // リダイレクト処理（これは1行じゃ無理）をする。
+      $host = $_SERVER['HTTP_HOST'];
+      $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+      header("Location: //$host$uri/memberonly.php");
+      exit;
+    }
+    $_POST = array();
+    $_POST['email'] = '';
+  }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パスワードの再発行</title>
+  <style>
+    .submit {
+      text-align: center;
+    }
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <div class="mx-auto" style="margin-top:150px; width: 400px;">
+      <?php
+      if ($err_mesg) {
+        echo '<div class="alert alert-danger" role="alert">';
+        echo implode('<br>', $err_mesg);
+        echo '</div>';
+      }
+      ?>
+      <!-- 初期状態で入力欄は必要。
+      処理が不良だった場合、メッセージだけを出すので入力欄は不要。
+      その場合分をする。 -->
+      <?php if ($complete) { ?>
+        <p>登録されているEメールアドレス宛にパスワードを再発行しました。</p>
+        <a href="./login.php">ログインページへ</a>
+      <?php } else { ?>
+        <form action="./forget_pw.php" method="post">
+          <div class="mb-3">
+            <label class="form-label">Eメールアドレス</label>
+            <input class="form-control" type="email" name="email" value="<?php echo htmlspecialchars($_POST['email']) ?>">
+          </div>
+          <div class="submit">
+            <button type="submit" class="btn btn-primary btn-sm" value="再発行">再発行</button>
+          </div>
+        </form>
+      <?php } ?>
+    </div>
+  </div>
+</body>
+
+</html>
