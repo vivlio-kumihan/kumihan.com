@@ -1,11 +1,19 @@
 <?php
 // print_r($_SERVER);
-// sessionを始める宣言をする。たった1行。
+
+// セッション開始
+// ログインフォームでの認証を経てWebPage内へ入場する。
+// その際セッションをスタートする宣言をする。
+// 一回入ったらブラウザを閉じるまでログインの認証は要らない、自由に往来できる切符を渡すようなイメージ。
+// 閲覧できる各ページには、この切符を最初の行に貼り付けてある。
 session_start();
+// 初期化
 $err_mesg = array();
+// register.phpでやった処理。
+// 初級者にわかりやすさ優先の方針だからだろう。処理の流れをおぼえることを優先しましょう。
+// POST情報がある場合の処理
 if ($_POST) {
-  // POST情報がある場合の処理
-  // 1. 入力チェック。
+  // 説明省略。register.php参照する。
   // Eメールアドレス
   if (!$_POST['email']) {
     $err_mesg[] = 'Eメールアドレスを入力してください。';
@@ -20,23 +28,19 @@ if ($_POST) {
   } elseif (mb_strlen($_POST['password']) > 17) {
     $err_mesg[] = 'パスワードは、16文字以内で入力してください。';
   }
-  //  認証チェック
+  //  認　証
   $user_file = '../tmp/user_info.txt';
   if (file_exists($user_file)) {
     $users = file_get_contents($user_file);
     $users = explode("\n", $users);
     foreach ($users as $user) {
       $user_info = str_getcsv($user);
-      // Eメールアドレスが一致しているかどうかを問い。
       if ($user_info[0] === $_POST['email']) {
-        // TRUEであればパスワードが一致しているかを問う。
         if (password_verify($_POST['password'], $user_info[1])) {
-          // Eメールアドレス、パスワードとも認証が通ったので、sessionをmemberonly.phpへここで渡す。
           $_SESSION['email'] = $_POST['email'];
-          // 一致していると、リダイレクトしてメンバ画面へリダイレクトする処理をする。
           $host = $_SERVER['HTTP_HOST'];
           $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-          header("Location: //$host$uri/memberonly.php");
+          header("Location: //$host$uri/index.php");
           exit;
         }
       }
@@ -45,13 +49,13 @@ if ($_POST) {
     // $err_mesg[] = 'ユーザー名またはパスワードが一致しませんでした。';
   } else {
     // GETの時の処理
-    // 初回アクセスですでにsessionを持っている状態であればloginを通過させてmemberonlyへ行かせる。
-    // 連想配列『$_SESSION['email']』要素があり、その内容が存在しているならば。。。という意味。
+    // 初回アクセスで既にsessionの切符を持っている状態であれば、login手続きを通過させてindex.phpへ通す。
+    // 連想配列『$_SESSION['email']』要素があり、その内容が存在しているならばリダイレクトさせる。
     if (isset($_SESSION['email']) && $_SESSION['email']) {
-      // リダイレクト処理（これは1行じゃ無理）をする。
+      // リダイレクト処理
       $host = $_SERVER['HTTP_HOST'];
       $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-      header("Location: //$host$uri/memberonly.php");
+      header("Location: //$host$uri/index.php");
       exit;
     }
     $_POST = array();
@@ -66,7 +70,7 @@ if ($_POST) {
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <title>ログインフォーム</title>
   <style>
     .submit {
@@ -99,6 +103,7 @@ if ($_POST) {
           <button type="submit" class="btn btn-primary btn-sm" value="送信">送信</button>
         </div>
       </form>
+      <p style="margin-top: 20px; size: 0.8em">はじめての方は、<a href="./register.php" style="text-decoration: none; color:cornflowerblue">Sign in</a>をお願いします。</p>
     </div>
   </div>
 </body>

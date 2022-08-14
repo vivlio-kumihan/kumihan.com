@@ -1,3 +1,15 @@
+<?php
+// セッション開始
+session_start();
+// セッションの切符も持っていない訪問者にログインペーへへのリダイレクト処理。
+if (!$_SESSION['email']) {
+	$host = $_SERVER['HTTP_HOST'];
+	$uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+	header("Location: //$host$uri/login.php");
+	exit;
+}
+?>
+
 <!DOCTYPE HTML>
 <!--
 	Highlights by HTML5 UP
@@ -5,86 +17,89 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-	<head>
-		<title>ビブリオ組版</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="is-preload">
 
-		<!-- Header -->
-			<section id="header">
+<head>
+	<title>ビブリオ組版</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+</head>
+
+<body class="is-preload">
+
+	<!-- Header -->
+	<section id="header">
+		<header class="major">
+			<h1>vivlio kumihan.com</h1>
+			<p>広報誌のWEB化を提案するサイト</a></p>
+		</header>
+		<div class="container">
+			<ul class="actions special">
+				<li><a href="#one" class="button primary scrolly">Begin</a></li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- One -->
+	<section id="one" class="main special">
+		<a href="./logout.php">ログアウトする</a>
+		<div class="container">
+			<span class="image fit primary"><img src="images/210510_K7_PK70564.jpg" alt="" /></span>
+			<div class="content">
 				<header class="major">
-					<h1>vivlio kumihan.com</h1>
-					<p>広報誌のWEB化を提案するサイト</a></p>
+					<h2>言葉を残す</h2>
 				</header>
-				<div class="container">
-					<ul class="actions special">
-						<li><a href="#one" class="button primary scrolly">Begin</a></li>
-					</ul>
-				</div>
-			</section>
-
-		<!-- One -->
-			<section id="one" class="main special">
-				<div class="container">
-					<span class="image fit primary"><img src="images/210510_K7_PK70564.jpg" alt="" /></span>
-					<div class="content">
-						<header class="major">
-							<h2>言葉を残す</h2>
-						</header>
-						<p>本当に残したい言葉を</br>記録していきたいみなさまへ</br>WEB標準の技術を使い</br>マルチチャンネルへ</br>『本』という形でパッケージ</br>必要な分だけ紙で残すことを</br>ご提案してまいります。</p>
-						<!-- <header class="major">
+				<p>本当に残したい言葉を</br>記録していきたいみなさまへ</br>WEB標準の技術を使い</br>マルチチャンネルへ</br>『本』という形でパッケージ</br>必要な分だけ紙で残すことを</br>ご提案してまいります。</p>
+				<!-- <header class="major">
 							<h2>こちらがWEBと紙での<br>組版サンプル</h2>
 						</header>
 						<p><a href="#" target=”_blank”>Sample Page</a> Comming Soonnnnn!</p> -->
-						<p>こちらがimigawakarnakjdkfj <a href="./sample/index.html" target=”_blank”>WebPageのサンプルページ</a> です。<br/>
-						そして、 <a href="./vivliostyle-viewer-latest/viewer/#src=https://kumihan.com/sample/index.html&bookMode=true" target=”_blank”>WebBookのサンプルページ</a> です。</p>
-					</div>
-					<a href="#two" class="goto-next scrolly">Next</a>
-				</div>
-			</section>
+				<p>こちらが<a href="./sample/index.html" target=”_blank”>WebPageのサンプルページ</a> です。<br />
+					そして、 <a href="./vivliostyle-viewer-latest/viewer/#src=https://kumihan.com/sample/index.html&bookMode=true" target=”_blank”>WebBookのサンプルページ</a> です。</p>
+			</div>
+			<a href="#two" class="goto-next scrolly">Next</a>
+		</div>
+	</section>
 
-		<!-- Two -->
-			<section id="two" class="main special">
-				<div class="container">
-					<span class="image fit primary"><img src="images/210501_G9_1124597.jpg" alt="" /></span>
-					<div class="content">
-						<!-- <header class="major">
+	<!-- Two -->
+	<section id="two" class="main special">
+		<div class="container">
+			<span class="image fit primary"><img src="images/210501_G9_1124597.jpg" alt="" /></span>
+			<div class="content">
+				<!-- <header class="major">
 							<h2>実績</h2>
 						</header>
 						<p>Now painting</p> -->
-						<ul class="icons-grid">
-							<li>
-								<span class="icon solid major fa-code"></span>
-								<h3>
-									<a href="https://vivlio-kumihan.github.io/vk-sample-page/" target=”_blank”>Sample</a>
-								</h3>
-							</li>
-							<li>
-								<span class="icon solid major fa-pencil-alt"></span>
-								<h3>
-									<a href="https://vivlio-kumihan.github.io/practice-stroke/" target=”_blank”>Blog</a>
-								</h3>
-							</li>
-							<li>
-								<span class="icon solid major fa-camera-retro"></span>
-								<h3>Photography</h3>
-								<p>Now painting</p>
-							</li>
-							<!-- <li>
+				<ul class="icons-grid">
+					<li>
+						<span class="icon solid major fa-code"></span>
+						<h3>
+							<a href="https://vivlio-kumihan.github.io/vk-sample-page/" target=”_blank”>Sample</a>
+						</h3>
+					</li>
+					<li>
+						<span class="icon solid major fa-pencil-alt"></span>
+						<h3>
+							<a href="https://vivlio-kumihan.github.io/practice-stroke/" target=”_blank”>Blog</a>
+						</h3>
+					</li>
+					<li>
+						<span class="icon solid major fa-camera-retro"></span>
+						<h3>Photography</h3>
+						<p>Now painting</p>
+					</li>
+					<!-- <li>
 								<span class="icon solid major fa-coffee"></span>
 								<h3>Sed Feugiat</h3>
 							</li> -->
-						</ul>
-					</div>
-					<a href="#footer" class="goto-next scrolly">Next</a>
-				</div>
-			</section>
+				</ul>
+			</div>
+			<a href="#footer" class="goto-next scrolly">Next</a>
+		</div>
+	</section>
 
-		<!-- Three -->
-			<!-- <section id="three" class="main special">
+	<!-- Three -->
+	<!-- <section id="three" class="main special">
 				<div class="container">
 					<span class="image fit primary"><img src="images/pic03.jpg" alt="" /></span>
 					<div class="content">
@@ -97,8 +112,8 @@
 				</div>
 			</section> -->
 
-		<!-- Four -->
-		<!--
+	<!-- Four -->
+	<!--
 			<section id="four" class="main">
 				<div class="container">
 					<div class="content">
@@ -418,49 +433,49 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			</section>
 		-->
 
-		<!-- Footer -->
-			<section id="footer">
-				<div class="container">
-					<header class="major">
-						<h2>お問い合わせ</h2>
-					</header>
-					<form action="https://api.staticforms.xyz/submit" method="post" id="staticform">
-						<!-- Replace with your StaticForms accessKey -->
-						<input type="hidden" name="accessKey" value="6a421e1c-63ea-4520-a3fd-c04a0fc8c510">
-						<input type="hidden" name="subject" value="お問い合わせがありました。">
-						<!-- Replace with the url you want to redirect to -->
-						<input type="hidden" name="redirectTo" value="https://kumihan.com/thanks.html"">
-						<div class="row gtr-uniform">
-							<div class="col-6 col-12-xsmall">
-								<input type="text" name="name" id="name" placeholder="Enter Your Name" required>
-							</div>
-							<div class="col-6 col-12-xsmall">
-								<input type="email" name="email" id="email" placeholder="Enter Your Email" required>
-							</div>
-							<div class="col-12">
-								<textarea name="message" id="message" placeholder="Enter Your Message" rows="4" required>
+	<!-- Footer -->
+	<section id="footer">
+		<div class="container">
+			<header class="major">
+				<h2>お問い合わせ</h2>
+			</header>
+			<form action="https://api.staticforms.xyz/submit" method="post" id="staticform">
+				<!-- Replace with your StaticForms accessKey -->
+				<input type="hidden" name="accessKey" value="6a421e1c-63ea-4520-a3fd-c04a0fc8c510">
+				<input type="hidden" name="subject" value="お問い合わせがありました。">
+				<!-- Replace with the url you want to redirect to -->
+				<input type="hidden" name="redirectTo" value="https://kumihan.com/thanks.html"">
+						<div class=" row gtr-uniform">
+				<div class="col-6 col-12-xsmall">
+					<input type="text" name="name" id="name" placeholder="Enter Your Name" required>
+				</div>
+				<div class="col-6 col-12-xsmall">
+					<input type="email" name="email" id="email" placeholder="Enter Your Email" required>
+				</div>
+				<div class="col-12">
+					<textarea name="message" id="message" placeholder="Enter Your Message" rows="4" required>
 								</textarea>
-							</div>
-							<div class="col-12">
-								<ul class="actions special">
-									<li>
-										<input type="submit" value="Send Message" class="primary" />
-									</li>
-								</ul>
-							</div>
-						</div>
-					</form>
+				</div>
+				<div class="col-12">
+					<ul class="actions special">
+						<li>
+							<input type="submit" value="Send Message" class="primary" />
+						</li>
+					</ul>
+				</div>
+		</div>
+		</form>
 
-					<!-- origin static form -->
-					<!-- <form action="https://api.staticforms.xyz/submit" method="post" id="staticform"> -->
-						<!-- Replace with your StaticForms accessKey -->
-						<!-- <input type="hidden" name="accessKey" value="replace-with-your-access-key">
+		<!-- origin static form -->
+		<!-- <form action="https://api.staticforms.xyz/submit" method="post" id="staticform"> -->
+		<!-- Replace with your StaticForms accessKey -->
+		<!-- <input type="hidden" name="accessKey" value="replace-with-your-access-key">
 						<input type="hidden" name="subject" value="Test from jsfiddle"> -->
-						<!-- Replace with the url you want to redirect to -->
-						<!-- <input type="hidden" name="redirectTo" value="https://www.google.com">
+		<!-- Replace with the url you want to redirect to -->
+		<!-- <input type="hidden" name="redirectTo" value="https://www.google.com">
 						<div class="field"> -->
-							<!-- <label class="label">Name</label> -->
-							<!-- <div class="control">
+		<!-- <label class="label">Name</label> -->
+		<!-- <div class="control">
 								<input class="input" type="text" name="name" placeholder="Enter Your Name" required>
 							</div>
 						</div>
@@ -480,28 +495,30 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 						<button class="button is-primary" type="Submit">Submit</button>
 					</form> -->
 
-				</div>
-				<footer>
-					<ul class="icons">
-						<li><a href="https://twitter.com/vivlioKumihan" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="https://facebook.com/vivlioKumihan" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="https://github.com/vivlio-kumihan" class="icon brands alt fa-github"><span class="label">Github</span></a></li>
-						<!-- <li><a href="vivlio@kumihan.com" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li> -->
-					</ul>
-					<ul class="copyright">
-						<li>&copy; ビブリオ組版</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-				</footer>
-			</section>
+		</div>
+		<footer>
+			<ul class="icons">
+				<li><a href="https://twitter.com/vivlioKumihan" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="https://facebook.com/vivlioKumihan" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+				<li><a href="https://github.com/vivlio-kumihan" class="icon brands alt fa-github"><span class="label">Github</span></a></li>
+				<!-- <li><a href="vivlio@kumihan.com" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li> -->
+			</ul>
+			<ul class="copyright">
+				<li>&copy; ビブリオ組版</li>
+				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</footer>
+	</section>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
 
-	</body>
+</body>
+
 </html>

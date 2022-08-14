@@ -1,9 +1,15 @@
+<!-- このページへのリンクはloginページに設置しておく。 -->
+<!-- session切符を持っていないことが前提になる。 -->
+
 <?php
+// 初期化
 $err_mesg = array();
+// 初期状態でEメールアドレスを入力するフォームを出しておきたいがための真偽値をここで設定する。
 $complete = false;
+
+// POSTでEメールアドレスが投げられる。
 if ($_POST) {
-  // POST情報がある場合の処理
-  // 1. 入力チェック。
+  // 入力チェック。
   // Eメールアドレス
   if (!$_POST['email']) {
     $err_mesg[] = 'Eメールアドレスを入力してください。';
@@ -19,13 +25,16 @@ if ($_POST) {
       $user_info = str_getcsv($user);
       // Eメールアドレスが一致しているかどうかを問い。
       if ($user_info[0] === $_POST['email']) {
+        // ================ 重要 =================
         // 入力したEメールアドレス『$_POST['email']』が『user_info.txt』に記載されていれば、
         // 再発行するパスワードを生成する。
         $pw = bin2hex(random_bytes(5));
-        // メール送信
+        // ================ 重要 =================
+        // サーバーにメールを送信させる命令！
+        // 日本をを送信で文字化けが起こる場合、mail.phpを参照する。
         $mesg = "パスワードを変更しました。\r\n" . $pw . "\r\n";
         mail($_POST['email'], 'パスワードの再発行について', $mesg);
-        // user_info.txt（後のDB）の全文変更作業
+        // user_info.txt（後のDB）の全文変更作業の開始。
         $pw_hash = password_hash($pw, PASSWORD_DEFAULT);
         // CSVの文字列を作るのならこちらでいいかもしれない。
         $line = "{$_POST['email']},{$pw_hash}";
@@ -50,15 +59,14 @@ if ($_POST) {
     }
   } else {
     // GETの時の処理
-    // 初回アクセスですでにsessionを持っている状態であればloginを通過させてmemberonlyへ行かせる。
-    // 連想配列『$_SESSION['email']』要素があり、その内容が存在しているならば。。。という意味。
-    if (isset($_SESSION['email']) && $_SESSION['email']) {
-      // リダイレクト処理（これは1行じゃ無理）をする。
-      $host = $_SERVER['HTTP_HOST'];
-      $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-      header("Location: //$host$uri/memberonly.php");
-      exit;
-    }
+    // 確認　この処理は不要では？
+    // if (isset($_SESSION['email']) && $_SESSION['email']) {
+    //   // リダイレクト処理（これは1行じゃ無理）をする。
+    //   $host = $_SERVER['HTTP_HOST'];
+    //   $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    //   header("Location: //$host$uri/memberonly.php");
+    //   exit;
+    // }
     $_POST = array();
     $_POST['email'] = '';
   }
@@ -91,14 +99,14 @@ if ($_POST) {
         echo '</div>';
       }
       ?>
-      <!-- 初期状態で入力欄は必要。
-      処理が不良だった場合、メッセージだけを出すので入力欄は不要。
-      その場合分をする。 -->
+      <!-- 初期状態で入力欄を配置する。 -->
+      <!-- 再発行処理が完了しているかの真偽は変数$completeで判断する。 -->
       <?php if ($complete) { ?>
         <p>登録されているEメールアドレス宛にパスワードを再発行しました。</p>
         <a href="./login.php">ログインページへ</a>
       <?php } else { ?>
-        <form action="./forget_pw.php" method="post">
+        <!-- POSTで自分自身にインスタンス（Eメールアドレス）を投げる。 -->
+        <form action="./forget_pw.php" method="POST">
           <div class="mb-3">
             <label class="form-label">Eメールアドレス</label>
             <input class="form-control" type="email" name="email" value="<?php echo htmlspecialchars($_POST['email']) ?>">

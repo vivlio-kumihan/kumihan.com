@@ -1,14 +1,15 @@
 <?php
-// sessionを始める宣言をする。たった1行。
+// セッション切符を持っていることが前提
+// セッション開始
 session_start();
-
-// loginしていなけれloginに差し戻す。
+// セッションの切符も持っていない訪問者にログインページへリダイレクト処理。
 if (!$_SESSION['email']) {
   $host = $_SERVER['HTTP_HOST'];
   $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
   header("Location: //$host$uri/login.php");
   exit;
 }
+
 $err_mesg = array();
 $complete = false;
 
@@ -100,7 +101,7 @@ if ($_POST) {
         <p>パスワードを変更しました。</p>
         <a href="./memberonly.php">インデックスページへ</a>
       <?php } else { ?>
-        <form action="./change_pw.php" method="post">
+        <form action="./change_pw.php" method="POST">
           <div class="mb-3">
             <label class="form-label">現在のパスワード</label>
             <input class="form-control" type="password" name="password" value="">
