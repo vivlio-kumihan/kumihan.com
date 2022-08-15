@@ -105,7 +105,15 @@ $images = glob('./images/album/*.jpg');
         <?php } ?>
       </div>
 
+      <div class="row">
+        <?php foreach ($images as $photo) { ?>
+          <div class="col-2">
+            <?php echo '<img src="', $photo, '" alt="thumbnail" class="img-thumbnail" style="margin-bottom : 15px; width: 200px; height:150px">'; ?>
+          </div>
+        <?php } ?>
+      </div>
     </section>
+
 
   </main>
 
