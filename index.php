@@ -1,514 +1,128 @@
-<?php
-// セッション開始
-session_start();
-// セッションの切符も持っていない訪問者にログインペーへへのリダイレクト処理。
-if (!$_SESSION['email']) {
-	$host = $_SERVER['HTTP_HOST'];
-	$uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-	header("Location: //$host$uri/login.php");
-	exit;
-}
-?>
-
 <!DOCTYPE HTML>
-<!--
-	Highlights by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 
 <head>
-	<title>ビブリオ組版</title>
+	<title>kumihan.com</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="assets/css/fonts.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+	<script type="text/javascript" src="//webfonts.sakura.ne.jp/js/sakurav3.js"></script>
 </head>
 
-<body class="is-preload">
+<body class="landing is-preload">
 
-	<!-- Header -->
-	<section id="header">
-		<header class="major">
-			<h1>vivlio kumihan.com</h1>
-			<p>広報誌のWEB化を提案するサイト</a></p>
+	<!-- Page Wrapper -->
+	<div id="page-wrapper">
+
+		<!-- Header -->
+		<header id="header" class="alt">
+			<h1><a href="index.html">kumihan.com</a></h1>
+			<nav id="nav">
+				<ul>
+					<li class="special">
+						<a href="#menu" class="menuToggle"><span>Menu</span></a>
+						<div id="menu">
+							<ul>
+								<li><a href="./index.php">Home</a></li>
+								<li><a href="./cando.php">Code</a></li>
+								<li><a href="./book.php">Book</a></li>
+								<li><a href="./photo.php">Photo</a></li>
+								<li><a href="./sing_in.php">Sign Up</a></li>
+								<li><a href="./register.php">Log In</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</nav>
 		</header>
-		<div class="container">
-			<ul class="actions special">
-				<li><a href="#one" class="button primary scrolly">Begin</a></li>
-			</ul>
-		</div>
-	</section>
 
-	<!-- One -->
-	<section id="one" class="main special">
-		<a href="./logout.php">ログアウトする</a>
-		<div class="container">
-			<span class="image fit primary"><img src="images/210510_K7_PK70564.jpg" alt="" /></span>
-			<div class="content">
-				<header class="major">
-					<h2>言葉を残す</h2>
-				</header>
-				<p>本当に残したい言葉を</br>記録していきたいみなさまへ</br>WEB標準の技術を使い</br>マルチチャンネルへ</br>『本』という形でパッケージ</br>必要な分だけ紙で残すことを</br>ご提案してまいります。</p>
-				<!-- <header class="major">
-							<h2>こちらがWEBと紙での<br>組版サンプル</h2>
-						</header>
-						<p><a href="#" target=”_blank”>Sample Page</a> Comming Soonnnnn!</p> -->
-				<p>こちらが<a href="./sample/index.html" target=”_blank”>WebPageのサンプルページ</a> です。<br />
-					そして、 <a href="./vivliostyle-viewer-latest/viewer/#src=https://kumihan.com/sample/index.html&bookMode=true" target=”_blank”>WebBookのサンプルページ</a> です。</p>
+		<!-- Banner -->
+		<section id="banner">
+			<div class="inner">
+				<h2>kumihan.com</h2>
 			</div>
-			<a href="#two" class="goto-next scrolly">Next</a>
-		</div>
-	</section>
+			<div class="lead">
+				<h3>ことばを残す</h3>
+				<p>本当に残したい</br>
+					『ことば』を</br>
+					記録していきたいと</br>
+					思っているみなさんへ</br>
+					WEB標準の技術を使い</br>
+					『本』を手本にパッケージング</br>
+					その時々に必要な形で</br>
+					しっかりと想いを伝える</br></br>
+					そんなお手伝ができればと</br>
+					日々、考えております。</p>
+			</div>
+			<a href="#one" class="more scrolly">Learn More</a>
+		</section>
 
-	<!-- Two -->
-	<section id="two" class="main special">
-		<div class="container">
-			<span class="image fit primary"><img src="images/210501_G9_1124597.jpg" alt="" /></span>
-			<div class="content">
-				<!-- <header class="major">
-							<h2>実績</h2>
-						</header>
-						<p>Now painting</p> -->
-				<ul class="icons-grid">
+		<!-- One -->
+		<section id="one" class="wrapper style1 special">
+			<div class="inner">
+				<header class="major">
+					<h2>この一ヶ月で出来たこと</h2>
+					<ul>
+						<li>WEB制作で使うPHPの文法の習得。</li>
+						<li>PHPからデータベースへ簡単にアクセスするための拡張モジュールPDO（PHP Data Objects）の操作。</li>
+						<li>phpMyAdminを使ったデータベース（SQL）の操作。</li>
+						<li>HTMLの仕様による動的サイトの構築(POST/GET, SESSION)。</li>
+					</ul>
+					<h2>課題</h2>
+					<ul>
+						<li>HTML5、CSS3を使ったハードコーディングでのサイト構築がイメージできるようになりたい。</li>
+						<li>PHPのコードが初級レベル。とはいえ、まずは現状書いたコードの流れをしっかりと身につけたい。</li>
+					</ul>
+					<h2>これからの一ヶ月</h2>
+					<ul>
+						<li>WordPressによるサイト構築。</li>
+						<li>WordPressはPHPの関数の山。カスタマイズについて覚悟を決めて臨んでいきたい。</li>
+					</ul>
+
+				</header>
+				<ul class="icons major">
 					<li>
 						<span class="icon solid major fa-code"></span>
-						<h3>
-							<a href="https://vivlio-kumihan.github.io/vk-sample-page/" target=”_blank”>Sample</a>
-						</h3>
+						<h3 class="pict_name"><a href="#" target=”_blank”>Code</a></h3>
 					</li>
 					<li>
-						<span class="icon solid major fa-pencil-alt"></span>
-						<h3>
-							<a href="https://vivlio-kumihan.github.io/practice-stroke/" target=”_blank”>Blog</a>
-						</h3>
+						<span class="icon solid major fa-book"></span>
+						<h3 class="pict_name"><a href="#">Book</a></h3>
 					</li>
 					<li>
 						<span class="icon solid major fa-camera-retro"></span>
-						<h3>Photography</h3>
-						<p>Now painting</p>
+						<h3 class="pict_name"><a href="#">Photo</a></h3>
 					</li>
-					<!-- <li>
-								<span class="icon solid major fa-coffee"></span>
-								<h3>Sed Feugiat</h3>
-							</li> -->
+					<li>
+						<span class="icon solid major fa-coffee"></span>
+						<h3 class="pict_name"><a href="https://vivlio-kumihan.github.io/practice-stroke/" target=”_blank”>Blog</a></h3>
+					</li>
 				</ul>
 			</div>
-			<a href="#footer" class="goto-next scrolly">Next</a>
-		</div>
-	</section>
+			<!-- <p>
+					こちらが<a href="./sample/index.html" target=”_blank”>WebPageのサンプルページ</a> です。<br />
+					そして、 <a href="./vivliostyle-viewer-latest/viewer/#src=https://kumihan.com/sample/index.html&bookMode=true"
+							target=”_blank”>WebBookのサンプルページ</a> です。
+				</p> -->
+		</section>
 
-	<!-- Three -->
-	<!-- <section id="three" class="main special">
-				<div class="container">
-					<span class="image fit primary"><img src="images/pic03.jpg" alt="" /></span>
-					<div class="content">
-						<header class="major">
-							<h2>One more thing</h2>
-						</header>
-						<p>Aliquam ante ac id. Adipiscing interdum lorem praesent fusce pellentesque arcu feugiat. Consequat sed ultricies rutrum. Sed adipiscing eu amet interdum lorem blandit vis ac commodo aliquet integer vulputate phasellus lorem ipsum dolor lorem magna consequat sed etiam adipiscing interdum.</p>
-					</div>
-					<a href="#footer" class="goto-next scrolly">Next</a>
-				</div>
-			</section> -->
-
-	<!-- Four -->
-	<!--
-			<section id="four" class="main">
-				<div class="container">
-					<div class="content">
-						<header class="major">
-							<h2>Elements</h2>
-						</header>
-						<section>
-							<h4>Text</h4>
-							<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
-							This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
-							This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
-							<hr />
-							<header>
-								<h4>Heading with a Subtitle</h4>
-								<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
-							</header>
-							<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-							<header>
-								<h5>Heading with a Subtitle</h5>
-								<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
-							</header>
-							<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-							<hr />
-							<h2>Heading Level 2</h2>
-							<h3>Heading Level 3</h3>
-							<h4>Heading Level 4</h4>
-							<h5>Heading Level 5</h5>
-							<h6>Heading Level 6</h6>
-							<hr />
-							<h5>Blockquote</h5>
-							<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
-							<h5>Preformatted</h5>
-							<pre><code>i = 0;
-
-while (!deck.isInOrder()) {
-  print 'Iteration ' + i;
-  deck.shuffle();
-  i++;
-}
-
-print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
-						</section>
-
-						<section>
-							<h4>Lists</h4>
-							<div class="row">
-								<div class="col-6 col-12-medium">
-									<h5>Unordered</h5>
-									<ul>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Sagittis adipiscing.</li>
-										<li>Felis enim feugiat.</li>
-									</ul>
-									<h5>Alternate</h5>
-									<ul class="alt">
-										<li>Dolor pulvinar etiam.</li>
-										<li>Sagittis adipiscing.</li>
-										<li>Felis enim feugiat.</li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-medium">
-									<h5>Ordered</h5>
-									<ol>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Etiam vel felis viverra.</li>
-										<li>Felis enim feugiat.</li>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Etiam vel felis lorem.</li>
-										<li>Felis enim et feugiat.</li>
-									</ol>
-									<h5>Icons</h5>
-									<ul class="icons">
-										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-									</ul>
-								</div>
-							</div>
-							<h5>Actions</h5>
-							<ul class="actions">
-								<li><a href="#" class="button primary">Default</a></li>
-								<li><a href="#" class="button">Default</a></li>
-							</ul>
-							<ul class="actions small">
-								<li><a href="#" class="button primary small">Small</a></li>
-								<li><a href="#" class="button small">Small</a></li>
-							</ul>
-							<div class="row">
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary">Default</a></li>
-										<li><a href="#" class="button">Default</a></li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary small">Small</a></li>
-										<li><a href="#" class="button small">Small</a></li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary fit">Default</a></li>
-										<li><a href="#" class="button fit">Default</a></li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-small">
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary small fit">Small</a></li>
-										<li><a href="#" class="button small fit">Small</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-
-						<section>
-							<h4>Table</h4>
-							<h5>Default</h5>
-							<div class="table-wrapper">
-								<table>
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Description</th>
-											<th>Price</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Item One</td>
-											<td>Ante turpis integer aliquet porttitor.</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Two</td>
-											<td>Vis ac commodo adipiscing arcu aliquet.</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Three</td>
-											<td> Morbi faucibus arcu accumsan lorem.</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Four</td>
-											<td>Vitae integer tempus condimentum.</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Five</td>
-											<td>Ante turpis integer aliquet porttitor.</td>
-											<td>29.99</td>
-										</tr>
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="2"></td>
-											<td>100.00</td>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-
-							<h5>Alternate</h5>
-							<div class="table-wrapper">
-								<table class="alt">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Description</th>
-											<th>Price</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Item One</td>
-											<td>Ante turpis integer aliquet porttitor.</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Two</td>
-											<td>Vis ac commodo adipiscing arcu aliquet.</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Three</td>
-											<td> Morbi faucibus arcu accumsan lorem.</td>
-											<td>29.99</td>
-										</tr>
-										<tr>
-											<td>Item Four</td>
-											<td>Vitae integer tempus condimentum.</td>
-											<td>19.99</td>
-										</tr>
-										<tr>
-											<td>Item Five</td>
-											<td>Ante turpis integer aliquet porttitor.</td>
-											<td>29.99</td>
-										</tr>
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="2"></td>
-											<td>100.00</td>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-						</section>
-
-						<section>
-							<h4>Buttons</h4>
-							<ul class="actions">
-								<li><a href="#" class="button primary">Primary</a></li>
-								<li><a href="#" class="button">Default</a></li>
-							</ul>
-							<ul class="actions">
-								<li><a href="#" class="button">Default</a></li>
-								<li><a href="#" class="button small">Small</a></li>
-							</ul>
-							<ul class="actions fit">
-								<li><a href="#" class="button primary fit">Fit</a></li>
-								<li><a href="#" class="button fit">Fit</a></li>
-							</ul>
-							<ul class="actions fit small">
-								<li><a href="#" class="button primary fit small">Fit + Small</a></li>
-								<li><a href="#" class="button fit small">Fit + Small</a></li>
-							</ul>
-							<ul class="actions">
-								<li><a href="#" class="button primary icon solid fa-download">Icon</a></li>
-								<li><a href="#" class="button icon solid fa-download">Icon</a></li>
-							</ul>
-							<ul class="actions">
-								<li><span class="button primary disabled">Disabled</span></li>
-								<li><span class="button disabled">Disabled</span></li>
-							</ul>
-						</section>
-
-						<section>
-							<h4>Form</h4>
-							<form method="post" action="#">
-								<div class="row gtr-uniform">
-									<div class="col-6 col-12-xsmall">
-										<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
-									</div>
-									<div class="col-6 col-12-xsmall">
-										<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
-									</div>
-									<div class="col-12">
-										<select name="demo-category" id="demo-category">
-											<option value="">- Category -</option>
-											<option value="1">Manufacturing</option>
-											<option value="1">Shipping</option>
-											<option value="1">Administration</option>
-											<option value="1">Human Resources</option>
-										</select>
-									</div>
-									<div class="col-4 col-12-small">
-										<input type="radio" id="demo-priority-low" name="demo-priority" checked>
-										<label for="demo-priority-low">Low</label>
-									</div>
-									<div class="col-4 col-12-small">
-										<input type="radio" id="demo-priority-normal" name="demo-priority">
-										<label for="demo-priority-normal">Normal</label>
-									</div>
-									<div class="col-4 col-12-small">
-										<input type="radio" id="demo-priority-high" name="demo-priority">
-										<label for="demo-priority-high">High</label>
-									</div>
-									<div class="col-6 col-12-small">
-										<input type="checkbox" id="demo-copy" name="demo-copy">
-										<label for="demo-copy">Email me a copy</label>
-									</div>
-									<div class="col-6 col-12-small">
-										<input type="checkbox" id="demo-human" name="demo-human" checked>
-										<label for="demo-human">Not a robot</label>
-									</div>
-									<div class="col-12">
-										<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
-									</div>
-									<div class="col-12">
-										<ul class="actions">
-											<li><input type="submit" value="Send Message" class="primary" /></li>
-											<li><input type="reset" value="Reset" /></li>
-										</ul>
-									</div>
-								</div>
-							</form>
-						</section>
-
-						<section>
-							<h4>Image</h4>
-							<h5>Fit</h5>
-							<div class="box alt">
-								<div class="row gtr-uniform gtr-50">
-									<div class="col-12"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-									<div class="col-4"><span class="image fit"><img src="images/pic04.jpg" alt="" /></span></div>
-								</div>
-							</div>
-							<h5>Left &amp; Right</h5>
-							<p><span class="image left"><img src="images/pic05.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
-							<p><span class="image right"><img src="images/pic05.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
-						</section>
-
-					</div>
-					<a href="#footer" class="goto-next scrolly">Next</a>
-				</div>
-			</section>
-		-->
-
-	<!-- Footer -->
-	<section id="footer">
-		<div class="container">
-			<header class="major">
-				<h2>お問い合わせ</h2>
-			</header>
-			<form action="https://api.staticforms.xyz/submit" method="post" id="staticform">
-				<!-- Replace with your StaticForms accessKey -->
-				<input type="hidden" name="accessKey" value="6a421e1c-63ea-4520-a3fd-c04a0fc8c510">
-				<input type="hidden" name="subject" value="お問い合わせがありました。">
-				<!-- Replace with the url you want to redirect to -->
-				<input type="hidden" name="redirectTo" value="https://kumihan.com/thanks.html"">
-						<div class=" row gtr-uniform">
-				<div class="col-6 col-12-xsmall">
-					<input type="text" name="name" id="name" placeholder="Enter Your Name" required>
-				</div>
-				<div class="col-6 col-12-xsmall">
-					<input type="email" name="email" id="email" placeholder="Enter Your Email" required>
-				</div>
-				<div class="col-12">
-					<textarea name="message" id="message" placeholder="Enter Your Message" rows="4" required>
-								</textarea>
-				</div>
-				<div class="col-12">
-					<ul class="actions special">
-						<li>
-							<input type="submit" value="Send Message" class="primary" />
-						</li>
-					</ul>
-				</div>
-		</div>
-		</form>
-
-		<!-- origin static form -->
-		<!-- <form action="https://api.staticforms.xyz/submit" method="post" id="staticform"> -->
-		<!-- Replace with your StaticForms accessKey -->
-		<!-- <input type="hidden" name="accessKey" value="replace-with-your-access-key">
-						<input type="hidden" name="subject" value="Test from jsfiddle"> -->
-		<!-- Replace with the url you want to redirect to -->
-		<!-- <input type="hidden" name="redirectTo" value="https://www.google.com">
-						<div class="field"> -->
-		<!-- <label class="label">Name</label> -->
-		<!-- <div class="control">
-								<input class="input" type="text" name="name" placeholder="Enter Your Name" required>
-							</div>
-						</div>
-						<div class="field">
-							<label class="label">Email</label>
-							<div class="control">
-								<input class="input" type="email" name="email" placeholder="Enter Your Email" required>
-							</div>
-						</div>
-						<div class="field">
-							<label class="label">Message</label>
-							<div class="control">
-								<textarea class="textarea" name="message" placeholder="Enter Your Message" required>
-								</textarea>
-							</div>
-						</div>
-						<button class="button is-primary" type="Submit">Submit</button>
-					</form> -->
-
-		</div>
-		<footer>
+		<!-- Footer -->
+		<footer id="footer">
 			<ul class="icons">
 				<li><a href="https://twitter.com/vivlioKumihan" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
 				<li><a href="https://facebook.com/vivlioKumihan" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
 				<li><a href="https://github.com/vivlio-kumihan" class="icon brands alt fa-github"><span class="label">Github</span></a></li>
-				<!-- <li><a href="vivlio@kumihan.com" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li> -->
 			</ul>
 			<ul class="copyright">
-				<li>&copy; ビブリオ組版</li>
+				<li>&copy; kumihan.com</li>
 				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 			</ul>
 		</footer>
-	</section>
+	</div>
 
 	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>

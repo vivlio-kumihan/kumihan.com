@@ -1,13 +1,13 @@
 <?php
 // セッション開始
 session_start();
-// セッションの切符も持っていない訪問者にログインページへリダイレクト処理。
-if (!$_SESSION['email']) {
-  $host = $_SERVER['HTTP_HOST'];
-  $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-  header("Location: //$host$uri/login.php");
-  exit;
-}
+// // セッションの切符も持っていない訪問者にログインページへリダイレクト処理。
+// if (!$_SESSION['email']) {
+//   $host = $_SERVER['HTTP_HOST'];
+//   $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+//   header("Location: //$host$uri/login.php");
+//   exit;
+// }
 
 // 一つのファイルで複数の出力を実現させるための方法。
 // GET、POSTで行き先を振り分ける。
@@ -135,6 +135,7 @@ if (isset($_POST['back']) && $_POST['back']) {
       }
       ?>
       <?php if ($toward == 'input') { ?>
+        <h1>hello hello goooooooodby hello contact</h1>
         <!-- 入力画面 -->
         <form action="./contact.php" method="POST">
           <div class="mb-3">
@@ -174,5 +175,4 @@ if (isset($_POST['back']) && $_POST['back']) {
     </div>
   </div>
 </body>
-
 </html>

@@ -1,0 +1,27 @@
+/* Noto+Sans+JP gothic */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
+  /* font-family: 'Noto Sans JP', sans-serif; */
+  /* font-weight: 400; <= 100 or 300 or 400 or 500 or 700 or 900/
+  
+/* Noto+Serif+JP mincho */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500;600;700;900&display=swap');
+  /* font-family: 'Noto Serif JP', serif; */
+  /* font-weight: 400; <= 200 or 300 or 400 or 500 or 600 or 700 or 900/
+
+/* Anton */
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+  /* font-family: 'Anton', sans-serif; */
+
+/* Rubik Dirt for title */
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
+  /* font-family: 'Rubik Dirt', cursive; */
+
+/* Libre Barcode 39 Extended Text & Libre Barcode 39 Text for title */
+@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Extended+Text&family=Libre+Barcode+39+Text&display=swap');
+  /* font-family: 'Libre Barcode 39 Extended Text', cursive; */
+  /* font-family: 'Libre Barcode 39 Text', cursive; */
+
+/* sakura-morisawa */
+/*  UD Shin Go Regular
+    UD Shin Go Medium
+    A1 Mincho */
