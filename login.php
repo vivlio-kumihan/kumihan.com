@@ -37,9 +37,42 @@ if ($_POST) {
   } elseif (mb_strlen($password) > 17) {
     $err_mesg[] = 'パスワードは、16文字以内で入力してください。';
   }
-  $password = password_hash($password, PASSWORD_DEFAULT);
-  echo $email;
-  echo $password;
+
+  // DB接続に係る変数を生成
+  $dsn = "mysql:dbname=quad9_db;host=mysql57.quad9.sakura.ne.jp;charset=utf8";
+  $user = "quad9";
+  $pwd = "";
+  $dbh = new PDO($dsn, $user, $pwd);
+  $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+  try {
+    $sql = "SELECT * FROM `member` WHERE `email` = :email LIMIT 1";
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+    $stmt->execute();
+    if ($stmt->rowCount() > 0) {
+      $data = $stmt->fetch(PDO::FETCH_ASSOC);
+      if (password_verify($password, $data['password'])) {
+        $_SESSION['email'] = $email;
+        $host = $_SERVER['HTTP_HOST'];
+        $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+        header("Location: //$host$uri/member.php");
+        exit;
+      } else {
+        $err_mesg[] = 'ログイン情報が間違っています。再入力をお願いします。';
+      }
+    } else {
+      $err_mesg[] = 'ログイン情報が間違っています。再入力をお願いします。';
+    }
+  } catch (PDOException $e) {
+    echo ("接続に失敗しました。" . $e->getMessage());
+    die();
+  }
+  
+  
+  
+  // $password = password_hash($password, PASSWORD_DEFAULT);
+  
   // //  認　証
   // $user_file = '../tmp/user_info.txt';
   // if (file_exists($user_file)) {
@@ -49,11 +82,6 @@ if ($_POST) {
   //     $user_info = str_getcsv($user);
   //     if ($user_info[0] === $_POST['email']) {
   //       if (password_verify($_POST['password'], $user_info[1])) {
-  //         $_SESSION['email'] = $_POST['email'];
-  //         $host = $_SERVER['HTTP_HOST'];
-  //         $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-  //         header("Location: //$host$uri/index.php");
-  //         exit;
   //       }
   //     }
   //   }
