@@ -13,12 +13,32 @@ if ($_POST) {
   $email = $_POST['email'];
   $password = $_POST['password'];
   $confirm_password = $_POST['confirm_password'];
+  // DB接続に係る変数を生成
+  $dsn = "mysql:dbname=quad9_db;host=mysql57.quad9.sakura.ne.jp;charset=utf8";
+  $user = "quad9";
+  $pwd = "Bf109tugumi";
+  $dbh = new PDO($dsn, $user, $pwd);
+  $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   // 入力チェックをする。
   //   名前
   // $_POSTに 'name'の値が無ければ、
   if (!$name || mb_strlen($name) > 20) {
     $err_mesg[] = 'お名前を入力してください。';
+  } elseif ($name) {
+    try {
+      $sql = "SELECT COUNT(id) FROM `member` WHERE `name` = :name";
+      $stmt = $dbh->prepare($sql);
+      $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+      $stmt->execute();
+      $count = $stmt->fetch(PDO::FETCH_ASSOC);
+      if ($count['COUNT(id)'] > 0) {
+        $err_mesg[] = '記入されたお名前は既に登録されています。';
+      }
+    } catch (PDOException $e) {
+      echo ("接続に失敗しました。" . $e->getMessage());
+      die();
+    }
   }
   //   Eメールアドレス
   // $_POSTに 'email'の値が無ければ、
@@ -30,6 +50,20 @@ if ($_POST) {
     // 入力されたEメールアドレスをvalidateしてみて不正であれば、
   } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $err_mesg[] = '入力されたEメールアドレスは不正です。';
+  } elseif ($email) {
+    try {
+      $sql = "SELECT COUNT(id) FROM `member` WHERE `email` = :email";
+      $stmt = $dbh->prepare($sql);
+      $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+      $stmt->execute();
+      $count = $stmt->fetch(PDO::FETCH_ASSOC);
+      if ($count['COUNT(id)'] > 0) {
+        $err_mesg[] = '記入されたEメールアドレスは既に登録されています。';
+      }
+    } catch (PDOException $e) {
+      echo ("接続に失敗しました。" . $e->getMessage());
+      die();
+    }
   }
   //   パスワード
   // $_POSTに 'password'の値が無ければ、
@@ -49,44 +83,20 @@ if ($_POST) {
   }
   $password = password_hash($password, PASSWORD_DEFAULT);
 
-  // DB接続に係る変数を生成
-  $dsn = "mysql:dbname=quad9_db;host=mysql57.quad9.sakura.ne.jp;charset=utf8";
-  $user = "quad9";
-  $pwd = "Bf109tugumi";
-
-  try {
-    $dbh = new PDO($dsn, $user, $pwd);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "SELECT COUNT(id) FROM `member` WHERE `name` = :name";
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-    $stmt->execute();
-    $count = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($count['COUNT(id)'] > 0) {
-      $err_mesg[] = '記入されたお名前は既に登録されています。';
-    }
-  } catch (PDOException $e) {
-    echo ("接続に失敗しました。" . $e->getMessage());
-    die();
-  }
-
-  try {
-    $date = date('Y-m-d H:i:s');
-    $dbh = new PDO($dsn, $user, $pwd);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO `member`(`name`, `email`, `password`, `created`) VALUES (:name, :email, :password, '{$date}')";
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-    $stmt->bindValue(':password', $password, PDO::PARAM_STR);
-    $stmt->execute();
-  } catch (PDOException $e) {
-    echo ("接続に失敗しました。" . $e->getMessage());
-    die();
-  }
-  
   // 登録を済ませたので、ログイン画面へメンバーページへリダイレクトする。
   if (!$err_mesg) {
+    try {
+      $date = date('Y-m-d H:i:s');
+      $sql = "INSERT INTO `member`(`name`, `email`, `password`, `created`) VALUES (:name, :email, :password, '{$date}')";
+      $stmt = $dbh->prepare($sql);
+      $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+      $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+      $stmt->bindValue(':password', $password, PDO::PARAM_STR);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      echo ("接続に失敗しました。" . $e->getMessage());
+      die();
+    }
     $host = $_SERVER['HTTP_HOST'];
     $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     header("Location: //$host$uri/member.php");
