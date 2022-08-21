@@ -16,7 +16,7 @@ if ($_POST) {
   // DB接続に係る変数を生成
   $dsn = "mysql:dbname=quad9_db;host=mysql57.quad9.sakura.ne.jp;charset=utf8";
   $user = "quad9";
-  $pwd = "Bf109tugumi";
+  $pwd = "";
   $dbh = new PDO($dsn, $user, $pwd);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
