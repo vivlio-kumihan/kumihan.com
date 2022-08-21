@@ -1,15 +1,8 @@
-<!-- sign inのページ -->
+<!-- sign upのページ -->
 <!-- HTMLを確認してからフォームへ入力された値の処理のコードを見てみる。 -->
 
 <?php
 require_once('./lib/function.php');
-
-// HTMLを読んでみて、以下にインスタンスがある状態を理しした上でコードを読み進めてみる。
-// $_POST
-//   $_POST['name']
-//   $_POST['email']
-//   $_POST['password']
-//   $_POST['confirm_password']
 
 // エラーメッセージ対応。配列として初期化。
 $err_mesg = array();
@@ -31,10 +24,10 @@ if ($_POST) {
   // $_POSTに 'email'の値が無ければ、
   if (!$email) {
     $err_mesg[] = 'Eメールアドレスを入力してください。';
-  // 100文字以上の入力があれば、
+    // 100文字以上の入力があれば、
   } elseif (mb_strlen($email) > 100) {
     $err_mesg[] = '100文字以内のアドレスを入力してください。';
-  // 入力されたEメールアドレスをvalidateしてみて不正であれば、
+    // 入力されたEメールアドレスをvalidateしてみて不正であれば、
   } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $err_mesg[] = '入力されたEメールアドレスは不正です。';
   }
@@ -54,82 +47,57 @@ if ($_POST) {
   } elseif ($password !== $confirm_password) {
     $err_mesg[] = '確認用に入力されたパスワードが一致しません。';
   }
+  $password = password_hash($password, PASSWORD_DEFAULT);
 
-//   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//     $db_name = 'quad9_db';
-//     try {
-//       $dsn = "mysql:dbname=quad9_db;host=mysql57.quad9.sakura.ne.jp;charset=utf8";
-//       $user = "quad9";
-//       $password = "Bf109tugumi";
-//       $dbh = new PDO($dsn, $user, $password);
-//     } catch (PDOException $e) {
-//       // $eにエラーメッセージが含まれてたら、getMessage()で取り出して処理しますよという命令。
-//       echo ("ここでか？　接続に失敗しました。" . $e->getMessage());
-//       die();
-//     }
-//     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//   }
-  
-//   // データ重複のチェック
-//   try {
-//     $sql = "SECECT COUNT(id) FROM menber WHERE name = :name";
-//     $stmt = $dbh->prepare($sql);
-//     $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-//     $stmt->excute();
-//     $count = $stmt->FETCH(PDO::FETCH_ASSOC);
-//     if ($count['COUNT(id)' > 0]) {
-//       $err_mesg[] = '記入されたお名前は既に登録されています。';
-//     }    
-//   } catch (PDOException $e) {
-//     echo ("接続に失敗しました。" . $e->getMessage());
-//     die();
-//   }
-  
-//   try {
-//     $sql = "SECECT COUNT(id) FROM menber WHERE email = :email";
-//     $stmt = $dbh->prepare($sql);
-//     $stmt->bindValue(':email', email, PDO::PARAM_STR);
-//     $stmt->excute();
-//     $count = $stmt->FETCH(PDO::FETCH_ASSOC);
-//     if ($count['COUNT(id)' > 0]) {
-//       $err_mesg[] = '記入されたおEメールアドレスは既に登録されています。';
-//     }    
-//   } catch (PDOException $e) {
-//     echo ("接続に失敗しました。" . $e->getMessage());
-//     die();
-//   }
+  // DBへデータの挿入
+  $dsn = "mysql:dbname=quad9_db;host=mysql57.quad9.sakura.ne.jp;charset=utf8";
+  $user = "quad9";
+  $pwd = "Bf109tugumi";
+  try {
+    $date = date('Y-m-d H:i:s');
+    $dbh = new PDO($dsn, $user, $pwd);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-//   // データの書き込み
-//   $date = date('Y-m-d H:i:s');
-//   $sql = "INSERT INTO member (`name`, `email`, `password`, `created`) VALUE (:name, :email:, :password, '{$date}')";
-//   $stmt = $dbh->prepare($sql);
-//   $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-//   $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-//   $stmt->bindValue(':password', $password, PDO::PARAM_STR);
-//   if (!$stmt->execute()) {
-//     return 'データの書き込みに失敗しました。';
-//   }
+    // $sql = "SELECT COUNT(id) FROM `member` WHERE `name` = :name";
+    // $stmt = $dbh->prepare($sql);
+    // $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+    // $stmt->excute();
+    // $count = $stmt->FETCH(PDO::FETCH_ASSOC);
+    // if ($count['COUNT(id)' > 0]) {
+    //   $err_mesg[] = '記入されたお名前は既に登録されています。';
+    //   break;
+    // }
 
-//   // 登録を済ませたので、ログイン画面へメンバーページへリダイレクトする。
-//   if (!$err_mesg) {
-//     $host = $_SERVER['HTTP_HOST'];
-//     $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-//     header("Location: //$host$uri/member.php");
-//     exit;
-//   }
-// } else {
-//   // GETの時の処理
-//   // メールアドレスは正しく、パスワードに不正があって再度入力しなければいけない場合、
-//   // 入力欄が全てリセットされてしまう。
-//   // ユーザーの利便性を考えて、メールアドレスは残してパスワードだけ入力を促す画面構成にするため、
-//   // 『form』の『input属性value』に『echo htmlspecialchars($_POST['email'])』とする。
-//   // そうすると、GET時に初回の入力で『$_POST['email']』て定義されていないとPHの警がが出る。
-//   // 回避策として変数を初期化しておく。
-//   $_POST = array();
-//   $_POST['name'] = '';
-//   $_POST['email'] = '';
-//   $_POST['password'] = '';
-// }
+    $sql = "INSERT INTO `member`(`name`, `email`, `password`, `created`) VALUES (:name, :email, :password, '{$date}')";
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+    $stmt->bindValue(':password', $password, PDO::PARAM_STR);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    // $eにエラーメッセージが含まれてたら、getMessage()で取り出して処理しますよという命令。
+    echo ("接続に失敗しました。" . $e->getMessage());
+    die();
+  }
+  // 登録を済ませたので、ログイン画面へメンバーページへリダイレクトする。
+  if (!$err_mesg) {
+    $host = $_SERVER['HTTP_HOST'];
+    $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    header("Location: //$host$uri/member.php");
+    exit;
+  }
+} else {
+  // GETの時の処理
+  // メールアドレスは正しく、パスワードに不正があって再度入力しなければいけない場合、
+  // 入力欄が全てリセットされてしまう。
+  // ユーザーの利便性を考えて、メールアドレスは残してパスワードだけ入力を促す画面構成にするため、
+  // 『form』の『input属性value』に『echo htmlspecialchars($_POST['email'])』とする。
+  // そうすると、GET時に初回の入力で『$_POST['email']』て定義されていないとPHの警がが出る。
+  // 回避策として変数を初期化しておく。
+  $_POST = array();
+  $_POST['name'] = '';
+  $_POST['email'] = '';
+}
 ?>
 
 <!DOCTYPE html>
@@ -186,6 +154,7 @@ if ($_POST) {
           <button type="submit" class="btn btn-primary btn-sm" value="新規登録">新規登録</button>
         </div>
       </form>
+      <p style="margin-top: 20px; size: 0.8em; text-align: center;"><a href="./index.php" style="text-decoration: none; color:cornflowerblue">サイトトップ</a>に移動する。</p>
     </div>
   </div>
 </body>

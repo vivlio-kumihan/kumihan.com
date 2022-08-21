@@ -1,3 +1,3 @@
 <?php
-echo "Hello $_POST['name']!";
+echo "Hello {$_POST['name']}!";
 ?>

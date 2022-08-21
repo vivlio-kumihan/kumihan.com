@@ -28,11 +28,11 @@
 						<div id="menu">
 							<ul>
 								<li><a href="./index.php">Home</a></li>
+								<li><a href="./register.php">Sign Up</a></li>
+								<li><a href="./login">Log In</a></li>
 								<li><a href="./cando.php">Code</a></li>
 								<li><a href="./book.php">Book</a></li>
 								<li><a href="./photo.php">Photo</a></li>
-								<li><a href="./sing_in.php">Sign Up</a></li>
-								<li><a href="./register.php">Log In</a></li>
 							</ul>
 						</div>
 					</li>

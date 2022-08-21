@@ -103,7 +103,7 @@ if ($_POST) {
           <button type="submit" class="btn btn-primary btn-sm" value="送信">送信</button>
         </div>
       </form>
-      <p style="margin-top: 20px; size: 0.8em">はじめての方は、<a href="./register.php" style="text-decoration: none; color:cornflowerblue">Sign in</a>をお願いします。</p>
+      <p style="margin-top: 20px; size: 0.8em; text-align: center;">はじめての方は、<a href="./register.php" style="text-decoration: none; color:cornflowerblue">SignUp</a>をお願いします。</p>
     </div>
   </div>
 </body>
