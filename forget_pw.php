@@ -13,9 +13,44 @@ if ($_POST) {
   // Eメールアドレス
   if (!$_POST['email']) {
     $err_mesg[] = 'Eメールアドレスを入力してください。';
-  } elseif (mb_strlen($_POST['email']) > 100) {
-    $err_mesg[] = '100文字以内で入力してください。';
+    // 100文字以上の入力があれば、
+  } elseif (mb_strlen($email) > 100) {
+    $err_mesg[] = '100文字以内のアドレスを入力してください。';
+    // 入力されたEメールアドレスをvalidateしてみて不正であれば、
+  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $err_mesg[] = '入力されたEメールアドレスは不正です。';
+  } elseif ($email) {
+    // DB接続に係る変数を生成
+    $dsn = "mysql:dbname=quad9_db;host=mysql57.quad9.sakura.ne.jp;charset=utf8";
+    $user = "quad9";
+    $pwd = "PASSWORDTODB";
+    $dbh = new PDO($dsn, $user, $pwd);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try {
+      $sql = "SELECT COUNT(id) FROM `member` WHERE `email` = :email";
+      $stmt = $dbh->prepare($sql);
+      $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+      $stmt->execute();
+      $count = $stmt->fetch(PDO::FETCH_ASSOC);
+      if ($count['COUNT(id)'] > 0) {
+        // ================ 重要 =================
+        // 入力したEメールアドレス『$_POST['email']』が『user_info.txt』に記載されていれば、
+        // 再発行するパスワードを生成する。
+        $new_pw = bin2hex(random_bytes(5));
+        // ================ 重要 =================
+        // サーバーにメールを送信させる命令。
+        // 日本をを送信で文字化けが起こる場合、mail.phpを参照する。
+        $mesg = "パスワードを変更しました。\r\n" . $pw . "\r\n";
+        mail($_POST['email'], 'パスワードの再発行について', $mesg);
+        // user_info.txt（後のDB）の全文変更作業の開始。
+        $pw_hash = password_hash($pw, PASSWORD_DEFAULT);
+      }
+    } catch (PDOException $e) {
+      echo ("接続に失敗しました。" . $e->getMessage());
+      die();
+    }
   }
+
   //  認証チェック
   $user_file = '../tmp/user_info.txt';
   if (file_exists($user_file)) {
@@ -25,17 +60,8 @@ if ($_POST) {
       $user_info = str_getcsv($user);
       // Eメールアドレスが一致しているかどうかを問い。
       if ($user_info[0] === $_POST['email']) {
-        // ================ 重要 =================
-        // 入力したEメールアドレス『$_POST['email']』が『user_info.txt』に記載されていれば、
-        // 再発行するパスワードを生成する。
-        $pw = bin2hex(random_bytes(5));
-        // ================ 重要 =================
-        // サーバーにメールを送信させる命令！
-        // 日本をを送信で文字化けが起こる場合、mail.phpを参照する。
-        $mesg = "パスワードを変更しました。\r\n" . $pw . "\r\n";
-        mail($_POST['email'], 'パスワードの再発行について', $mesg);
-        // user_info.txt（後のDB）の全文変更作業の開始。
-        $pw_hash = password_hash($pw, PASSWORD_DEFAULT);
+
+
         // CSVの文字列を作るのならこちらでいいかもしれない。
         $line = "{$_POST['email']},{$pw_hash}";
         // $line = '"'.$_POST['email'].'","'.$pw_hash.'"'; // 一応置いておく。

@@ -68,25 +68,6 @@ if ($_POST) {
     echo ("接続に失敗しました。" . $e->getMessage());
     die();
   }
-  
-  
-  
-  // $password = password_hash($password, PASSWORD_DEFAULT);
-  
-  // //  認　証
-  // $user_file = '../tmp/user_info.txt';
-  // if (file_exists($user_file)) {
-  //   $users = file_get_contents($user_file);
-  //   $users = explode("\n", $users);
-  //   foreach ($users as $user) {
-  //     $user_info = str_getcsv($user);
-  //     if ($user_info[0] === $_POST['email']) {
-  //       if (password_verify($_POST['password'], $user_info[1])) {
-  //       }
-  //     }
-  //   }
-  // このエラーメッセージ要るか？
-  // $err_mesg[] = 'ユーザー名またはパスワードが一致しませんでした。';
 } else {
   // GETの時の処理
   // 初回アクセスで既にsessionの切符を持っている状態であれば、login手続きを通過させてindex.phpへ通す。
@@ -144,6 +125,7 @@ if ($_POST) {
         </div>
       </form>
       <p style="margin-top: 20px; size: 0.8em; text-align: center;">はじめての方は<a href="./register.php" style="text-decoration: none; color:cornflowerblue">メンバー登録</a>をお願いします。</p>
+      <p style="margin-top: 20px; size: 0.8em; text-align: center;"><a href="./register.php" style="text-decoration: none; color:cornflowerblue">パスワードを忘れた方</a>はこちらから。</p>
     </div>
   </div>
 </body>
