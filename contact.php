@@ -18,7 +18,7 @@ session_start();
 $toward = 'input';
 if (isset($_POST['back']) && $_POST['back']) {
   // 何もしない
-// POSTに『confirm』で送られ来たら
+  // POSTに『confirm』で送られ来たら
 } elseif (isset($_POST['confirm']) && $_POST['confirm']) {
   // validation開始
   // お名前
@@ -29,7 +29,7 @@ if (isset($_POST['back']) && $_POST['back']) {
   }
   // セッションに格納
   $_SESSION['name'] = htmlspecialchars($_POST['name'], ENT_QUOTES);
-  
+
   // Eメールアドレス
   if (!$_POST['contact_email']) {
     $err_mesg[] = 'Eメールアドレスを入力してください。';
@@ -40,7 +40,7 @@ if (isset($_POST['back']) && $_POST['back']) {
   }
   // セッションに格納
   $_SESSION['contact_email'] = htmlspecialchars($_POST['contact_email'], ENT_QUOTES);
-  
+
   // お問合せ
   if (!$_POST['mesg']) {
     $err_mesg[] = 'お問合せ内容を入力してください。';
@@ -49,7 +49,7 @@ if (isset($_POST['back']) && $_POST['back']) {
   }
   // セッションに格納
   $_SESSION['mesg'] = htmlspecialchars($_POST['mesg'], ENT_QUOTES);
-  
+
   // 行き先の振り分け
   if ($err_mesg) {
     // エラーがあったらinputつまり、フォームの画面へ振り分けられる。
@@ -66,7 +66,7 @@ if (isset($_POST['back']) && $_POST['back']) {
     $toward = 'confirm';
   }
 
-// POSTに『send』で送られ来たら
+  // POSTに『send』で送られ来たら
 } elseif (isset($_POST['send']) && $_POST['send']) {
   // そもそもトークンがなんらかの理由で無かった時、セッションにEメール情報が保存されなかった時
   // エラーを返す。
@@ -92,10 +92,10 @@ if (isset($_POST['back']) && $_POST['back']) {
     $toward = 'input';
   } else {
     $message = "お問合せを受け付けました。\r\n"
-              . "お名前: " . $_SESSION['name'] . "\r\n"
-              . "Eメールアドレス: " . $_SESSION['contact_email'] . "\r\n"
-              . "お問合せ内容:\r\n"
-              . preg_replace("/\r\n|\r|\n/", "\r\n", $_SESSION['mesg']);
+      . "お名前: " . $_SESSION['name'] . "\r\n"
+      . "Eメールアドレス: " . $_SESSION['contact_email'] . "\r\n"
+      . "お問合せ内容:\r\n"
+      . preg_replace("/\r\n|\r|\n/", "\r\n", $_SESSION['mesg']);
     mail($_SESSION['contact_email'], 'お問合せを受け付けました。', $message);
     mail('studio.quad9@gmail.com', "{$_SESSION['name']}様からお問合せ受信の件", $message);
     // お問合せで使ったセッションを解放する。もちろんEmailのセッションは残さないといけない。
@@ -104,7 +104,7 @@ if (isset($_POST['back']) && $_POST['back']) {
     $_SESSION['mesg'] = '';
     $toward = 'send';
   }
-// GETで来た時の初回表示
+  // GETで来た時の初回表示
 } else {
   $_SESSION['name'] = '';
   $_SESSION['contact_email'] = '';
@@ -135,7 +135,7 @@ if (isset($_POST['back']) && $_POST['back']) {
       }
       ?>
       <?php if ($toward == 'input') { ?>
-        <h1>hello hello goooooooodby hello contact</h1>
+        <h3 style="text-align: center;">お問合せ</h3>
         <!-- 入力画面 -->
         <form action="./contact.php" method="POST">
           <div class="mb-3">
@@ -154,25 +154,29 @@ if (isset($_POST['back']) && $_POST['back']) {
             <button type="submit" class="btn btn-primary btn-sm" name="confirm" value="確認">確認</button>
           </div>
         </form>
+        <p style="margin-top: 20px; size: 0.8em; text-align: center;"><a href="./member.php" style="text-decoration: none; color:cornflowerblue">登録メンバーページ</a>へ戻る</p>
       <?php } elseif ($toward == 'confirm') { ?>
+
         <!-- 確認画面 -->
         <form action="./contact.php" method="POST">
           <!-- 合言葉を忍ばせる。 -->
-          <input type="hidden" name="token" value="<?php echo $_SESSION['token']?>">
+          <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?>">
           <p>入力の確認をお願いします。</p>
-          <label class="form-label">お名前: <?php echo $_SESSION['name'] ?></label>
-          <label class="form-label">Eメールアドレス: <?php echo $_SESSION['contact_email'] ?></label>
+          <label class="form-label">お名前： <?php echo $_SESSION['name'] ?></label><br>
+          <label class="form-label">Eメールアドレス： <?php echo $_SESSION['contact_email'] ?></label><br>
           <!-- PHPのコードとして渡ってきた値の改行をHTMLのbrタグに変換する関数を充てる。 -->
-          <label class="form-label">お問合せ内容: <?php echo nl2br($_SESSION['mesg']) ?></label>
+          <label class="form-label">お問合せ内容： <?php echo nl2br($_SESSION['mesg']) ?></label>
           <div class="submit">
             <button type="submit" class="btn btn-primary btn-sm" name="back" value="戻る">戻る</button>
             <button type="submit" class="btn btn-primary btn-sm" name="send" value="送信">送信</button>
           </div>
         </form>
       <?php } else { ?>
-        <p>お問合せを送信しました。</p>
+        <p style="text-align: center;">お問合せを送信しました。</p>
+        <p style="margin-top: 20px; size: 0.8em; text-align: center;"><a href="./member.php" style="text-decoration: none; color:cornflowerblue">メンバーページ</a>へ移動する</p>
       <?php } ?>
     </div>
   </div>
 </body>
+
 </html>

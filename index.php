@@ -33,6 +33,7 @@
 								<li><a href="./cando.php">Code</a></li>
 								<li><a href="./book.php">Book</a></li>
 								<li><a href="./photo.php">Photo</a></li>
+								<li><a href="./contact.php">Contact</a></li>
 							</ul>
 						</div>
 					</li>
@@ -95,7 +96,7 @@
 					</li>
 					<li>
 						<span class="icon solid major fa-camera-retro"></span>
-						<h3 class="pict_name"><a href="#">Photo</a></h3>
+						<h3 class="pict_name"><a href="./photo.php">Photo</a></h3>
 					</li>
 					<li>
 						<span class="icon solid major fa-coffee"></span>

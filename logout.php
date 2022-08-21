@@ -29,7 +29,7 @@ $_SESSION = array();
 
 <body>
   <div class="container">
-    <div class="mx-auto" style="margin-top:150px; width: 400px;">
+    <div class="mx-auto" style="margin-top:150px; width: 450px;">
       <h3>ログアウトしました。</h3>
       <a href="./login.php">ログインページへ</a>
     </div>

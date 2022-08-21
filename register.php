@@ -49,25 +49,31 @@ if ($_POST) {
   }
   $password = password_hash($password, PASSWORD_DEFAULT);
 
-  // DBへデータの挿入
+  // DB接続に係る変数を生成
   $dsn = "mysql:dbname=quad9_db;host=mysql57.quad9.sakura.ne.jp;charset=utf8";
   $user = "quad9";
   $pwd = "Bf109tugumi";
+
+  try {
+    $dbh = new PDO($dsn, $user, $pwd);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "SELECT COUNT(id) FROM `member` WHERE `name` = :name";
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+    $stmt->execute();
+    $count = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($count['COUNT(id)'] > 0) {
+      $err_mesg[] = '記入されたお名前は既に登録されています。';
+    }
+  } catch (PDOException $e) {
+    echo ("接続に失敗しました。" . $e->getMessage());
+    die();
+  }
+
   try {
     $date = date('Y-m-d H:i:s');
     $dbh = new PDO($dsn, $user, $pwd);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // $sql = "SELECT COUNT(id) FROM `member` WHERE `name` = :name";
-    // $stmt = $dbh->prepare($sql);
-    // $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-    // $stmt->excute();
-    // $count = $stmt->FETCH(PDO::FETCH_ASSOC);
-    // if ($count['COUNT(id)' > 0]) {
-    //   $err_mesg[] = '記入されたお名前は既に登録されています。';
-    //   break;
-    // }
-
     $sql = "INSERT INTO `member`(`name`, `email`, `password`, `created`) VALUES (:name, :email, :password, '{$date}')";
     $stmt = $dbh->prepare($sql);
     $stmt->bindValue(':name', $name, PDO::PARAM_STR);
@@ -75,10 +81,10 @@ if ($_POST) {
     $stmt->bindValue(':password', $password, PDO::PARAM_STR);
     $stmt->execute();
   } catch (PDOException $e) {
-    // $eにエラーメッセージが含まれてたら、getMessage()で取り出して処理しますよという命令。
     echo ("接続に失敗しました。" . $e->getMessage());
     die();
   }
+  
   // 登録を済ませたので、ログイン画面へメンバーページへリダイレクトする。
   if (!$err_mesg) {
     $host = $_SERVER['HTTP_HOST'];
@@ -107,7 +113,7 @@ if ($_POST) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>新規登録</title>
+  <title>メンバーに登録</title>
   <style>
     .submit {
       text-align: center;
@@ -118,7 +124,7 @@ if ($_POST) {
 
 <body>
   <div class="container">
-    <div class="mx-auto" style="margin-top:150px; width: 400px;">
+    <div class="mx-auto" style="margin-top:150px; width: 450px;">
       <?php
       // 要確認　HTML内のPHPコードのエスケープのやり方を確認する。
       if ($err_mesg) {
@@ -130,6 +136,7 @@ if ($_POST) {
         echo '</div>';
       }
       ?>
+      <h3 style="text-align: center;">メンバー登録</h3>
       <!-- POSTで自分自身（register.php）へインスタンスを投げるフォームの宣言。 -->
       <form action="./register.php" method="POST">
         <div class="mb-3">

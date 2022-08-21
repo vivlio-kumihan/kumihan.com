@@ -1,5 +1,5 @@
 <?php
-// print_r($_SERVER);
+require_once('./lib/function.php');
 
 // セッション開始
 // ログインフォームでの認証を経てWebPage内へ入場する。
@@ -7,60 +7,71 @@
 // 一回入ったらブラウザを閉じるまでログインの認証は要らない、自由に往来できる切符を渡すようなイメージ。
 // 閲覧できる各ページには、この切符を最初の行に貼り付けてある。
 session_start();
-// 初期化
+
+// エラーメッセージ対応。配列として初期化。
 $err_mesg = array();
-// register.phpでやった処理。
-// 初級者にわかりやすさ優先の方針だからだろう。処理の流れをおぼえることを優先しましょう。
-// POST情報がある場合の処理
+
+// POST情報が入ってきた場合の処理開始。
 if ($_POST) {
-  // 説明省略。register.php参照する。
-  // Eメールアドレス
-  if (!$_POST['email']) {
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+
+  // 入力チェックをする。
+  //   Eメールアドレス
+  // $_POSTに 'email'の値が無ければ、
+  if (!$email) {
     $err_mesg[] = 'Eメールアドレスを入力してください。';
-  } elseif (mb_strlen($_POST['email']) > 100) {
-    $err_mesg[] = '100文字以内で入力してください。';
-  } elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    // 100文字以上の入力があれば、
+  } elseif (mb_strlen($email) > 100) {
+    $err_mesg[] = '100文字以内のアドレスを入力してください。';
+    // 入力されたEメールアドレスをvalidateしてみて不正であれば、
+  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $err_mesg[] = '入力されたEメールアドレスは不正です。';
   }
-  // パスワード
-  if (!$_POST['password']) {
+  //   パスワード
+  // $_POSTに 'password'の値が無ければ、
+  if (!$password) {
     $err_mesg[] = 'パスワードを入力してください。';
-  } elseif (mb_strlen($_POST['password']) > 17) {
+    // 17文字以上の入力があれば、
+    // 要確認　0から9、a-zA-Z、-（ハイフン）、 _（アンダーバー）以外が入力されたらの条件も入れたい。
+  } elseif (mb_strlen($password) > 17) {
     $err_mesg[] = 'パスワードは、16文字以内で入力してください。';
   }
-  //  認　証
-  $user_file = '../tmp/user_info.txt';
-  if (file_exists($user_file)) {
-    $users = file_get_contents($user_file);
-    $users = explode("\n", $users);
-    foreach ($users as $user) {
-      $user_info = str_getcsv($user);
-      if ($user_info[0] === $_POST['email']) {
-        if (password_verify($_POST['password'], $user_info[1])) {
-          $_SESSION['email'] = $_POST['email'];
-          $host = $_SERVER['HTTP_HOST'];
-          $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-          header("Location: //$host$uri/index.php");
-          exit;
-        }
-      }
-    }
-    // このエラーメッセージ要るか？
-    // $err_mesg[] = 'ユーザー名またはパスワードが一致しませんでした。';
-  } else {
-    // GETの時の処理
-    // 初回アクセスで既にsessionの切符を持っている状態であれば、login手続きを通過させてindex.phpへ通す。
-    // 連想配列『$_SESSION['email']』要素があり、その内容が存在しているならばリダイレクトさせる。
-    if (isset($_SESSION['email']) && $_SESSION['email']) {
-      // リダイレクト処理
-      $host = $_SERVER['HTTP_HOST'];
-      $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-      header("Location: //$host$uri/index.php");
-      exit;
-    }
-    $_POST = array();
-    $_POST['email'] = '';
+  $password = password_hash($password, PASSWORD_DEFAULT);
+  echo $email;
+  echo $password;
+  // //  認　証
+  // $user_file = '../tmp/user_info.txt';
+  // if (file_exists($user_file)) {
+  //   $users = file_get_contents($user_file);
+  //   $users = explode("\n", $users);
+  //   foreach ($users as $user) {
+  //     $user_info = str_getcsv($user);
+  //     if ($user_info[0] === $_POST['email']) {
+  //       if (password_verify($_POST['password'], $user_info[1])) {
+  //         $_SESSION['email'] = $_POST['email'];
+  //         $host = $_SERVER['HTTP_HOST'];
+  //         $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+  //         header("Location: //$host$uri/index.php");
+  //         exit;
+  //       }
+  //     }
+  //   }
+  // このエラーメッセージ要るか？
+  // $err_mesg[] = 'ユーザー名またはパスワードが一致しませんでした。';
+} else {
+  // GETの時の処理
+  // 初回アクセスで既にsessionの切符を持っている状態であれば、login手続きを通過させてindex.phpへ通す。
+  // 連想配列『$_SESSION['email']』要素があり、その内容が存在しているならばリダイレクトさせる。
+  if (isset($_SESSION['email']) && $_SESSION['email']) {
+    // リダイレクト処理
+    $host = $_SERVER['HTTP_HOST'];
+    $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    header("Location: //$host$uri/index.php");
+    exit;
   }
+  $_POST = array();
+  $_POST['email'] = '';
 }
 ?>
 
@@ -82,7 +93,7 @@ if ($_POST) {
 
 <body>
   <div class="container">
-    <div class="mx-auto" style="margin-top:150px; width: 400px;">
+    <div class="mx-auto" style="margin-top:150px; width: 450px;">
       <?php
       if ($err_mesg) {
         echo '<div class="alert alert-danger" role="alert">';
@@ -90,6 +101,7 @@ if ($_POST) {
         echo '</div>';
       }
       ?>
+      <h3 style="text-align: center;">ログイン</h3>
       <form action="./login.php" method="post">
         <div class="mb-3">
           <label class="form-label">Eメールアドレス</label>
@@ -103,7 +115,7 @@ if ($_POST) {
           <button type="submit" class="btn btn-primary btn-sm" value="送信">送信</button>
         </div>
       </form>
-      <p style="margin-top: 20px; size: 0.8em; text-align: center;">はじめての方は、<a href="./register.php" style="text-decoration: none; color:cornflowerblue">SignUp</a>をお願いします。</p>
+      <p style="margin-top: 20px; size: 0.8em; text-align: center;">はじめての方は<a href="./register.php" style="text-decoration: none; color:cornflowerblue">メンバー登録</a>をお願いします。</p>
     </div>
   </div>
 </body>
