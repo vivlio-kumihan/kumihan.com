@@ -1,5 +1,5 @@
 <?php
-// セッション開始
+// セッションの切符を持っている。
 session_start();
 // セッションの切符も持っていない訪問者にログインページへリダイレクト処理。
 if (!$_SESSION['email']) {
@@ -8,6 +8,7 @@ if (!$_SESSION['email']) {
   header("Location: //$host$uri/login.php");
   exit;
 }
+// SESSIONに空の配列を渡して初期化してログアウトする。
 $_SESSION = array();
 ?>
 

@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<link rel="stylesheet" href="assets/css/fonts.css" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
@@ -28,11 +29,12 @@
 						<div id="menu">
 							<ul>
 								<li><a href="./index.php">Home</a></li>
-								<li><a href="./register.php">Sign Up</a></li>
-								<li><a href="./login">Log In</a></li>
-								<li><a href="./cando.php">Code</a></li>
+								<li><a href="./register.php">SignUp</a></li>
+								<li><a href="./login">LogIn</a></li>
 								<li><a href="./book.php">Book</a></li>
 								<li><a href="./photo.php">Photo</a></li>
+								<li><a href="./blog.php">Blog</a></li>
+								<li><a href="./board.php">BBS</a></li>
 								<li><a href="./contact.php">Contact</a></li>
 							</ul>
 						</div>
@@ -87,10 +89,6 @@
 				</header>
 				<ul class="icons major">
 					<li>
-						<span class="icon solid major fa-code"></span>
-						<h3 class="pict_name"><a href="#" target=”_blank”>Code</a></h3>
-					</li>
-					<li>
 						<span class="icon solid major fa-book"></span>
 						<h3 class="pict_name"><a href="#">Book</a></h3>
 					</li>
@@ -99,8 +97,19 @@
 						<h3 class="pict_name"><a href="./photo.php">Photo</a></h3>
 					</li>
 					<li>
-						<span class="icon solid major fa-coffee"></span>
-						<h3 class="pict_name"><a href="https://vivlio-kumihan.github.io/practice-stroke/" target=”_blank”>Blog</a></h3>
+						<!-- <span class="icon solid major fa-coffee"></span> -->
+						<i class="fa-solid fa-pen-nib"></i>
+						<h3 class="pict_name"><a href="./blog.php">Blog</a></h3>
+					</li>
+					<li>
+						<!-- <span class="icon solid major fa-code"></span> -->
+						<i class="fa-solid fa-messages"></i>
+						<h3 class="pict_name"><a href="#" target=”_blank”>BBS</a></h3>
+					</li>
+					<li>
+						<!-- <span class="icon solid major fa-code"></span> -->
+						<i class="fa-solid fa-envelope-open-text"></i>
+						<h3 class="pict_name"><a href="#" target=”_blank”>Contact</a></h3>
 					</li>
 				</ul>
 			</div>
@@ -133,6 +142,7 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
+	<script src="https://kit.fontawesome.com/678cad97f5.js" crossorigin="anonymous"></script>
 
 </body>
 

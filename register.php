@@ -1,7 +1,5 @@
-<!-- sign upのページ -->
-<!-- HTMLを確認してからフォームへ入力された値の処理のコードを見てみる。 -->
-
 <?php
+// 方針として、自作関数をプロジェクトに『lib（ライブラリー）』ディレクトリを設置してそこで管すする。
 require_once('./lib/function.php');
 
 // エラーメッセージ対応。配列として初期化。
@@ -9,14 +7,17 @@ $err_mesg = array();
 
 // POST情報が入ってきた場合の処理開始。
 if ($_POST) {
-  $name = $_POST['name'];
-  $email = $_POST['email'];
-  $password = $_POST['password'];
-  $confirm_password = $_POST['confirm_password'];
+  // 自作関数でフォームから入力されたPOSTの中身を変数に格納する。
+  $name = get_post('name');
+  $email = get_post('email');
+  $password = get_post('password');
+  $confirm_password = get_post('confirm_password');
   // DB接続に係る変数を生成
+  // 課題　ライブラリかよ呼び出してDBのインスタンを生成出来るようにする。
   $dsn = "mysql:dbname=quad9_db;host=mysql57.quad9.sakura.ne.jp;charset=utf8";
   $user = "quad9";
   $pwd = "";
+  // PHPからSQLを使ってDBを操るための肝の部分。
   $dbh = new PDO($dsn, $user, $pwd);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -25,8 +26,11 @@ if ($_POST) {
   // $_POSTに 'name'の値が無ければ、
   if (!$name || mb_strlen($name) > 20) {
     $err_mesg[] = 'お名前を入力してください。';
+    // DBに既に登録されている氏名の場合にエラを出す処理をする箇所。
   } elseif ($name) {
     try {
+      // 任意の値で検索してヒットした件数を手がかりに、
+      // 値の重複を回避するコード
       $sql = "SELECT COUNT(id) FROM `member` WHERE `name` = :name";
       $stmt = $dbh->prepare($sql);
       $stmt->bindValue(':name', $name, PDO::PARAM_STR);
@@ -50,6 +54,8 @@ if ($_POST) {
     // 入力されたEメールアドレスをvalidateしてみて不正であれば、
   } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $err_mesg[] = '入力されたEメールアドレスは不正です。';
+    // 氏名の時と理屈・やり方は同じ。
+    // 課題　リファクタリングの対象。
   } elseif ($email) {
     try {
       $sql = "SELECT COUNT(id) FROM `member` WHERE `email` = :email";
@@ -81,9 +87,11 @@ if ($_POST) {
   } elseif ($password !== $confirm_password) {
     $err_mesg[] = '確認用に入力されたパスワードが一致しません。';
   }
+  // パスワーを暗号化する。
   $password = password_hash($password, PASSWORD_DEFAULT);
 
-  // 登録を済ませたので、ログイン画面へメンバーページへリダイレクトする。
+  // このifが大切。ここでifで分岐させないと値の重複を感知しても、
+  // そのまま素通りでDBと登録されてしまう。
   if (!$err_mesg) {
     try {
       $date = date('Y-m-d H:i:s');
@@ -97,6 +105,7 @@ if ($_POST) {
       echo ("接続に失敗しました。" . $e->getMessage());
       die();
     }
+    // 登録を済ませたので、ログイン画面へメンバーページへリダイレクトする。
     $host = $_SERVER['HTTP_HOST'];
     $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     header("Location: //$host$uri/member.php");
@@ -108,7 +117,7 @@ if ($_POST) {
   // 入力欄が全てリセットされてしまう。
   // ユーザーの利便性を考えて、メールアドレスは残してパスワードだけ入力を促す画面構成にするため、
   // 『form』の『input属性value』に『echo htmlspecialchars($_POST['email'])』とする。
-  // そうすると、GET時に初回の入力で『$_POST['email']』て定義されていないとPHの警がが出る。
+  // そうすると、GET時に初回の入力で『$_POST['name']』『$_POST['email']』て定義されていないとPHPの警告が出るらしい。
   // 回避策として変数を初期化しておく。
   $_POST = array();
   $_POST['name'] = '';
@@ -123,7 +132,7 @@ if ($_POST) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>メンバーに登録</title>
+  <title>メンバー登録</title>
   <style>
     .submit {
       text-align: center;
