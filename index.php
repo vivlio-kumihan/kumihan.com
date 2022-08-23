@@ -5,7 +5,7 @@
 	<title>kumihan.com</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="assets/css/index-page.css" />
 	<link rel="stylesheet" href="assets/css/fonts.css" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 	<noscript>
@@ -29,13 +29,14 @@
 						<div id="menu">
 							<ul>
 								<li><a href="./index.php">Home</a></li>
-								<li><a href="./register.php">SignUp</a></li>
-								<li><a href="./login">LogIn</a></li>
 								<li><a href="./book.php">Book</a></li>
 								<li><a href="./photo.php">Photo</a></li>
 								<li><a href="./blog.php">Blog</a></li>
 								<li><a href="./board.php">BBS</a></li>
 								<li><a href="./contact.php">Contact</a></li>
+								<li><a href="./register.php">SignUP</a></li>
+								<li><a href="./login.php">LogIN</a></li>
+								<li><a href="./logout.php">LogOUT</a></li>
 							</ul>
 						</div>
 					</li>
@@ -97,19 +98,17 @@
 						<h3 class="pict_name"><a href="./photo.php">Photo</a></h3>
 					</li>
 					<li>
-						<!-- <span class="icon solid major fa-coffee"></span> -->
-						<i class="fa-solid fa-pen-nib"></i>
-						<h3 class="pict_name"><a href="./blog.php">Blog</a></h3>
+						<span class="icon solid major fa-pen-nib"></span>
+						<h3 class="pict_name"><a href="./blog.php" target="blank">Blog</a></h3>
 					</li>
 					<li>
-						<!-- <span class="icon solid major fa-code"></span> -->
-						<i class="fa-solid fa-messages"></i>
-						<h3 class="pict_name"><a href="#" target=”_blank”>BBS</a></h3>
+						<span class="icon solid major fa-comments"></span>
+						<i class="fa-solid "></i>
+						<h3 class="pict_name"><a href="./board.php">BBS</a></h3>
 					</li>
 					<li>
-						<!-- <span class="icon solid major fa-code"></span> -->
-						<i class="fa-solid fa-envelope-open-text"></i>
-						<h3 class="pict_name"><a href="#" target=”_blank”>Contact</a></h3>
+						<span class="icon solid major fa-envelope-open-text"></span>
+						<h3 class="pict_name"><a href="./contact.php">Contact</a></h3>
 					</li>
 				</ul>
 			</div>

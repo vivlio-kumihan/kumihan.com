@@ -1,4 +1,5 @@
 <?php
+require_once('../tmp/conf.php');
 require_once('./lib/function.php');
 
 // セッション開始
@@ -39,9 +40,9 @@ if ($_POST) {
   }
 
   // DB接続に係る変数を生成
-  $dsn = "mysql:dbname=quad9_db;host=mysql57.quad9.sakura.ne.jp;charset=utf8";
-  $user = "quad9";
-  $pwd = "";
+  $dsn = DNS;
+  $user = DB_USER;
+  $pwd = DB_PASSWORD;
   $dbh = new PDO($dsn, $user, $pwd);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -126,7 +127,7 @@ if ($_POST) {
         </div>
       </form>
       <p style="margin-top: 20px; size: 0.8em; text-align: center;">はじめての方は<a href="./register.php" style="text-decoration: none; color:cornflowerblue">メンバー登録</a>をお願いします。</p>
-      <p style="margin-top: 20px; size: 0.8em; text-align: center;"><a href="./register.php" style="text-decoration: none; color:cornflowerblue">パスワードを忘れた方</a>はこちらから。</p>
+      <p style="margin-top: 20px; size: 0.8em; text-align: center;"><a href="./forget_pw.php" style="text-decoration: none; color:cornflowerblue">パスワードを忘れた方</a>はこちらから。</p>
     </div>
   </div>
 </body>

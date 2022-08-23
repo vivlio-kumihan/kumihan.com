@@ -1,4 +1,6 @@
 <?php
+require_once(../../tmp/conf.php);
+
 // エスケープ処理
 // エスケープ処理を行うと「キーボードから入力できない文字を出力させる」ことや
 // 「PC側の解釈が異なって文字の効果を実行してしまう」ことを防ぐなどの効果があります。
@@ -21,7 +23,6 @@ function get_post($key)
     return $var;
   }
 }
-
 
 // 渡す変数に文字は入っているかどうかの判定と、
 // オプションで、指定した文字数より多いとfalseを返す。
@@ -69,10 +70,10 @@ function email_exists($dbh, $email) {
 // オプションでDB名を入れてDBのインスタンスを生成させる。
 function get_db_connect() {
   try{
-    $dsn = "mysql:dbname='quad9_DB';host=localhost;charset=utf8";
-    $user = "root";
-    $password = "root";
-    $dbh = new PDO($dsn, $user, $password);
+    $dsn = DNS;
+    $user = DB_USER;
+    $pwd = DB_PASSWORD;
+    $dbh = new PDO($dsn, $user, $pwd);
 
   } catch (PDOException $e) {
     // $eにエラーメッセージが含まれてたら、getMessage()で取り出して処理しますよという命令。

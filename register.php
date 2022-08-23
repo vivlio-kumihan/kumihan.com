@@ -1,6 +1,13 @@
 <?php
-// 方針として、自作関数をプロジェクトに『lib（ライブラリー）』ディレクトリを設置してそこで管すする。
+// 方針として、
+// 自作関数をプロジェクトに『lib（ライブラリー）』ディレクトリを設置
+// DB関連の秘匿情をwww以外の階層で管理する。
+require_once('../tmp/conf.php');
 require_once('./lib/function.php');
+
+// SESSIONスタート
+session_start();
+
 // エラーメッセージ対応。配列として初期化。
 $err_mesg = array();
 
@@ -13,9 +20,9 @@ if ($_POST) {
   $confirm_password = get_post('confirm_password');
   // DB接続に係る変数を生成
   // 課題　ライブラリかよ呼び出してDBのインスタンを生成出来るようにする。
-  $dsn = "mysql:dbname=quad9_db;host=mysql57.quad9.sakura.ne.jp;charset=utf8";
-  $user = "quad9";
-  $pwd = "";
+  $dsn = DNS;
+  $user = DB_USER;
+  $pwd = DB_PASSWORD;
   // PHPからSQLを使ってDBを操るための肝の部分。
   $dbh = new PDO($dsn, $user, $pwd);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

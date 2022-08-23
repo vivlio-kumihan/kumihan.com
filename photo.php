@@ -22,12 +22,15 @@ $images = glob('./images/album/*.jpg');
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.84.0">
   <title>写真ページ</title>
+  <link rel="stylesheet" href="assets/css/fonts.css" />
   <link rel="stylesheet" href="./assets/css/fontawesome-all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+  <link rel="stylesheet" href="./assets/css/another-page.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
   <script>
     $(document).ready(function() {
       $('.slider').bxSlider();
@@ -63,15 +66,16 @@ $images = glob('./images/album/*.jpg');
             <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
-            <h4 class="text-white">Contact</h4>
             <ul class="list-unstyled">
-              <li><a style="text-decoration: none; color: white;" href="./index.php">Home</a></li>
-              <li><a style="text-decoration: none; color: white;" href="./member.php">Member</a></li>
-              <li><a style="text-decoration: none; color: white;" href="./cando.php">Code</a></li>
-              <li><a style="text-decoration: none; color: white;" href="./book.php">Book</a></li>
-              <li><a style="text-decoration: none; color: white;" href="./contact.php">Contact</a></li>
-              <li><a style="text-decoration: none; color:lightgray;" href="#">========</a></li>
-              <li><a style="text-decoration: none; color: lightgray;" href="./logout.php">LogOut</a></li>
+              <li class="header-menu"><a href="./index.php">Home</a></li>
+              <li class="header-menu"><a href="./member.php">Member</a></li>
+              <li class="header-menu"><a href="./book.php">Book</a></li>
+              <li class="header-menu"><a href="./blog.php" target="blank">Blog</a></li>
+              <li class="header-menu"><a href="./board.php">BBS</a></li>
+              <li class="header-menu"><a href="./contact.php">Contact</a></li>
+              <li class="header-menu"><a href="./register.php">SignUp</a></li>
+              <li class="header-menu"><a href="./login.php">LogIn</a></li>
+              <li class="header-menu"><a href="./logout.php">LogOut</a></li>
             </ul>
           </div>
         </div>

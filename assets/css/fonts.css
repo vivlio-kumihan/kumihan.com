@@ -1,12 +1,20 @@
 /* Noto+Sans+JP gothic */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
   /* font-family: 'Noto Sans JP', sans-serif; */
-  /* font-weight: 400; <= 100 or 300 or 400 or 500 or 700 or 900/
+  /* font-weight: 400; <= 100 or 300 or 400 or 500 or 700 or 900 */
   
 /* Noto+Serif+JP mincho */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500;600;700;900&display=swap');
   /* font-family: 'Noto Serif JP', serif; */
-  /* font-weight: 400; <= 200 or 300 or 400 or 500 or 600 or 700 or 900/
+  /* font-weight: 400; <= 200 or 300 or 400 or 500 or 600 or 700 or 900 */
+  
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+  /* font-family: 'Open Sans', sans-serif; */
+  /* font-weight: 400; <= 300 or 400 or 500 or 600 or 700 or 800 */
+  
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+  /* font-family: 'Open Sans', sans-serif; */
+  /* font-weight: 1,400; <= 1,300 or 1,400 or 1,500 or 1,600 or 1,700 or 1,800 */
 
 /* Anton */
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');

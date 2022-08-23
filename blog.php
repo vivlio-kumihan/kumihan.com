@@ -12,5 +12,3 @@ if (!$_SESSION['email']) {
   header("Location: //vivlio-kumihan.github.io/practice-stroke/");
 }
 ?>
-
-<!-- <a href="https://vivlio-kumihan.github.io/practice-stroke/" target=”_blank”>Blog</a> -->
