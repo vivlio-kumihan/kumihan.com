@@ -12,8 +12,8 @@ if (!$_SESSION['email']) {
   exit;
 }
 
-$errs = [];
-$data = [];
+$err_mesg = array();
+$data = array();
 // DB接続に係る変数を生成
 // $db_ins = get_db_connect();
 try {
@@ -33,13 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
   // 値のvalidation
   if (!check_words($name, 50)) {
-    $errs[] = '氏名欄を修正してください。';
+    $err_mesg[] = '氏名欄を修正してください。';
   }
   if (!check_words($comment, 2000)) {
-    $errs[] = 'コメント欄を修正してください。';
+    $err_mesg[] = 'コメント欄を修正してください。';
   }
   // DBにコメントを追加していく。
-  if (count($errs) === 0) {
+  if (count($err_mesg) === 0) {
     insert_comment($dbh, $name, $comment);
   }
 }
@@ -53,3 +53,4 @@ $data = all_select_comments($dbh);
 // 『view.php』を含める・組み込む（include）と命令することで、
 // インスタンが該当ファイルへ渡っていく。素敵だ。
 include_once('./board_view.php');
+

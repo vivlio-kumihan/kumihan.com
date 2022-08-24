@@ -1,7 +1,8 @@
-<!-- このページへのリンクはloginページに設置しておく。 -->
 <!-- session切符を持っていないことが前提になる。 -->
 
 <?php
+require_once('../tmp/conf.php');
+require_once('./lib/function.php');
 // 初期化
 $err_mesg = array();
 // 初期状態でEメールアドレスを入力するフォームを出しておきたいがための真偽値をここで設定する。
@@ -9,9 +10,10 @@ $complete = false;
 
 // POSTでEメールアドレスが投げられる。
 if ($_POST) {
-  // 入力チェック。
+  $email = get_post('email');
+
   // Eメールアドレス
-  if (!$_POST['email']) {
+  if (!$email) {
     $err_mesg[] = 'Eメールアドレスを入力してください。';
     // 100文字以上の入力があれば、
   } elseif (mb_strlen($email) > 100) {
@@ -19,83 +21,63 @@ if ($_POST) {
     // 入力されたEメールアドレスをvalidateしてみて不正であれば、
   } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $err_mesg[] = '入力されたEメールアドレスは不正です。';
-  } elseif ($email) {
+  } else {
     // DB接続に係る変数を生成
-    $dsn = "mysql:dbname=quad9_db;host=mysql57.quad9.sakura.ne.jp;charset=utf8";
-    $user = "quad9";
-    $pwd = "PASSWORDTODB";
+    $dsn = DNS;
+    $user = DB_USER;
+    $pwd = DB_PASSWORD;
     $dbh = new PDO($dsn, $user, $pwd);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
     try {
-      $sql = "SELECT COUNT(id) FROM `member` WHERE `email` = :email";
+      $sql = "SELECT * FROM member WHERE email = :email LIMIT 1";
       $stmt = $dbh->prepare($sql);
       $stmt->bindValue(':email', $email, PDO::PARAM_STR);
       $stmt->execute();
-      $count = $stmt->fetch(PDO::FETCH_ASSOC);
-      if ($count['COUNT(id)'] > 0) {
+      // 入力したEメールアドレス『$_POST['email']』でDBを検索し、1件のヒットがあったら、
+      if ($stmt->rowCount() > 0) {
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
         // ================ 重要 =================
-        // 入力したEメールアドレス『$_POST['email']』が『user_info.txt』に記載されていれば、
         // 再発行するパスワードを生成する。
-        $new_pw = bin2hex(random_bytes(5));
+        $tmp_pw = bin2hex(random_bytes(5));
         // ================ 重要 =================
         // サーバーにメールを送信させる命令。
-        // 日本をを送信で文字化けが起こる場合、mail.phpを参照する。
-        $mesg = "パスワードを変更しました。\r\n" . $pw . "\r\n";
-        mail($_POST['email'], 'パスワードの再発行について', $mesg);
-        // user_info.txt（後のDB）の全文変更作業の開始。
-        $pw_hash = password_hash($pw, PASSWORD_DEFAULT);
+        // 日本語の送信で文字化けが起こる場合、mail.phpを参照する。
+        $mesg = "パスワードを変更しました。\r\n新パスワード => ".$tmp_pw."\r\n";
+        mail($email, 'パスワードの再発行について', $mesg);
+        // パスワードハッシュをかける。
+        $hashed_tmp_pw = password_hash($tmp_pw, PASSWORD_DEFAULT);
+        // 該当のデータをアップデートする。
+        $sql = "UPDATE member SET password = :password WHERE {$data['id']}";
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':password', $hashed_tmp_pw, PDO::PARAM_STR);
+        $stmt->execute();
+        $mesg[] = "パスワードを登録されている、あなたのEメールアドレス宛に送信しました。";
+      } else {
+        $err_mesg[] = '登録されたパスワードと違います。';
+        $err_mesg[] = 'パスワードを<a href="./logout.php">再発行</a>されますか？';
       }
     } catch (PDOException $e) {
-      echo ("接続に失敗しました。" . $e->getMessage());
+      print("接続に失敗しました。" . $e->getMessage());
       die();
     }
   }
-
-  //  認証チェック
-  $user_file = '../tmp/user_info.txt';
-  if (file_exists($user_file)) {
-    $users = file_get_contents($user_file);
-    $users = explode("\n", $users);
-    foreach ($users as $idx => $user) {
-      $user_info = str_getcsv($user);
-      // Eメールアドレスが一致しているかどうかを問い。
-      if ($user_info[0] === $_POST['email']) {
-
-
-        // CSVの文字列を作るのならこちらでいいかもしれない。
-        $line = "{$_POST['email']},{$pw_hash}";
-        // $line = '"'.$_POST['email'].'","'.$pw_hash.'"'; // 一応置いておく。
-        $users[$idx] = $line;
-        // 配列の区切りに『\n（改行）』を入れ替えて文字列に変更する。
-        $tmp_users = implode("\n", $users);
-        // この文字列をもってファイルを全て上書きする。大胆な書き換えですな。
-        $ret = file_put_contents($user_file, $tmp_users);
-        // 処理が上手くいった場合、ここで処理を完了したい。
-        // 処理が不良だった場合、エラーメッセージを出すことを想定した変数の生成。
-        // 変数に『true』を代入する場合。初期化で代入する値『false』
-        $complete = true;
-        // 処理を終える。
-        break;
-      }
-    }
-    // falseではない => trueであれば、メッセージを変数に代入する。
-    //そそもそも、このエラーメッセージ要るか？
-    if (!$complete) {
-      $err_mesg[] = 'Eメールアドレスが不正です。';
-    }
-  } else {
-    // GETの時の処理
-    // 確認　この処理は不要では？
-    // if (isset($_SESSION['email']) && $_SESSION['email']) {
-    //   // リダイレクト処理（これは1行じゃ無理）をする。
-    //   $host = $_SERVER['HTTP_HOST'];
-    //   $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    //   header("Location: //$host$uri/memberonly.php");
-    //   exit;
-    // }
-    $_POST = array();
-    $_POST['email'] = '';
+  // falseではない => trueであれば、メッセージを変数に代入する。
+  //そそもそも、このエラーメッセージ要るか？
+  if (!$complete) {
+    $err_mesg[] = 'Eメールアドレスが不正です。';
   }
+} else {
+  // GETの時の処理
+  // 確認　この処理は不要では？
+  // if (isset($_SESSION['email']) && $_SESSION['email']) {
+  //   $host = $_SERVER['HTTP_HOST'];
+  //   $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+  //   header("Location: //$host$uri/member.php");
+  //   exit;
+  // }
+  $_POST = array();
+  $_POST['email'] = '';
 }
 ?>
 
@@ -135,7 +117,7 @@ if ($_POST) {
         <form action="./forget_pw.php" method="POST">
           <div class="mb-3">
             <label class="form-label">Eメールアドレス</label>
-            <input class="form-control" type="email" name="email" value="<?php echo htmlspecialchars($_POST['email']) ?>">
+            <input class="form-control" type="email" name="email" value="<?php echo forxss($_POST['email']) ?>">
           </div>
           <div class="submit">
             <button type="submit" class="btn btn-primary btn-sm" value="再発行">再発行</button>

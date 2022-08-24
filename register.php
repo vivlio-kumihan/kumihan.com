@@ -5,9 +5,6 @@
 require_once('../tmp/conf.php');
 require_once('./lib/function.php');
 
-// SESSIONスタート
-session_start();
-
 // エラーメッセージ対応。配列として初期化。
 $err_mesg = array();
 
@@ -128,6 +125,7 @@ if ($_POST) {
   $_POST = array();
   $_POST['name'] = '';
   $_POST['email'] = '';
+  $_SESSION = array();
 }
 ?>
 
@@ -149,7 +147,7 @@ if ($_POST) {
 
 <body>
   <div class="container">
-    <div class="mx-auto" style="margin-top:150px; width: 450px;">
+    <div class="mx-auto" style="margin-top:50px; width: 450px;">
       <?php
       // 要確認　HTML内のPHPコードのエスケープのやり方を確認する。
       if ($err_mesg) {

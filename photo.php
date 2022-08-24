@@ -72,7 +72,7 @@ $images = glob('./images/album/*.jpg');
               <li class="header-menu"><a href="./book.php">Book</a></li>
               <li class="header-menu"><a href="./blog.php" target="blank">Blog</a></li>
               <li class="header-menu"><a href="./board.php">BBS</a></li>
-              <li class="header-menu"><a href="./contact.php">Contact</a></li>
+              <li class="header-menu" style="margin-top: 10px;"><a href=" ./contact.php">Contact</a></li>
               <li class="header-menu"><a href="./register.php">SignUp</a></li>
               <li class="header-menu"><a href="./login.php">LogIn</a></li>
               <li class="header-menu"><a href="./logout.php">LogOut</a></li>
@@ -101,7 +101,7 @@ $images = glob('./images/album/*.jpg');
       <!-- ページタイトル -->
       <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
-          <h1 class="fw-light">Photo</h1>
+          <h1 class="page-title">Photo</h1>
           <!-- <p class="lead text-muted">リードコピー</p> -->
         </div>
       </div>

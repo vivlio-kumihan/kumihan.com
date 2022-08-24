@@ -1,4 +1,14 @@
 <?php
+// クロス・サイト・リクエスト・フォージェリー
+// CSRF
+// フォーム入力の際にトークン（合言葉）を忍ばせてサーバーに保存する。$_SESSION['token']
+// 確認画面から送信ボタンを押す際に$_POST['token']を出して付き合わせる。$_POSTにデフォルトで$_POST['token']が含まれる。
+// 暗号論的にセキュアな乱数が発生させる関数
+// $token = bin2hex(random_bytes(32));
+
+require_once('../tmp/conf.php');
+require_once('./lib/function.php');
+
 // セッション開始
 session_start();
 // セッションの切符も持っていない訪問者にログインページへリダイレクト処理。
@@ -12,13 +22,14 @@ if (!$_SESSION['email']) {
 // 一つのファイルで複数の出力を実現させるための方法。
 // GET、POSTで行き先を振り分ける。
 
-// 関数解説 isseet()
-// isset($_POST(key)) => is set ? => keyは設定されているか？
-// 配列に当該のkeyが設定されているのか？　かつ、keyに値は格納されているのか？
+// 関数解説 isset()
+// isset($_POST[key]) => is set ? => keyは設定されているか？
+
 $toward = 'input';
+// 配列に当該のkeyが設定されているのか？　かつ、keyに値は格納されているのか？
 if (isset($_POST['back']) && $_POST['back']) {
   // 何もしない
-  // POSTに『confirm』で送られ来たら
+// POSTに『confirm』で送られ来たら
 } elseif (isset($_POST['confirm']) && $_POST['confirm']) {
   // validation開始
   // お名前
@@ -80,7 +91,7 @@ if (isset($_POST['back']) && $_POST['back']) {
     $toward = 'input';
 
     // 送信ボタンを押されてインスタンスと伴に合言葉がやってくる。
-    // サーバーに保ししておいた合言葉とここで符合させる。
+    // サーバーに保存しておいた合言葉とここで符合させる。
   } elseif ($_POST['token'] != $_SESSION['token']) {
     // エラーで警告し、
     $err_mesg = 'CSRFなどセキュリティ上、不正な処理を感ししました。最初から処理をやり直してください。';
@@ -120,10 +131,45 @@ if (isset($_POST['back']) && $_POST['back']) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>お問合せ</title>
+  <link rel="stylesheet" href="assets/css/fonts.css" />
+  <link rel="stylesheet" href="./assets/css/fontawesome-all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body>
+
+  <header>
+    <div class="collapse bg-dark" id="navbarHeader">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-md-7 py-4">
+            <h4 class="text-white">About</h4>
+            <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+          </div>
+          <div class="col-sm-4 offset-md-1 py-4">
+            <ul class="list-unstyled">
+              <li class="header-menu"><a href="./index.php">Home</a></li>
+              <li class="header-menu"><a href="./register.php">SignUp</a></li>
+              <li class="header-menu"><a href="./login.php">LogIn</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+      <div class="container">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+          <i class="fa-solid fa-camera-retro" style="margin-right: 5px; color: whitesmoke;"></i>
+          <i class="fa-solid fa-aperture" style="margin-right: 5px; color: whitesmoke;"></i>
+          <strong>Photo</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
   <div class="container">
     <div class="mx-auto" style="margin-top:50px; width: 400px;">
       <?php
@@ -177,6 +223,19 @@ if (isset($_POST['back']) && $_POST['back']) {
       <?php } ?>
     </div>
   </div>
+
+  <footer class="text-muted py-5">
+    <div class="container">
+      <p class="float-end mb-1">
+        <a href="#">Back to top</a>
+      </p>
+      <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+      <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
+    </div>
+  </footer>
+
+  <script src="https://kit.fontawesome.com/678cad97f5.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 
 </html>

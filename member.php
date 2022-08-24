@@ -41,7 +41,7 @@ if (!$_SESSION['email']) {
               <li class="header-menu"><a href="./book.php">Book</a></li>
               <li class="header-menu"><a href="./blog.php" target="blank">Blog</a></li>
               <li class="header-menu"><a href="./board.php">BBS</a></li>
-              <li class="header-menu"><a href="./contact.php">Contact</a></li>
+              <li class="header-menu" style="margin-top: 10px;"><a href="./contact.php">Contact</a></li>
               <li class="header-menu"><a href="./register.php">SignUp</a></li>
               <li class="header-menu"><a href="./login.php">LogIn</a></li>
               <li class="header-menu"><a href="./logout.php">LogOut</a></li>
@@ -70,7 +70,7 @@ if (!$_SESSION['email']) {
       <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
           <h1 class="fw-light">登録メンバーのページ</h1>
-          <p style="margin-top: 20px; size: 0.8em; text-align: center;">パスワードを変更されたい方は<a href="./change_pw.php" style="text-decoration: none; color:cornflowerblue">こちらから</a>登録をお願いします。</p>
+          <p style="margin-top: 20px; size: 0.8em; text-align: center;">パスワードの変更は<a href="./change_pw.php" style="text-decoration: none; color:cornflowerblue">こちらから</a>お願いします。</p>
           <!-- <p class="lead text-muted">リードコピー</p> -->
 
 
