@@ -103,7 +103,7 @@ if (isset($_POST['back']) && $_POST['back']) {
     $toward = 'input';
   } else {
     $message = "お問合せを受け付けました。\r\n"
-      . "お名前: " . $_SESSION['name'] . "\r\n"
+      . "お名前: " . $_SESSION['name'] . "様\r\n"
       . "Eメールアドレス: " . $_SESSION['contact_email'] . "\r\n"
       . "お問合せ内容:\r\n"
       . preg_replace("/\r\n|\r|\n/", "\r\n", $_SESSION['mesg']);

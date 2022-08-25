@@ -1,18 +1,42 @@
 <?php
-// セッションの切符を持っている。
+// // 最初の設定
+// // セッションの切符を持っている。
+// session_start();
+// // セッションの切符も持っていない訪問者にログインページへリダイレクト処理。
+// if (!$_SESSION['email']) {
+//   $host = $_SERVER['HTTP_HOST'];
+//   $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+//   header("Location: //$host$uri/login.php");
+//   exit;
+// }
+// // SESSIONに空の配列を渡して初期化してログアウトする。
+// $_SESSION = array();
+
+
+// ログインページは不要、ログインページに遷移させてメッセージを出す仕様に変えてはどうか？
+// でも、こんな書き方に疑問。
+// セッション切符を持っていることが前提
+// セッション開始
 session_start();
 // セッションの切符も持っていない訪問者にログインページへリダイレクト処理。
+
 if (!$_SESSION['email']) {
+  // ログインページでダイアロを出せないか？
   $host = $_SERVER['HTTP_HOST'];
   $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
   header("Location: //$host$uri/login.php");
   exit;
+} else {
+  // ログインページでダイアロを出せないか？
+  // SESSIONに空の配列を渡して初期化してログアウトする。
+  $_SESSION = array();
+  $host = $_SERVER['HTTP_HOST'];
+  $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+  header("Location: //$host$uri/login.php");
 }
-// SESSIONに空の配列を渡して初期化してログアウトする。
-$_SESSION = array();
 ?>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ja">
 
 <head>
@@ -37,4 +61,4 @@ $_SESSION = array();
   </div>
 </body>
 
-</html>
+</html> -->
