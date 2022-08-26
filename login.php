@@ -1,3 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.84.0">
+  <title>Signin Template · Bootstrap v5.0</title>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="./assets/css/fontawesome-all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/css/bs_signin.css">
+  <link rel="stylesheet" href="./assets/css/another-page.css">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    h3.form-heading {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+    }
+
+    #btn {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    p.notes {
+      margin-top: 20px;
+      font-size: 0.9em;
+      line-height: 1.2;
+      text-align: center;
+    }
+  </style>
+
+</head>
+
 <?php
 require_once('../tmp/conf.php');
 require_once('./lib/function.php');
@@ -18,19 +72,19 @@ if ($_POST) {
   $password = $_POST['password'];
 
   // 入力チェックをする。
-  //   Eメールアドレス
+  // Eメールアドレス
   // $_POSTに 'email'の値が無ければ、
   if (!$email) {
     $err_mesg[] = 'Eメールアドレスを入力してください。';
     // 100文字以上の入力があれば、
   } elseif (mb_strlen($email) > 100) {
-    $err_mesg[] = '100文字以内のアドレスを入力してください。';
+    $err_mesg[] = '100文字以内でアドレスを入力してください。';
     // 入力されたEメールアドレスをvalidateしてみて不正であれば、
   } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $err_mesg[] = '入力されたEメールアドレスは不正です。';
   }
-  //   パスワード
-  // $_POSTに 'password'の値が無ければ、
+  // パスワード
+  // $_POSTに'password'の値が無ければ、
   if (!$password) {
     $err_mesg[] = 'パスワードを入力してください。';
     // 17文字以上の入力があれば、
@@ -62,7 +116,7 @@ if ($_POST) {
       } else {
         $err_mesg[] = 'ログイン情報が間違っています。再入力をお願いします。';
       }
-    // この分岐た大切。ユーザーに優しくしようと思うのならやならいといけない分岐。
+      // この分岐大切。ユーザーに優しくしようと思うのならやならいといけない分岐。
     } else {
       $err_mesg[] = 'ログイン情報が間違っています。再入力をお願いします。';
     }
@@ -86,50 +140,38 @@ if ($_POST) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="ja">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <title>ログインフォーム</title>
-  <style>
-    .submit {
-      text-align: center;
-    }
-  </style>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-</head>
+<body class="text-center">
 
-<body>
-  <div class="container">
-    <div class="mx-auto" style="margin-top:150px; width: 450px;">
-      <?php
-      if ($err_mesg) {
-        echo '<div class="alert alert-danger" role="alert">';
-        echo implode('<br>', $err_mesg);
-        echo '</div>';
-      }
-      ?>
-      <h3 style="text-align: center;">ログイン</h3>
-      <form action="./login.php" method="post">
-        <div class="mb-3">
-          <label class="form-label">Eメールアドレス</label>
-          <input class="form-control" type="email" name="email" value="<?php echo htmlspecialchars($_POST['email']) ?>">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">パスワード</label>
-          <input class="form-control" type="password" name="password" value="">
-        </div>
-        <div class="submit">
-          <button type="submit" class="btn btn-primary btn-sm" value="送信">送信</button>
-        </div>
-      </form>
-      <p style="margin-top: 20px; size: 0.8em; text-align: center;">はじめての方は<a href="./register.php" style="text-decoration: none; color:cornflowerblue">メンバー登録</a>をお願いします。</p>
-      <p style="margin-top: 20px; size: 0.8em; text-align: center;"><a href="./forget_pw.php" style="text-decoration: none; color:cornflowerblue">パスワードを忘れた方</a>はこちらから。</p>
-    </div>
-  </div>
+  <main class="form-signin">
+    <form action="./login.php" method="POST">
+      <h3 class="form-heading">ログイン</h3>
+
+      <div class="form-floating">
+        <input class="form-control" type="email" id="floatingInput" name="email" value="<?php echo forxss($_POST['email']) ?>">
+        <label for="floatingInput">Eメールアドレス</label>
+      </div>
+      <div class="form-floating">
+        <input class="form-control" type="password" id="floatingPassword" name="password" value="">
+        <label for="floatingPassword">パスワード</label>
+      </div>
+
+      <!-- <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label> -->
+      </div>
+      <button id="btn" class="w-100 btn btn-lg btn-primary" type="submit">送信</button>
+
+      <p class="notes">はじめての方は<br><a href="./register.php" style="text-decoration: none; color:cornflowerblue">メンバー登録</a>をお願いします。</p>
+      <p class="notes"><a href="./forget_pw.php" style="text-decoration: none; color:cornflowerblue">パスワードを忘れた方</a><br>はこちらから。</p>
+
+      <p class="mt-5 mb-3 text-muted">&copy; kumihan.com</p>
+    </form>
+  </main>
+
+  <script src="https://kit.fontawesome.com/678cad97f5.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 
 </html>

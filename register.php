@@ -147,7 +147,7 @@ if ($_POST) {
 
 <body>
   <div class="container">
-    <div class="mx-auto" style="margin-top:50px; width: 450px;">
+    <div class="mx-auto" style="margin-top:50px; width: 400px;">
       <?php
       // 要確認　HTML内のPHPコードのエスケープのやり方を確認する。
       if ($err_mesg) {

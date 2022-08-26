@@ -29,7 +29,7 @@ $toward = 'input';
 // 配列に当該のkeyが設定されているのか？　かつ、keyに値は格納されているのか？
 if (isset($_POST['back']) && $_POST['back']) {
   // 何もしない
-// POSTに『confirm』で送られ来たら
+  // POSTに『confirm』で送られ来たら
 } elseif (isset($_POST['confirm']) && $_POST['confirm']) {
   // validation開始
   // お名前
@@ -121,6 +121,7 @@ if (isset($_POST['back']) && $_POST['back']) {
   $_SESSION['contact_email'] = '';
   $_SESSION['mesg'] = '';
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -134,6 +135,7 @@ if (isset($_POST['back']) && $_POST['back']) {
   <link rel="stylesheet" href="assets/css/fonts.css" />
   <link rel="stylesheet" href="./assets/css/fontawesome-all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/css/another-page.css">
 </head>
 
 <body>
@@ -149,8 +151,14 @@ if (isset($_POST['back']) && $_POST['back']) {
           <div class="col-sm-4 offset-md-1 py-4">
             <ul class="list-unstyled">
               <li class="header-menu"><a href="./index.php">Home</a></li>
+              <li class="header-menu"><a href="./photo.php">Photo</a></li>
+              <li class="header-menu"><a href="./book.php">Book</a></li>
+              <li class="header-menu"><a href="./blog.php" target="blank">Blog</a></li>
+              <li class="header-menu"><a href="./board.php">BBS</a></li>
+              <li class="header-menu" style="margin-top: 10px;"><a href="./contact.php">Contact</a></li>
               <li class="header-menu"><a href="./register.php">SignUp</a></li>
               <li class="header-menu"><a href="./login.php">LogIn</a></li>
+              <li class="header-menu"><a href="./logout.php">LogOut</a></li>
             </ul>
           </div>
         </div>
@@ -159,9 +167,8 @@ if (isset($_POST['back']) && $_POST['back']) {
     <div class="navbar navbar-dark bg-dark shadow-sm">
       <div class="container">
         <a href="#" class="navbar-brand d-flex align-items-center">
-          <i class="fa-solid fa-camera-retro" style="margin-right: 5px; color: whitesmoke;"></i>
-          <i class="fa-solid fa-aperture" style="margin-right: 5px; color: whitesmoke;"></i>
-          <strong>Photo</strong>
+          <i class="fa-solid fa-envelope-open-text" style="margin-right: 5px; color: whitesmoke;"></i>
+          <strong>Contact</strong>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
