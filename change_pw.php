@@ -59,7 +59,7 @@ if ($_POST) {
         $stmt = $dbh->prepare($sql);
         $stmt->bindValue(':password', $hashed_new_pw, PDO::PARAM_STR);
         $stmt->execute();
-        $mesg[] = "パスワードを変更しました。";
+        $mesg[] = "パスワードを<br>変更しました。";
       } else {
         $err_mesg[] = '登録されたパスワードと違います。';
         $err_mesg[] = 'パスワードを<a href="./logout.php">再発行</a>されますか？';
@@ -83,99 +83,89 @@ if ($_POST) {
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>パスワード変更</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.84.0">
+  <title>パスワードの変更</title>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="./assets/css/fontawesome-all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/css/bs_signin.css">
+  <link rel="stylesheet" href="./assets/css/another-page.css">
+
   <style>
-    .submit {
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    h3.form-heading {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+    }
+
+    #btn {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    p.notes {
+      margin-top: 20px;
+      font-size: 0.9em;
+      line-height: 1.2;
       text-align: center;
     }
   </style>
-  <link rel="stylesheet" href="./assets/css/another-page.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 </head>
 
-<body>
-  <header>
-    <div class="collapse bg-dark" id="navbarHeader">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-md-7 py-4">
-            <h4 class="text-white">About</h4>
-            <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-          </div>
-          <div class="col-sm-4 offset-md-1 py-4">
-            <ul class="list-unstyled">
-              <li class="header-menu"><a href="./index.php">Home</a></li>
-              <li class="header-menu"><a href="./member.php">Member</a></li>
-              <li class="header-menu"><a href="./photo.php">Photo</a></li>
-              <li class="header-menu"><a href="./book.php">Book</a></li>
-              <li class="header-menu"><a href="./blog.php" target="blank">Blog</a></li>
-              <li class="header-menu"><a href="./board.php">BBS</a></li>
-              <li class="header-menu"><a href="./contact.php">Contact</a></li>
-              <li class="header-menu"><a href="./register.php">SignUp</a></li>
-              <li class="header-menu"><a href="./login.php">LogIn</a></li>
-              <li class="header-menu"><a href="./logout.php">LogOut</a></li>
-            </ul>
-          </div>
+<body class="text-center">
+  <main class="form-signin">
+    <?php
+    if ($err_mesg) {
+      echo '<div class="alert alert-danger" role="alert">';
+      echo implode('<br>', $err_mesg);
+      echo '</div>';
+    } elseif ($mesg) {
+      echo '<div class="alert alert-success" role="alert">';
+      echo implode('<br>', $mesg);
+      echo '</div>';
+    }
+    ?>
+    <?php if ($complete) { ?>
+      <p>パスワードを変更しました。</p>
+      <a href="./member.php">メンバーページへ</a>
+    <?php } else { ?>
+      <form action="./change_pw.php" method="POST">
+        <h3 class="form-heading">パスワードの変更</h3>
+        <div class="form-floating">
+          <input class="form-control" type="password" id="floatingInput" name="password" value="">
+          <label for="floatingInput">現在のパスワード</label>
         </div>
-      </div>
-    </div>
-    <div class="navbar navbar-dark bg-dark shadow-sm">
-      <div class="container">
-        <a href="#" class="navbar-brand d-flex align-items-center">
-          <i class="fa-solid fa-key" style="margin-right: 5px; color: whitesmoke;"></i>
-          <strong>Change Password</strong>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <div class="container">
-    <div class="mx-auto" style="margin-top:150px; width: 400px;">
-      <?php
-      if ($err_mesg) {
-        echo '<div class="alert alert-danger" role="alert">';
-        echo implode('<br>', $err_mesg);
-        echo '</div>';
-      } elseif ($mesg) {
-        echo '<div class="alert alert-success" role="alert">';
-        echo implode('<br>', $mesg);
-        echo '</div>';
-      }
-      ?>
-      <?php if ($complete) { ?>
-        <p>パスワードを変更しました。</p>
-        <a href="./member.php">インデックスページへ</a>
-      <?php } else { ?>
-        <form action="./change_pw.php" method="POST">
-          <div class="mb-3">
-            <label class="form-label">現在のパスワード</label>
-            <input class="form-control" type="password" name="password" value="">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">新しいパスワード</label>
-            <input class="form-control" type="password" name="new_password" value="">
-          </div>
-          <div class="submit">
-            <button type="submit" class="btn btn-primary btn-sm" value="変更">変更する</button>
-          </div>
-        </form>
-      <?php } ?>
-    </div>
-  </div>
-
-  <footer class="text-muted py-5">
-    <div class="container">
-      <p class="float-end mb-1">
-        <a href="#">Back to top</a>
-      </p>
-    </div>
-  </footer>
+        <div class="form-floating">
+          <input class="form-control" type="password" id="floatingPassword" name="new_password" value="">
+          <label for="floatingPassword">新しいパスワード</label>
+        </div>
+        <button id="btn" class="w-100 btn btn-lg btn-primary" type="submit">送信</button>
+        <p class="notes"><br><a href="./member.php" style="text-decoration: none; color:cornflowerblue">メンバーページ</a>へ戻る。</p>
+        <p class="mt-5 mb-3 text-muted">&copy; kumihan.com</p>
+      </form>
+    <?php } ?>
+  </main>
 
   <script src="https://kit.fontawesome.com/678cad97f5.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

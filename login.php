@@ -1,57 +1,3 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Hugo 0.84.0">
-  <title>Signin Template · Bootstrap v5.0</title>
-  <link rel="stylesheet" href="assets/css/fonts.css">
-  <link rel="stylesheet" href="./assets/css/fontawesome-all.min.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link rel="stylesheet" href="./assets/css/bs_signin.css">
-  <link rel="stylesheet" href="./assets/css/another-page.css">
-
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-
-    h3.form-heading {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-weight: 700;
-      font-size: 24px;
-    }
-
-    #btn {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-weight: 900;
-      font-size: 18px;
-    }
-
-    p.notes {
-      margin-top: 20px;
-      font-size: 0.9em;
-      line-height: 1.2;
-      text-align: center;
-    }
-  </style>
-
-</head>
-
 <?php
 require_once('../tmp/conf.php');
 require_once('./lib/function.php');
@@ -140,6 +86,59 @@ if ($_POST) {
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.84.0">
+  <title>ログイン</title>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="./assets/css/fontawesome-all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/css/bs_signin.css">
+  <link rel="stylesheet" href="./assets/css/another-page.css">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    h3.form-heading {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+    }
+
+    #btn {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    p.notes {
+      margin-top: 20px;
+      font-size: 0.9em;
+      line-height: 1.2;
+      text-align: center;
+    }
+  </style>
+
+</head>
 
 <body class="text-center">
 
