@@ -13,11 +13,13 @@ if (!$_SESSION['email']) {
   header("Location: //$host$uri/login.php");
   exit;
 }
-
+// 初期化
 $err_mesg = array();
 $mesg = array();
+// 初期状態でEメールアドレスを入力するフォームを出しておきたいがための真偽値をここで設定する。
 $complete = false;
 
+// POSTでパスワードが投げられる。
 if ($_POST) {
   // 自作関数でフォームから入力されたPOSTの中身を変数に格納する。
   $password = get_post('password');
