@@ -1,9 +1,6 @@
-
 <?php
 require_once('../tmp/conf.php');
 require_once('./lib/function.php');
-
-// session切符を持っていないことが前提になる。
 
 // 初期化
 $err_mesg = array();
@@ -25,19 +22,19 @@ if ($_POST) {
   } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $err_mesg[] = '入力されたEメールアドレスは不正です。';
   }
-  
+
   // DB接続に係る変数を生成
   $dsn = DNS;
   $user = DB_USER;
   $pwd = DB_PASSWORD;
   $dbh = new PDO($dsn, $user, $pwd);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
   try {
     $sql = "SELECT * FROM member WHERE email = :email LIMIT 1";
     $stmt = $dbh->prepare($sql);
     $stmt->bindValue(':email', $email, PDO::PARAM_STR);
     $stmt->execute();
-    // 入力したEメールアドレス『$_POST['email']』でDBを検索し、1件のヒットがあったら、
     if ($stmt->rowCount() > 0) {
       $data = $stmt->fetch(PDO::FETCH_ASSOC);
       // ================ 重要 =================
@@ -55,22 +52,21 @@ if ($_POST) {
       $stmt = $dbh->prepare($sql);
       $stmt->bindValue(':password', $hashed_tmp_pw, PDO::PARAM_STR);
       $stmt->execute();
-      $mesg[] = "パスワードを登録されているEメールアドレス宛に送信しました。";
-      $complete = true;
-      var_dump($mesg);
-      var_dump(complete);
+      // $complete = true;
+      // $mesg[] = "パスワードを登録されているEメールアドレス宛に送信しました。";
+      $host = $_SERVER['HTTP_HOST'];
+      $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+      header("Location: //$host$uri/logout.php");
     } else {
       $err_mesg[] = '登録されたパスワードと違います。';
-      $err_mesg[] = 'パスワードを<a href="./logout.php">再発行</a>されますか？';
     }
   } catch (PDOException $e) {
     print("接続に失敗しました。" . $e->getMessage());
     die();
   }
 } else {
-  // GETの時の処理
+  // GETで情報がきた時の処理
   $_POST = array();
-  $_POST['email'] = '';
 }
 ?>
 
@@ -78,52 +74,107 @@ if ($_POST) {
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.84.0">
   <title>パスワードの再発行</title>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="./assets/css/fontawesome-all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/css/bs_signin.css">
+  <link rel="stylesheet" href="./assets/css/another-page.css">
+
   <style>
-    .submit {
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    h3.form-heading {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+    }
+
+    #btn {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    p.notes {
+      margin-top: 20px;
+      font-size: 0.9em;
+      line-height: 1.2;
       text-align: center;
     }
+
+    h3.form-heading {
+      margin-bottom: 20px;
+    }
+
+    .form-signin input[type="email"] {
+      margin-bottom: 0px;
+      border-bottom-right-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+    }
+
+    .form-signin input[type="password"] {
+      margin-bottom: 0px;
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
+    }
+
+    button {
+      margin-top: 20px;
+    }
   </style>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 </head>
 
-<body>
-  <div class="container">
-    <div class="mx-auto" style="margin-top:150px; width: 400px;">
-      <?php
-      if ($err_mesg) {
-        echo '<div class="alert alert-danger" role="alert">';
-        echo implode('<br>', $err_mesg);
-        echo '</div>';
-      } elseif ($mesg) {
-        echo '<div class="alert alert-success" role="alert">';
-        echo implode('<br>', $mesg);
-        echo '</div>';
-      }
-      ?>
-      <!-- 初期状態で入力欄を配置する。 -->
-      <!-- 再発行処理が完了しているかの真偽は変数$completeで判断する。 -->
-      <?php if ($complete) { ?>
-        <a href="./login.php">ログインへ</a>
-      <?php } else { ?>
-        <!-- POSTで自分自身にインスタンス（Eメールアドレス）を投げる。 -->
-        <form action="./forget_pw.php" method="POST">
-          <div class="mb-3">
-            <label class="form-label">Eメールアドレス</label>
-            <input class="form-control" type="email" name="email" value="<?php echo forxss($_POST['email']) ?>">
-          </div>
-          <div class="submit">
-            <button type="submit" class="btn btn-primary btn-sm" value="再発行">再発行</button>
-          </div>
-          <p class="notes"><br><a href="./login.php" style="text-decoration: none; color:cornflowerblue">ログイン</a>へ戻る。</p>
-          <p class="mt-5 mb-3 text-muted">&copy; kumihan.com</p>
-        </form>
-      <?php } ?>
-    </div>
-  </div>
+<body class="text-center">
+  <main class="form-signin">
+    <?php
+    if ($err_mesg) {
+      echo '<div class="alert alert-danger" role="alert">';
+      echo implode('<br>', $err_mesg);
+      echo '</div>';
+    } elseif ($mesg) {
+      echo '<div class="alert alert-success" role="alert">';
+      echo implode('<br>', $mesg);
+      echo '</div>';
+    }
+    ?>
+    <?php if ($complete) { ?>
+      <a href="./login.php">ログインへ</a>
+    <?php } else { ?>
+      <form action="./forget_pw.php" method="POST">
+        <h3 class="form-heading">パスワードの再発行</h3>
+        <div class="form-floating">
+          <input class="form-control" type="email" id="floatingPassword" name="email" value="">
+          <label for="floatingPassword">Eメールアドレス</label>
+        </div>
+        <button id="btn" class="w-100 btn btn-lg btn-primary" type="submit">送信</button>
+        <p class="notes"><br><a href="./login.php" style="text-decoration: none; color:cornflowerblue">ログイン</a>へ戻る。</p>
+        <p class="mt-5 mb-3 text-muted">&copy; kumihan.com</p>
+      </form>
+    <?php } ?>
+  </main>
+
+  <script src="https://kit.fontawesome.com/678cad97f5.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 
 </html>

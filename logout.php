@@ -27,6 +27,11 @@ if (!$_SESSION['email']) {
   header("Location: //$host$uri/login.php");
   exit;
 } else {
+  // if ($mesg) {
+  //   echo '<div class="alert alert-danger" role="alert">';
+  //   echo implode('<br>', $mesg);
+  //   echo '</div>';
+  // }
   // ログインページでダイアロを出せないか？
   // SESSIONに空の配列を渡して初期化してログアウトする。
   $_SESSION = array();

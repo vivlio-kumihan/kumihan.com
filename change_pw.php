@@ -167,7 +167,8 @@ if ($_POST) {
     }
     ?>
     <?php if ($complete) { ?>
-      <a href="./login.php">ログインへ</a>
+      <p>一旦ログアウトしてご確認ください。</p>
+      <a href="./logout.php">ログアウトへ</a>
     <?php } else { ?>
       <form action="./change_pw.php" method="POST">
         <h3 class="form-heading">パスワードの変更</h3>
