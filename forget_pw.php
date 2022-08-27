@@ -28,7 +28,6 @@ if ($_POST) {
     $pwd = DB_PASSWORD;
     $dbh = new PDO($dsn, $user, $pwd);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     try {
       $sql = "SELECT * FROM member WHERE email = :email LIMIT 1";
       $stmt = $dbh->prepare($sql);
@@ -44,7 +43,7 @@ if ($_POST) {
         // サーバーにメールを送信させる命令。
         // 日本語の送信で文字化けが起こる場合、mail.phpを参照する。
         $mesg = "パスワードを変更しました。\r\n新パスワード => ".$tmp_pw."\r\n";
-        mail($email, 'パスワードの再発行について', $mesg);
+        mail($email, 'パスワードの再発行いたしました。', $mesg);
         // パスワードハッシュをかける。
         $hashed_tmp_pw = password_hash($tmp_pw, PASSWORD_DEFAULT);
         // 該当のデータをアップデートする。
@@ -53,7 +52,7 @@ if ($_POST) {
         $stmt->bindValue(':password', $hashed_tmp_pw, PDO::PARAM_STR);
         $stmt->execute();
         $mesg[] = "パスワードを登録されている、あなたのEメールアドレス宛に送信しました。";
-        break;
+        $complete = true;
       } else {
         $err_mesg[] = '登録されたパスワードと違います。';
         $err_mesg[] = 'パスワードを<a href="./logout.php">再発行</a>されますか？';
@@ -105,6 +104,10 @@ if ($_POST) {
       if ($err_mesg) {
         echo '<div class="alert alert-danger" role="alert">';
         echo implode('<br>', $err_mesg);
+        echo '</div>';
+      } elseif ($mesg) {
+        echo '<div class="alert alert-success" role="alert">';
+        echo implode('<br>', $mesg);
         echo '</div>';
       }
       ?>

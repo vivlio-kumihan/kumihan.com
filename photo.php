@@ -112,35 +112,25 @@ $images = glob('./images/album/*.jpg');
         <?php } ?>
       </div>
 
-      <!-- エラーがあった場合に警告を出現させる仕組みは『if』。 -->
-      <?php
-      if (count($err_mesg)) {
-        foreach ($err_mesg as $err) {
-          echo '<p style="color: red">' . $err . '</p>';
-        }
-      }
-      ?>
-      <?php foreach ($images as $photo) { ?>
-        <?php
-        $ua = $_SERVER['HTTP_USER_AGENT'];
-        if ((strpos($ua, 'Android') !== false) && (strpos($ua, 'Mobile') !== false) || (strpos($ua, 'iPhone') !== false) || (strpos($ua, 'Windows Phone') !== false)) {
-        ?>
-          <!-- スマホの場合に読み込むソースを記述 -->
-          <div class="col-12" style="margin-top: 30px;">
-          <?php } elseif ((strpos($ua, 'Android') !== false) || (strpos($ua, 'iPad') !== false)) { ?>
-            <!-- タブレットの場合に読み込むソースを記述 -->
-            <div class="col-6" style="margin-top: 30px;">
-            <?php } else { ?>
-              <!-- PCの場合に読み込むソースを記述 -->
-              <div class="col-2" style="margin-top: 30px;">
-              <?php } ?>
-              <?php echo '<img src="', $photo, '" alt="thumbnail" class="img-fluid img-thumbnail" style="margin-bottom : 15px;">'; ?>
-              </div>
-            <?php } ?>
-            </div>
+      <div class="row">
+        <?php foreach ($images as $photo) { ?>
+          <div class="col-2">
+            <?php echo '<img src="', $photo, '" alt="thumbnail" class="img-fluid img-thumbnail" style="margin-bottom : 15px;">'; ?>
+          </div>
+        <?php } ?>
+      </div>
     </section>
   </main>
 
+  <footer class="text-muted py-5">
+    <div class="container">
+      <p class="float-end mb-1">
+        <a href="#">Back to top</a>
+      </p>
+      <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+      <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
+    </div>
+  </footer>
   <script src="https://kit.fontawesome.com/678cad97f5.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
