@@ -102,13 +102,19 @@ if (isset($_POST['back']) && $_POST['back']) {
     // フォーム入力画面へ差し戻す符をを発行する。
     $toward = 'input';
   } else {
-    $message = "お問合せを受け付けました。\r\n"
+    $message_for_customer = "お問合せを受け付けました。\r\n\r\n"
+      . "お名前: " . $_SESSION['name'] . "様\r\n"
+      . "Eメールアドレス: " . $_SESSION['contact_email'] . "\r\n"
+      . "お問合せ内容:\r\n"
+      . preg_replace("/\r\n|\r|\n/", "\r\n"
+        . "担当者より連絡いたします。いましばらくお待ちください。", $_SESSION['mesg']);
+    $message_to_staff = "問合せを受け付けました。\r\n対応をお願いします。\r\n\r\n_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/\r\n\r\n"
       . "お名前: " . $_SESSION['name'] . "様\r\n"
       . "Eメールアドレス: " . $_SESSION['contact_email'] . "\r\n"
       . "お問合せ内容:\r\n"
       . preg_replace("/\r\n|\r|\n/", "\r\n", $_SESSION['mesg']);
-    mail($_SESSION['contact_email'], 'お問合せを受け付けました。', $message);
-    mail('studio.quad9@gmail.com', "{$_SESSION['name']}様からお問合せ受信の件", $message);
+    mail($_SESSION['contact_email'], '【kumihan.com】お問合せを受け付けました。', $message_for_customer);
+    mail('studio.quad9@gmail.com', "{$_SESSION['name']}様からお問合せ受付の件", $message_to_staff);
     // お問合せで使ったセッションを解放する。もちろんEmailのセッションは残さないといけない。
     $_SESSION['name'] = '';
     $_SESSION['contact_email'] = '';
@@ -177,72 +183,74 @@ if (isset($_POST['back']) && $_POST['back']) {
     </div>
   </header>
 
-  <div class="container">
-    <div class="mx-auto" style="margin-top:50px; width: 400px;">
-      <?php
-      // 要確認　HTML内のPHPコードのエスケープのやり方を確認する。
-      if ($err_mesg) {
-        echo '<div class="alert alert-danger" role="alert">';
-        echo implode('<br>', $err_mesg);
-        echo '</div>';
-      }
-      ?>
-      <?php if ($toward == 'input') { ?>
-        <h3 style="text-align: center;">お問合せ</h3>
-        <!-- 入力画面 -->
-        <form action="./contact.php" method="POST">
-          <div class="mb-3">
-            <label class="form-label">お名前</label>
-            <input class="form-control" type="text" name="name" value="<? echo $_SESSION['name'] ?>">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Eメールアドレス</label>
-            <input class="form-control" type="email" name="contact_email" value="<? echo $_SESSION['contact_email'] ?>">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">お問合せ内容</label>
-            <textarea class="form-control" cols="40" rows="8" name="mesg"><? echo $_SESSION['mesg'] ?></textarea>
-          </div>
-          <div class="submit">
-            <button type="submit" class="btn btn-primary btn-sm" name="confirm" value="確認">確認</button>
-          </div>
-        </form>
-        <p style="margin-top: 20px; size: 0.8em; text-align: center;"><a href="./member.php" style="text-decoration: none; color:cornflowerblue">登録メンバーページ</a>へ戻る</p>
-      <?php } elseif ($toward == 'confirm') { ?>
+  <div class="container" style="margin: 0 auto;">
+    <?php
+    $ua = $_SERVER['HTTP_USER_AGENT'];
+    if ((strpos($ua, 'Android') !== false) && (strpos($ua, 'Mobile') !== false) || (strpos($ua, 'iPhone') !== false) || (strpos($ua, 'Windows Phone') !== false)) {
+    ?>
+      <!-- スマホの場合に読み込むソースを記述 -->
+      <div class="col-12" style="margin-top: 30px;">
+    <?php } elseif ((strpos($ua, 'Android') !== false) || (strpos($ua, 'iPad') !== false)) { ?>
+      <!-- タブレットの場合に読み込むソースを記述 -->
+      <div class="col-8" style="margin: 30px auto 0;">
+    <?php } else { ?>
+          <!-- PCの場合に読み込むソースを記述 -->
+          <div class="col-6" style="margin: 30px auto 0;">
+          <?php } ?>
+          <?php
+          // 要確認　HTML内のPHPコードのエスケープのやり方を確認する。
+          if ($err_mesg) {
+            echo '<div class="alert alert-danger" role="alert">';
+            echo implode('<br>', $err_mesg);
+            echo '</div>';
+          }
+          ?>
+          <?php if ($toward == 'input') { ?>
+            <h3 style="text-align: center;">お問合せ</h3>
+            <!-- 入力画面 -->
+            <form action="./contact.php" method="POST">
+              <div class="mb-3">
+                <label class="form-label">お名前</label>
+                <input class="form-control" type="text" name="name" value="<? echo $_SESSION['name'] ?>">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Eメールアドレス</label>
+                <input class="form-control" type="email" name="contact_email" value="<? echo $_SESSION['contact_email'] ?>">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">お問合せ内容</label>
+                <textarea class="form-control" cols="40" rows="8" name="mesg"><? echo $_SESSION['mesg'] ?></textarea>
+              </div>
+              <div class="submit">
+                <button type="submit" class="btn btn-primary btn-sm" name="confirm" value="確認">確認</button>
+              </div>
+            </form>
+            <p style="margin-top: 20px; size: 0.8em; text-align: center;"><a href="./member.php" style="text-decoration: none; color:cornflowerblue">登録メンバーページ</a>へ戻る</p>
+          <?php } elseif ($toward == 'confirm') { ?>
 
-        <!-- 確認画面 -->
-        <form action="./contact.php" method="POST">
-          <!-- 合言葉を忍ばせる。 -->
-          <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?>">
-          <p>入力の確認をお願いします。</p>
-          <label class="form-label">お名前： <?php echo $_SESSION['name'] ?></label><br>
-          <label class="form-label">Eメールアドレス： <?php echo $_SESSION['contact_email'] ?></label><br>
-          <!-- PHPのコードとして渡ってきた値の改行をHTMLのbrタグに変換する関数を充てる。 -->
-          <label class="form-label">お問合せ内容： <?php echo nl2br($_SESSION['mesg']) ?></label>
-          <div class="submit">
-            <button type="submit" class="btn btn-primary btn-sm" name="back" value="戻る">戻る</button>
-            <button type="submit" class="btn btn-primary btn-sm" name="send" value="送信">送信</button>
+            <!-- 確認画面 -->
+            <form action="./contact.php" method="POST">
+              <!-- 合言葉を忍ばせる。 -->
+              <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?>">
+              <p>入力の確認をお願いします。</p>
+              <label class="form-label">お名前： <?php echo $_SESSION['name'] ?></label><br>
+              <label class="form-label">Eメールアドレス： <?php echo $_SESSION['contact_email'] ?></label><br>
+              <!-- PHPのコードとして渡ってきた値の改行をHTMLのbrタグに変換する関数を充てる。 -->
+              <label class="form-label">お問合せ内容： <?php echo nl2br($_SESSION['mesg']) ?></label>
+              <div class="submit">
+                <button type="submit" class="btn btn-primary btn-sm" name="back" value="戻る">戻る</button>
+                <button type="submit" class="btn btn-primary btn-sm" name="send" value="送信">送信</button>
+              </div>
+            </form>
+          <?php } else { ?>
+            <p style="text-align: center;">お問合せを送信しました。</p>
+            <p style="margin-top: 20px; size: 0.8em; text-align: center;"><a href="./member.php" style="text-decoration: none; color:cornflowerblue">メンバーページ</a>へ移動する</p>
+          <?php } ?>
           </div>
-        </form>
-      <?php } else { ?>
-        <p style="text-align: center;">お問合せを送信しました。</p>
-        <p style="margin-top: 20px; size: 0.8em; text-align: center;"><a href="./member.php" style="text-decoration: none; color:cornflowerblue">メンバーページ</a>へ移動する</p>
-      <?php } ?>
-    </div>
-  </div>
+        </div>
 
-  <footer class="text-muted py-5">
-    <div class="container">
-      <p class="float-end mb-1">
-        <a href="#">Back to top</a>
-      </p>
-      <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-      <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
-    </div>
-  </footer>
-
-  <script src="https://kit.fontawesome.com/678cad97f5.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/678cad97f5.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 
 </html>

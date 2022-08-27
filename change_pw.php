@@ -131,6 +131,26 @@ if ($_POST) {
       line-height: 1.2;
       text-align: center;
     }
+
+    h3.form-heading {
+      margin-bottom: 20px;
+    }
+
+    .form-signin input[type="email"] {
+      margin-bottom: 0px;
+      border-bottom-right-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+    }
+
+    .form-signin input[type="password"] {
+      margin-bottom: 0px;
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
+    }
+
+    button {
+      margin-top: 20px;
+    }
   </style>
 
 </head>

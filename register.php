@@ -133,58 +133,116 @@ if ($_POST) {
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>メンバー登録</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.84.0">
+  <title>ログイン</title>
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="./assets/css/fontawesome-all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/css/bs_signin.css">
+  <link rel="stylesheet" href="./assets/css/another-page.css">
+
   <style>
-    .submit {
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    h3.form-heading {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+    }
+
+    #btn {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    p.notes {
+      margin-top: 20px;
+      font-size: 0.9em;
+      line-height: 1.2;
       text-align: center;
     }
+
+    h3.form-heading {
+      margin-bottom: 20px;
+    }
+
+    .form-signin input[type="email"] {
+      margin-bottom: 0px;
+      border-bottom-right-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+    }
+
+    .form-signin input[type="password"] {
+      margin-bottom: 0px;
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
+    }
+
+    button {
+      margin-top: 20px;
+    }
   </style>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 </head>
 
-<body>
-  <div class="container">
-    <div class="mx-auto" style="margin-top:50px; width: 400px;">
-      <?php
-      // 要確認　HTML内のPHPコードのエスケープのやり方を確認する。
-      if ($err_mesg) {
-        echo '<div class="alert alert-danger" role="alert">';
-        // $err_mesgに中に格納されているエラーメッセージは配列の状態になっていて、
-        // 関数「implode」を使って1行ずつ「br」で改行しながら出力させているのだと思う。
-        // 要確認　配列を1行ずつ吐き出す 『implode』
-        echo implode('<br>', $err_mesg);
-        echo '</div>';
-      }
-      ?>
-      <h3 style="text-align: center;">メンバー登録</h3>
-      <!-- POSTで自分自身（register.php）へインスタンスを投げるフォームの宣言。 -->
-      <form action="./register.php" method="POST">
-        <div class="mb-3">
-          <label class="form-label">お名前</label>
-          <!-- valueに入力した値をいれておき、再入力の際のユーザーの入力の手間を省く。-->
-          <!-- 値はXSS対策のためHTMLエスケープしておく。 -->
-          <input class="form-control" type="text" name="name" value="<?php echo forxss($_POST['name']) ?>">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Eメールアドレス</label>
-          <input class="form-control" type="email" name="email" value="<?php echo forxss($_POST['email']) ?>">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">パスワード</label>
-          <input class="form-control" type="password" name="password" value="">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">パスワード(確認)</label>
-          <input class="form-control" type="password" name="confirm_password" value="">
-        </div>
-        <div class="submit">
-          <button type="submit" class="btn btn-primary btn-sm" value="新規登録">新規登録</button>
-        </div>
-      </form>
-      <p style="margin-top: 20px; size: 0.8em; text-align: center;"><a href="./index.php" style="text-decoration: none; color:cornflowerblue">サイトトップ</a>に移動する。</p>
-    </div>
-  </div>
+<body class="text-center">
+  <main class="form-signin">
+    <?php
+    // 要確認　HTML内のPHPコードのエスケープのやり方を確認する。
+    if ($err_mesg) {
+      echo '<div class="alert alert-danger" role="alert">';
+      // $err_mesgに中に格納されているエラーメッセージは配列の状態になっていて、
+      // 関数「implode」を使って1行ずつ「br」で改行しながら出力させているのだと思う。
+      // 要確認　配列を1行ずつ吐き出す 『implode』
+      echo implode('<br>', $err_mesg);
+      echo '</div>';
+    }
+    ?>
+    <!-- POSTで自分自身（register.php）へインスタンスを投げるフォームの宣言。 -->
+    <form action="./register.php" method="POST">
+      <h3 class="form-heading">メンバー登録</h3>
+      <div class="form-floating">
+        <input class="form-control" type="text" id="floatingInput" name="name" value="<?php echo forxss($_POST['name']) ?>">
+        <label for="floatingInput">お名前</label>
+      </div>
+      <div class="form-floating">
+        <input class="form-control" type="email" id="floatingInput" name="email" value="<?php echo forxss($_POST['email']) ?>">
+        <label for="floatingInput">Eメールアドレス</label>
+      </div>
+      <div class="form-floating">
+        <input class="form-control" type="password" id="floatingPassword" name="password" value="">
+        <label for="floatingPassword">パスワード</label>
+      </div>
+      <div class="form-floating">
+        <input class="form-control" type="password" id="floatingPassword" name="confirm_password" value="">
+        <label for="floatingPassword">パスワード(確認)</label>
+      </div>
+
+      <button id="btn" class="w-100 btn btn-lg btn-primary" type="submit">送信</button>
+
+      <p class="notes"><a href="./index.php" style="text-decoration: none; color:cornflowerblue">サイトトップ</a>に移動する。</a></p>
+
+      <p class="mt-5 mb-3 text-muted">&copy; kumihan.com</p>
+    </form>
+  </main>
 </body>
+
+</html>
