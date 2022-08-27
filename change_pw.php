@@ -1,7 +1,4 @@
 <?php
-// 方針として、
-// 自作関数をプロジェクトに『lib（ライブラリー）』ディレクトリを設置
-// DB関連の秘匿情をwww以外の階層で管理する。
 require_once('../tmp/conf.php');
 require_once('./lib/function.php');
 // セッション開始
@@ -62,6 +59,7 @@ if ($_POST) {
         $stmt->bindValue(':password', $hashed_new_pw, PDO::PARAM_STR);
         $stmt->execute();
         $mesg[] = "パスワードを<br>変更しました。";
+        $complete = true;
       } else {
         $err_mesg[] = '登録されたパスワードと違います。';
         $err_mesg[] = 'パスワードを<a href="./logout.php">再発行</a>されますか？';
@@ -169,8 +167,7 @@ if ($_POST) {
     }
     ?>
     <?php if ($complete) { ?>
-      <p>パスワードを変更しました。</p>
-      <a href="./member.php">メンバーページへ</a>
+      <a href="./login.php">ログインへ</a>
     <?php } else { ?>
       <form action="./change_pw.php" method="POST">
         <h3 class="form-heading">パスワードの変更</h3>

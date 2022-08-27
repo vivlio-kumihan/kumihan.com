@@ -1,10 +1,13 @@
-<!-- session切符を持っていないことが前提になる。 -->
 
 <?php
 require_once('../tmp/conf.php');
 require_once('./lib/function.php');
+
+// session切符を持っていないことが前提になる。
+
 // 初期化
 $err_mesg = array();
+$mesg = array();
 // 初期状態でEメールアドレスを入力するフォームを出しておきたいがための真偽値をここで設定する。
 $complete = false;
 
@@ -21,61 +24,51 @@ if ($_POST) {
     // 入力されたEメールアドレスをvalidateしてみて不正であれば、
   } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $err_mesg[] = '入力されたEメールアドレスは不正です。';
-  } else {
-    // DB接続に係る変数を生成
-    $dsn = DNS;
-    $user = DB_USER;
-    $pwd = DB_PASSWORD;
-    $dbh = new PDO($dsn, $user, $pwd);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    try {
-      $sql = "SELECT * FROM member WHERE email = :email LIMIT 1";
-      $stmt = $dbh->prepare($sql);
-      $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-      $stmt->execute();
-      // 入力したEメールアドレス『$_POST['email']』でDBを検索し、1件のヒットがあったら、
-      if ($stmt->rowCount() > 0) {
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        // ================ 重要 =================
-        // 再発行するパスワードを生成する。
-        $tmp_pw = bin2hex(random_bytes(5));
-        // ================ 重要 =================
-        // サーバーにメールを送信させる命令。
-        // 日本語の送信で文字化けが起こる場合、mail.phpを参照する。
-        $mesg = "パスワードを変更しました。\r\n新パスワード => ".$tmp_pw."\r\n";
-        mail($email, 'パスワードの再発行いたしました。', $mesg);
-        // パスワードハッシュをかける。
-        $hashed_tmp_pw = password_hash($tmp_pw, PASSWORD_DEFAULT);
-        // 該当のデータをアップデートする。
-        $sql = "UPDATE member SET password = :password WHERE {$data['id']}";
-        $stmt = $dbh->prepare($sql);
-        $stmt->bindValue(':password', $hashed_tmp_pw, PDO::PARAM_STR);
-        $stmt->execute();
-        $mesg[] = "パスワードを登録されている、あなたのEメールアドレス宛に送信しました。";
-        $complete = true;
-      } else {
-        $err_mesg[] = '登録されたパスワードと違います。';
-        $err_mesg[] = 'パスワードを<a href="./logout.php">再発行</a>されますか？';
-      }
-    } catch (PDOException $e) {
-      print("接続に失敗しました。" . $e->getMessage());
-      die();
-    }
   }
-  // falseではない => trueであれば、メッセージを変数に代入する。
-  //そそもそも、このエラーメッセージ要るか？
-  if (!$complete) {
-    $err_mesg[] = 'Eメールアドレスが不正です。';
+  
+  // DB接続に係る変数を生成
+  $dsn = DNS;
+  $user = DB_USER;
+  $pwd = DB_PASSWORD;
+  $dbh = new PDO($dsn, $user, $pwd);
+  $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  try {
+    $sql = "SELECT * FROM member WHERE email = :email LIMIT 1";
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+    $stmt->execute();
+    // 入力したEメールアドレス『$_POST['email']』でDBを検索し、1件のヒットがあったら、
+    if ($stmt->rowCount() > 0) {
+      $data = $stmt->fetch(PDO::FETCH_ASSOC);
+      // ================ 重要 =================
+      // 再発行するパスワードを生成する。
+      $tmp_pw = bin2hex(random_bytes(5));
+      // ================ 重要 =================
+      // サーバーにメールを送信させる命令。
+      // 日本語の送信で文字化けが起こる場合、mail.phpを参照する。
+      $mesg = "パスワードを変更しました。\r\n新パスワード => " . $tmp_pw . "\r\n";
+      mail($email, 'パスワードの再発行いたしました。', $mesg);
+      // パスワードハッシュをかける。
+      $hashed_tmp_pw = password_hash($tmp_pw, PASSWORD_DEFAULT);
+      // 該当のデータをアップデートする。
+      $sql = "UPDATE member SET password = :password WHERE {$data['id']}";
+      $stmt = $dbh->prepare($sql);
+      $stmt->bindValue(':password', $hashed_tmp_pw, PDO::PARAM_STR);
+      $stmt->execute();
+      $mesg[] = "パスワードを登録されているEメールアドレス宛に送信しました。";
+      $complete = true;
+      var_dump($mesg);
+      var_dump(complete);
+    } else {
+      $err_mesg[] = '登録されたパスワードと違います。';
+      $err_mesg[] = 'パスワードを<a href="./logout.php">再発行</a>されますか？';
+    }
+  } catch (PDOException $e) {
+    print("接続に失敗しました。" . $e->getMessage());
+    die();
   }
 } else {
   // GETの時の処理
-  // 確認　この処理は不要では？
-  // if (isset($_SESSION['email']) && $_SESSION['email']) {
-  //   $host = $_SERVER['HTTP_HOST'];
-  //   $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-  //   header("Location: //$host$uri/member.php");
-  //   exit;
-  // }
   $_POST = array();
   $_POST['email'] = '';
 }
@@ -114,8 +107,7 @@ if ($_POST) {
       <!-- 初期状態で入力欄を配置する。 -->
       <!-- 再発行処理が完了しているかの真偽は変数$completeで判断する。 -->
       <?php if ($complete) { ?>
-        <p>登録されているEメールアドレス宛にパスワードを再発行しました。</p>
-        <a href="./login.php">ログインページへ</a>
+        <a href="./login.php">ログインへ</a>
       <?php } else { ?>
         <!-- POSTで自分自身にインスタンス（Eメールアドレス）を投げる。 -->
         <form action="./forget_pw.php" method="POST">
@@ -126,6 +118,8 @@ if ($_POST) {
           <div class="submit">
             <button type="submit" class="btn btn-primary btn-sm" value="再発行">再発行</button>
           </div>
+          <p class="notes"><br><a href="./login.php" style="text-decoration: none; color:cornflowerblue">ログイン</a>へ戻る。</p>
+          <p class="mt-5 mb-3 text-muted">&copy; kumihan.com</p>
         </form>
       <?php } ?>
     </div>
