@@ -45,10 +45,48 @@ $images = glob('./images/album/*.jpg');
       user-select: none;
     }
 
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
+    @media (max-width: 767px) {
+      h1.page-title {
+        margin-bottom: 0;
       }
+
+      .bx-viewport {
+        height: 694.25px;
+      }
+
+      .bx-pager {
+        display: none;
+      }
+
+      #view {
+        display: none;
+      }
+    }
+
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+
+    .py-5 {
+      padding-top: 0rem !important;
+      padding-bottom: 0rem !important;
+    }
+    
+    .py-lg-5 {
+      padding-top: 1.5rem !important;
+      padding-bottom: 1rem !important;
+    }
+
+    .bx-viewport {
+      height: 620px;
+    }
+
+    .bx-wrapper {
+      margin-bottom: 30px !important;
+    }
+
+    .bx-pager {
+      display: none;
     }
   </style>
 
@@ -62,8 +100,8 @@ $images = glob('./images/album/*.jpg');
       <div class="container">
         <div class="row">
           <div class="col-sm-8 col-md-7 py-4">
-            <h4 class="text-white">About</h4>
-            <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+            <!-- <h4 class="text-white">About</h4> -->
+            <!-- <p class="text-muted"></p> -->
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
             <ul class="list-unstyled">
@@ -96,7 +134,6 @@ $images = glob('./images/album/*.jpg');
   </header>
 
   <main>
-
     <section class="py-5 text-center container">
       <!-- ページタイトル -->
       <div class="row py-lg-5">
@@ -112,7 +149,7 @@ $images = glob('./images/album/*.jpg');
         <?php } ?>
       </div>
 
-      <div class="row">
+      <div id="view" class="row">
         <?php foreach ($images as $photo) { ?>
           <div class="col-2">
             <?php echo '<img src="', $photo, '" alt="thumbnail" class="img-fluid img-thumbnail" style="margin-bottom : 15px;">'; ?>
@@ -122,15 +159,6 @@ $images = glob('./images/album/*.jpg');
     </section>
   </main>
 
-  <footer class="text-muted py-5">
-    <div class="container">
-      <p class="float-end mb-1">
-        <a href="#">Back to top</a>
-      </p>
-      <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-      <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
-    </div>
-  </footer>
   <script src="https://kit.fontawesome.com/678cad97f5.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

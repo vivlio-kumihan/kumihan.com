@@ -10,6 +10,7 @@
 }
 
 h1.page-title {
+  margin-bottom: 0rem;
   font-family: 'Open Sans', sans-serif;
   font-weight: 800;
   font-size: 32px;
