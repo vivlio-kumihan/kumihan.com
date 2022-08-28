@@ -25,7 +25,7 @@
 - macOS 10.13 (High Sierra) 以上
 - Windows 10
 - 以下がインストールずみであること
-    - [Node.js](https://nodejs.org/ja/) (v10 以上、ただし v14.0.0 以外)
+    - [Node.js](https://nodejs.org/ja/) (v12 以上)
 - 印刷用PDFファイルの出力には、以下のインストールも必要
     - [ghostscript](https://www.ghostscript.com/)
     - [Xpdf](https://texwiki.texjp.org/?Xpdf)
@@ -222,7 +222,7 @@ theme: 'sample.css',
 
 テーマパッケージは本のスタイルを定義したCSSファイルを含みます。仕様は下記を参照してください。
 
-- [Theme Design Guideline (Draft)](https://github.com/vivliostyle/themes/blob/master/DESIGN.md)
+- [Theme の仕様](https://vivliostyle.github.io/themes/#/ja/spec)
 
 なお、テーマパッケージは下記から取得できます。
 

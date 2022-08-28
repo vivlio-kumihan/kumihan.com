@@ -25,7 +25,7 @@ In this document, a PDF file that contains multiple pages is collectively referr
 - macOS 10.13 (High Sierra) or higher
 - Windows 10
 - The following must be installed.
-    - [node.js](https://nodejs.org/) (v10 or higher, except v14.0.0)
+    - [node.js](https://nodejs.org/) (v12 or higher)
 - The following installations are also required to output PDF file for printing.
     - [ghostscript](https://www.ghostscript.com/)
     - [Xpdf](https://www.xpdfreader.com/)
@@ -218,7 +218,7 @@ theme: 'sample.css',
 ```
 A theme package contains a CSS file that defines the style of the book. Please refer to A specification below.
 
-- [Theme Design Guideline (Draft)](https://github.com/vivliostyle/themes/blob/master/DESIGN.md)
+- [Spec of Theme](https://vivliostyle.github.io/themes/#/spec)
 
 The theme package can be obtained from the following.
 
