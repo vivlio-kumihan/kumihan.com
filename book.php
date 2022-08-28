@@ -22,6 +22,6 @@ if (!$_SESSION['email']) {
 <body>
   <h3>Book</h3>
   <p>こちらが<a href="./sample/index.html" target="”_blank”">WebPageのサンプルページ</a> です。<br>そして、 <a href="./vivliostyle-viewer-latest/viewer/#src=https://kumihan.com/sample/index.html&amp;bookMode=true" target="”_blank”">WebBookのサンプルページ</a> です。</p>
-  
+  <p>編集開始</p>
 </body>
 </html>
