@@ -64,6 +64,7 @@ if ($_POST) {
     // 氏名の時と理屈・やり方は同じ。
     // 課題　リファクタリングの対象。
   } elseif ($email) {
+    echo "66";
     try {
       $sql = "SELECT COUNT(id) FROM `member` WHERE `email` = :email";
       $stmt = $dbh->prepare($sql);
@@ -106,6 +107,7 @@ if ($_POST) {
   // ここのsqlに入っているカッコ　なぜ前のsqlにはないのか？
   // :変数名の理解が不十分
   // foreachで回せるが短いから意味なし？
+  echo "55";
   if (!$err_mesg) {
     try {
       $date = date('Y-m-d H:i:s');
