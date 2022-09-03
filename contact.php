@@ -6,8 +6,8 @@
 // 暗号論的にセキュアな乱数が発生させる関数
 // $token = bin2hex(random_bytes(32));
 
-require_once('./conf.php');
-require_once('./function.php');
+require_once('../../tmp/conf.php');
+require_once('./lib/function.php');
 
 // セッション開始
 session_start();

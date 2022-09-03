@@ -1,8 +1,7 @@
 <?php
-// require_once('../../tmp/conf.php');
-// require_once('./lib/function.php');
-require_once('./conf.php');
-require_once('./function.php');
+require_once('../../tmp/conf.php');
+require_once('./lib/function.php');
+
 // 初期化
 $err_mesg = array();
 $mesg = array();
@@ -56,14 +55,8 @@ if ($_POST) {
       $stmt = $dbh->prepare($sql);
       $stmt->bindValue(':password', $hashed_tmp_pw, PDO::PARAM_STR);
       $stmt->execute();
-      //////////////////////////////////////////////// 質問
-      // メッセージを出したい。
-      // ログインしている会員もパスワードを忘れることがある。
-      // ログアウトの画にメッセージをいれることはできないか？
-      $mesg[] = "パスワードを登録されている<br>Eメールアドレス宛に<br>送信しました。";
       $complete = true;
-    
-      // とりあえずエスケープ
+      $mesg[] = "パスワードを登録されているEメールアドレス宛に送信しました。";
       // $host = $_SERVER['HTTP_HOST'];
       // $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
       // header("Location: //$host$uri/logout.php");

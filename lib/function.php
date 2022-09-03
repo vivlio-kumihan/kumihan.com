@@ -1,5 +1,5 @@
 <?php
-require_once('./conf.php');
+require_once('../../tmp/conf.php');
 
 // エスケープ処理
 // エスケープ処理を行うと「キーボードから入力できない文字を出力させる」ことや

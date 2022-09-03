@@ -2,41 +2,34 @@
 // 方針として、
 // 自作関数をプロジェクトに『lib（ライブラリー）』ディレクトリを設置
 // DB関連の秘匿情をwww以外の階層で管理する。
-require_once('./conf.php');
-require_once('./function.php');
+require_once('../../tmp/conf.php');
+require_once('./lib/function.php');
+
 // エラーメッセージ対応。配列として初期化。
 $err_mesg = array();
-
+echo "11";
 // POST情報が入ってきた場合の処理開始。
 if ($_POST) {
-  echo "postした";
   // 自作関数でフォームから入力されたPOSTの中身を変数に格納する。
   $name = get_post('name');
-  echo $name;
   $email = get_post('email');
-  echo $email;
   $password = get_post('password');
-  echo $password;
   $confirm_password = get_post('confirm_password');
-  echo $confirm_password;
+  echo "22";
   try {
     $dsn = DNS;
-    echo $dsn;
     $user = DB_USER;
-    echo $user;
     $pwd = DB_PASSWORD;
-    echo $pwd;
     $dbh = new PDO($dsn, $user, $pwd);
     
-
   } catch (PDOException $e) {
     // $eにエラーメッセージが含まれてたら、getMessage()で取り出して処理しますよという命令。
     echo ("接続に失敗しました。" . $e->getMessage());
     die();
   }
-  echo "$dbhを通過前";
+  echo "33";
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  echo "$dbhを通過後";
+  echo "44";
 
   // $dbh = get_db_connect();
 
@@ -57,10 +50,6 @@ if ($_POST) {
       die();
     }
   }
-
-  echo "name ok";
-  
-
 
   //   Eメールアドレス
   // $_POSTに 'email'の値が無ければ、
@@ -90,9 +79,6 @@ if ($_POST) {
     }
   }
 
-  echo "email ok";
-
-
   //   パスワード
   // $_POSTに 'password'の値が無ければ、
   if (!$password) {
@@ -112,7 +98,6 @@ if ($_POST) {
   // パスワーを暗号化する。
   $password = password_hash($password, PASSWORD_DEFAULT);
 
-  echo "pw ok";
   // このifが大切。ここでifで分岐させないと値の重複を感知しても、
   // そのまま素通りでDBと登録されてしまう。
 

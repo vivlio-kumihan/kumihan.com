@@ -1,9 +1,6 @@
 <?php
-// require_once('../../tmp/conf.php');
-// require_once('./lib/function.php');
-require_once('./conf.php');
-require_once('./function.php');
-
+require_once('../../tmp/conf.php');
+require_once('./lib/function.php');
 // セッション開始
 // ログインフォームでの認証を経てWebPage内へ入場する。
 // その際セッションをスタートする宣言をする。

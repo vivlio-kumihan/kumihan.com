@@ -1,8 +1,7 @@
 <?php
-// require_once('../../tmp/conf.php');
-// require_once('./lib/function.php');
-require_once('./conf.php');
-require_once('./function.php');
+require_once('../../tmp/conf.php');
+require_once('./lib/function.php');
+
 // セッション開始
 session_start();
 // セッションの切符も持っていない訪問者にログインページへリダイレクト処理。
