@@ -43,8 +43,8 @@ if ($_POST) {
       // ================ 重要 =================
       // サーバーにメールを送信させる命令。
       // 日本語の送信で文字化けが起こる場合、mail.phpを参照する。
-      $mesg = "パスワードを変更しました。\r\n新パスワード => " . $tmp_pw . "\r\n";
-      mail($email, 'パスワードの再発行いたしました。', $mesg);
+      $mail_mesg = "パスワードを変更しました。\r\n新パスワード => " . $tmp_pw . "\r\n";
+      mail($email, 'パスワードの再発行いたしました。', $mail_mesg);
       // パスワードハッシュをかける。
       $hashed_tmp_pw = password_hash($tmp_pw, PASSWORD_DEFAULT);
       // 該当のデータをアップデートする。
@@ -52,11 +52,11 @@ if ($_POST) {
       $stmt = $dbh->prepare($sql);
       $stmt->bindValue(':password', $hashed_tmp_pw, PDO::PARAM_STR);
       $stmt->execute();
-      // $complete = true;
-      // $mesg[] = "パスワードを登録されているEメールアドレス宛に送信しました。";
-      $host = $_SERVER['HTTP_HOST'];
-      $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-      header("Location: //$host$uri/logout.php");
+      $complete = true;
+      $mesg[] = "パスワードを登録されているEメールアドレス宛に送信しました。";
+      // $host = $_SERVER['HTTP_HOST'];
+      // $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+      // header("Location: //$host$uri/logout.php");
     } else {
       $err_mesg[] = '登録されたパスワードと違います。';
     }
