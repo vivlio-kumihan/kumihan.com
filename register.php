@@ -2,7 +2,7 @@
 // 方針として、
 // 自作関数をプロジェクトに『lib（ライブラリー）』ディレクトリを設置
 // DB関連の秘匿情をwww以外の階層で管理する。
-require_once('../tmp/conf.php');
+require_once('../../tmp/conf.php');
 require_once('./lib/function.php');
 
 // エラーメッセージ対応。配列として初期化。

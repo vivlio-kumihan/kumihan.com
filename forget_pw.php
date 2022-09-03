@@ -1,5 +1,5 @@
 <?php
-require_once('../tmp/conf.php');
+require_once('../../tmp/conf.php');
 require_once('./lib/function.php');
 
 // 初期化

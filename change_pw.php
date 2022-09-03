@@ -1,5 +1,5 @@
 <?php
-require_once('../tmp/conf.php');
+require_once('../../tmp/conf.php');
 require_once('./lib/function.php');
 // セッション開始
 session_start();
