@@ -80,13 +80,13 @@ if (!$_SESSION['email']) {
     </section>
   </main>
 
-  <footer class="text-muted py-5">
+  <!-- <footer class="text-muted py-5">
     <div class="container">
       <p class="float-end mb-1">
         <a href="#">Back to top</a>
       </p>
     </div>
-  </footer>
+  </footer> -->
   <script src="https://kit.fontawesome.com/678cad97f5.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

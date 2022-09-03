@@ -29,6 +29,7 @@
 						<div id="menu">
 							<ul>
 								<li><a href="./index.php">Home</a></li>
+								<li><a href="./member.php">Member</a></li>
 								<li><a href="./book.php">Book</a></li>
 								<li><a href="./photo.php">Photo</a></li>
 								<li><a href="./blog.php">Blog</a></li>
@@ -72,14 +73,14 @@
 					<h2>この一ヶ月で出来たこと</h2>
 					<ul>
 						<li>WEB制作で使うPHPの文法の習得。</li>
-						<li>PHPからデータベースへ簡単にアクセスするための拡張モジュールPDO（PHP Data Objects）の操作。</li>
 						<li>phpMyAdminを使ったデータベース（SQL）の操作。</li>
+						<li>PHPからデータベースへ簡単にアクセスするための拡張モジュールPDO（PHP Data Objects）の操作。</li>
 						<li>HTMLの仕様による動的サイトの構築(POST/GET, SESSION)。</li>
 					</ul>
 					<h2>課題</h2>
 					<ul>
-						<li>HTML5、CSS3を使ったハードコーディングでのサイト構築がイメージできるようになりたい。</li>
-						<li>PHPのコードが初級レベル。とはいえ、まずは現状書いたコードの流れをしっかりと身につけたい。</li>
+						<li>DB廻りで書いたPHPのコードで予定の動きが完成出来ていない箇所がある。</li>
+						<li>完成させてCRUDの理解を定着させたい。</li>
 					</ul>
 					<h2>これからの一ヶ月</h2>
 					<ul>
@@ -90,8 +91,12 @@
 				</header>
 				<ul class="icons major">
 					<li>
+						<span class="icon solid major fa-people-group"></span>
+						<h3 class="pict_name"><a href="./member.php">Member</a></h3>
+					</li>
+					<li>
 						<span class="icon solid major fa-book"></span>
-						<h3 class="pict_name"><a href="#">Book</a></h3>
+						<h3 class="pict_name"><a href="./book.php">Book</a></h3>
 					</li>
 					<li>
 						<span class="icon solid major fa-camera-retro"></span>

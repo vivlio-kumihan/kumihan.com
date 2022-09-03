@@ -6,8 +6,8 @@
 // 暗号論的にセキュアな乱数が発生させる関数
 // $token = bin2hex(random_bytes(32));
 
-require_once('../tmp/conf.php');
-require_once('./lib/function.php');
+require_once('./conf.php');
+require_once('./function.php');
 
 // セッション開始
 session_start();
@@ -114,7 +114,7 @@ if (isset($_POST['back']) && $_POST['back']) {
       . "お問合せ内容:\r\n"
       . preg_replace("/\r\n|\r|\n/", "\r\n", $_SESSION['mesg']);
     mail($_SESSION['contact_email'], '【kumihan.com】お問合せを受け付けました。', $message_for_customer);
-    mail('studio.quad9@gmail.com', "{$_SESSION['name']}様からお問合せ受付の件", $message_to_staff);
+    mail('info@quad9.sakura.ne.jp', "{$_SESSION['name']}様からお問合せ受付の件", $message_to_staff);
     // お問合せで使ったセッションを解放する。もちろんEmailのセッションは残さないといけない。
     $_SESSION['name'] = '';
     $_SESSION['contact_email'] = '';

@@ -2,44 +2,54 @@
 // 方針として、
 // 自作関数をプロジェクトに『lib（ライブラリー）』ディレクトリを設置
 // DB関連の秘匿情をwww以外の階層で管理する。
-require_once('../tmp/conf.php');
-require_once('./lib/function.php');
-
+require_once('./conf.php');
+require_once('./function.php');
 // エラーメッセージ対応。配列として初期化。
 $err_mesg = array();
 
 // POST情報が入ってきた場合の処理開始。
 if ($_POST) {
+  echo "postした";
   // 自作関数でフォームから入力されたPOSTの中身を変数に格納する。
   $name = get_post('name');
+  echo $name;
   $email = get_post('email');
+  echo $email;
   $password = get_post('password');
+  echo $password;
   $confirm_password = get_post('confirm_password');
-  // DB接続に係る変数を生成
-  // 課題　ライブラリかよ呼び出してDBのインスタンを生成出来るようにする。
-  $dsn = DNS;
-  $user = DB_USER;
-  $pwd = DB_PASSWORD;
-  // PHPからSQLを使ってDBを操るための肝の部分。
-  $dbh = new PDO($dsn, $user, $pwd);
+  echo $confirm_password;
+  try {
+    $dsn = DNS;
+    echo $dsn;
+    $user = DB_USER;
+    echo $user;
+    $pwd = DB_PASSWORD;
+    echo $pwd;
+    $dbh = new PDO($dsn, $user, $pwd);
+    
+
+  } catch (PDOException $e) {
+    // $eにエラーメッセージが含まれてたら、getMessage()で取り出して処理しますよという命令。
+    echo ("接続に失敗しました。" . $e->getMessage());
+    die();
+  }
+  echo "$dbhを通過前";
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  echo "$dbhを通過後";
+
+  // $dbh = get_db_connect();
 
   // 入力チェックをする。
   //   名前
   // $_POSTに 'name'の値が無ければ、
   if (!$name || mb_strlen($name) > 20) {
     $err_mesg[] = 'お名前を入力してください。';
-    // DBに既に登録されている氏名の場合にエラを出す処理をする箇所。
+    // DBに既に『氏名』が登録されているの場合にエラーを出す処理をする箇所。
   } elseif ($name) {
     try {
-      // 任意の値で検索してヒットした件数を手がかりに、
-      // 値の重複を回避するコード
-      $sql = "SELECT COUNT(id) FROM `member` WHERE `name` = :name";
-      $stmt = $dbh->prepare($sql);
-      $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-      $stmt->execute();
-      $count = $stmt->fetch(PDO::FETCH_ASSOC);
-      if ($count['COUNT(id)'] > 0) {
+      $res = name_exists($dbh, $name);
+      if ($res) {
         $err_mesg[] = '記入されたお名前は既に登録されています。';
       }
     } catch (PDOException $e) {
@@ -47,6 +57,11 @@ if ($_POST) {
       die();
     }
   }
+
+  echo "name ok";
+  
+
+
   //   Eメールアドレス
   // $_POSTに 'email'の値が無ければ、
   if (!$email) {
@@ -74,6 +89,10 @@ if ($_POST) {
       die();
     }
   }
+
+  echo "email ok";
+
+
   //   パスワード
   // $_POSTに 'password'の値が無ければ、
   if (!$password) {
@@ -93,8 +112,15 @@ if ($_POST) {
   // パスワーを暗号化する。
   $password = password_hash($password, PASSWORD_DEFAULT);
 
+  echo "pw ok";
   // このifが大切。ここでifで分岐させないと値の重複を感知しても、
   // そのまま素通りでDBと登録されてしまう。
+
+
+  //////////////////////////////////////////////////////  質問
+  // ここのsqlに入っているカッコ　なぜ前のsqlにはないのか？
+  // :変数名の理解が不十分
+  // foreachで回せるが短いから意味なし？
   if (!$err_mesg) {
     try {
       $date = date('Y-m-d H:i:s');
@@ -108,6 +134,12 @@ if ($_POST) {
       echo ("接続に失敗しました。" . $e->getMessage());
       die();
     }
+
+    ////////////////////////////////////////////////////  質問
+    // '/\\'は何か？
+    // exit;必要なところと不要なところ　何で区別してる？
+    // リダイレクトする処理はこれが最適か？　であれば関数化したい。
+    
     // 登録を済ませたので、ログイン画面へメンバーページへリダイレクトする。
     $host = $_SERVER['HTTP_HOST'];
     $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -116,11 +148,21 @@ if ($_POST) {
   }
 } else {
   // GETの時の処理
-  // メールアドレスは正しく、パスワードに不正があって再度入力しなければいけない場合、
-  // 入力欄が全てリセットされてしまう。
-  // ユーザーの利便性を考えて、メールアドレスは残してパスワードだけ入力を促す画面構成にするため、
-  // 『form』の『input属性value』に『echo htmlspecialchars($_POST['email'])』とする。
-  // そうすると、GET時に初回の入力で『$_POST['name']』『$_POST['email']』て定義されていないとPHPの警告が出るらしい。
+  // メールアドレスは正しく、パスワードに不正があって
+  // 再度入力しなければいけない場合、入力欄が全てリセット
+  // されてしまう。
+  // ユーザーの利便性を考えて、メールアドレスは残して
+  // パスワードだけ入力を促す画面構成にする。
+  // 『form』の『input属性value』に
+  // 『echo htmlspecialchars($_POST['email'])』とする。
+  
+  //////////////////////////////////////////////////////  質問
+  // 入ががあってDBに値が通信されるまでどこにもXSS対策がないように見える。
+  // 22–25行の変数の初期化時にXSS対策のコードを差し込んだらいいのではないか？
+
+  // GET時に初回の入力で
+  // 『$_POST['name']』『$_POST['email']』を
+  // 空にしておかないとPHPの警告が出るらしい。
   // 回避策として変数を初期化しておく。
   $_POST = array();
   $_POST['name'] = '';

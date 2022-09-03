@@ -1,7 +1,8 @@
 <?php
-require_once('../tmp/conf.php');
-require_once('./lib/function.php');
-
+// require_once('../../tmp/conf.php');
+// require_once('./lib/function.php');
+require_once('./conf.php');
+require_once('./function.php');
 // 初期化
 $err_mesg = array();
 $mesg = array();
@@ -30,6 +31,9 @@ if ($_POST) {
   $dbh = new PDO($dsn, $user, $pwd);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+  //////////////////////////////////////////////// 質問
+  // registerと似てるけど異なる'COUNT(id)'とrowCount()
+
   try {
     $sql = "SELECT * FROM member WHERE email = :email LIMIT 1";
     $stmt = $dbh->prepare($sql);
@@ -43,8 +47,8 @@ if ($_POST) {
       // ================ 重要 =================
       // サーバーにメールを送信させる命令。
       // 日本語の送信で文字化けが起こる場合、mail.phpを参照する。
-      $mesg = "パスワードを変更しました。\r\n新パスワード => " . $tmp_pw . "\r\n";
-      mail($email, 'パスワードの再発行いたしました。', $mesg);
+      $mail_mesg = "パスワードを変更しました。\r\n新パスワード => " . $tmp_pw . "\r\n";
+      mail($email, 'パスワードの再発行いたしました。', $mail_mesg);
       // パスワードハッシュをかける。
       $hashed_tmp_pw = password_hash($tmp_pw, PASSWORD_DEFAULT);
       // 該当のデータをアップデートする。
@@ -52,13 +56,19 @@ if ($_POST) {
       $stmt = $dbh->prepare($sql);
       $stmt->bindValue(':password', $hashed_tmp_pw, PDO::PARAM_STR);
       $stmt->execute();
-      // $complete = true;
-      // $mesg[] = "パスワードを登録されているEメールアドレス宛に送信しました。";
-      $host = $_SERVER['HTTP_HOST'];
-      $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-      header("Location: //$host$uri/logout.php");
+      //////////////////////////////////////////////// 質問
+      // メッセージを出したい。
+      // ログインしている会員もパスワードを忘れることがある。
+      // ログアウトの画にメッセージをいれることはできないか？
+      $mesg[] = "パスワードを登録されている<br>Eメールアドレス宛に<br>送信しました。";
+      $complete = true;
+    
+      // とりあえずエスケープ
+      // $host = $_SERVER['HTTP_HOST'];
+      // $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+      // header("Location: //$host$uri/logout.php");
     } else {
-      $err_mesg[] = '登録されたパスワードと違います。';
+      $err_mesg[] = '登録されたEメールアドレスと違います。';
     }
   } catch (PDOException $e) {
     print("接続に失敗しました。" . $e->getMessage());
@@ -148,17 +158,17 @@ if ($_POST) {
   <main class="form-signin">
     <?php
     if ($err_mesg) {
-      echo '<div class="alert alert-danger" role="alert">';
+      echo '<div class="alert alert-danger" role="alert style="font-size: 0.85rem;">';
       echo implode('<br>', $err_mesg);
       echo '</div>';
     } elseif ($mesg) {
-      echo '<div class="alert alert-success" role="alert">';
+      echo '<div class="alert alert-success" role="alert" style="font-size: 0.85rem;">';
       echo implode('<br>', $mesg);
       echo '</div>';
     }
     ?>
     <?php if ($complete) { ?>
-      <a href="./login.php">ログインへ</a>
+      <a href="./logout.php" style="font-size: 0.85rem;">ログアウトへ</a>
     <?php } else { ?>
       <form action="./forget_pw.php" method="POST">
         <h3 class="form-heading">パスワードの再発行</h3>

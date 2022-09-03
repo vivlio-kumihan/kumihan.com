@@ -110,3 +110,4 @@ function all_select_comments($dbh) {
   }
   return $data;
 }
+?>

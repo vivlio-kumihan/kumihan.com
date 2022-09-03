@@ -1,6 +1,8 @@
 <?php
-require_once('../tmp/conf.php');
-require_once('./lib/function.php');
+// require_once('../../tmp/conf.php');
+// require_once('./lib/function.php');
+require_once('./conf.php');
+require_once('./function.php');
 // セッション開始
 session_start();
 // セッションの切符も持っていない訪問者にログインページへリダイレクト処理。
@@ -167,8 +169,8 @@ if ($_POST) {
     }
     ?>
     <?php if ($complete) { ?>
-      <p>一旦ログアウトしてご確認ください。</p>
-      <a href="./logout.php">ログアウトへ</a>
+      <p>一旦ログアウトして<br>ご確認ください。</p>
+      <a href="./logout.php" style="font-size: 0.85rem;">ログアウトへ</a>
     <?php } else { ?>
       <form action="./change_pw.php" method="POST">
         <h3 class="form-heading">パスワードの変更</h3>

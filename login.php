@@ -1,6 +1,8 @@
 <?php
-require_once('../tmp/conf.php');
-require_once('./lib/function.php');
+// require_once('../../tmp/conf.php');
+// require_once('./lib/function.php');
+require_once('./conf.php');
+require_once('./function.php');
 
 // セッション開始
 // ログインフォームでの認証を経てWebPage内へ入場する。
@@ -45,6 +47,7 @@ if ($_POST) {
   $pwd = DB_PASSWORD;
   $dbh = new PDO($dsn, $user, $pwd);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  // $dbh = get_db_connect();
 
   try {
     $sql = "SELECT * FROM `member` WHERE `email` = :email LIMIT 1";
@@ -190,6 +193,7 @@ if ($_POST) {
       <button id="btn" class="w-100 btn btn-lg btn-primary" type="submit">送信</button>
 
       <p class="notes">はじめての方は<br><a href="./register.php" style="text-decoration: none; color:cornflowerblue">メンバー登録</a>をお願いします。</p>
+      <!-- <p class="notes">はじめての方は<br><a href="./register.php" style="text-decoration: none; color:cornflowerblue">メンバー登録</a>をお願いします。</p> -->
       <p class="notes"><a href="./forget_pw.php" style="text-decoration: none; color:cornflowerblue">パスワードを忘れた方</a><br>はこちらから。</p>
 
       <p class="mt-5 mb-3 text-muted">&copy; kumihan.com</p>

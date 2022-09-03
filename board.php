@@ -1,5 +1,5 @@
 <?php
-require_once('../tmp/conf.php');
+require_once('../../tmp/conf.php');
 require_once('./lib/function.php');
 
 // セッション開始
@@ -14,19 +14,21 @@ if (!$_SESSION['email']) {
 
 $err_mesg = array();
 $data = array();
-// DB接続に係る変数を生成
-// $db_ins = get_db_connect();
-try {
-  $dsn = DNS;
-  $user = DB_USER;
-  $pwd = DB_PASSWORD;
-  $dbh = new PDO($dsn, $user, $pwd);
-} catch (PDOException $e) {
-  echo ("接続に失敗しました。".$e->getMessage());
-  die();  
-}
-$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+try {
+    $dsn = DNS;
+    $user = DB_USER;
+    $pwd = DB_PASSWORD;
+    $dbh = new PDO($dsn, $user, $pwd);
+  } catch (PDOException $e) {
+      echo ("接続に失敗しました。".$e->getMessage());
+      die();  
+  }
+$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+// DB接続に係る変数を生成
+// $dbh = get_db_connect();
+    
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $name = get_post('name');
   $comment = get_post('comment');

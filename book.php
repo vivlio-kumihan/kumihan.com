@@ -24,6 +24,28 @@ if (!$_SESSION['email']) {
   <link rel="stylesheet" href="./assets/css/fontawesome-all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="./assets/css/another-page.css">
+  <style>
+    h3 {
+      font-family: UD Shin Go Medium;
+      font-size: 30px;
+      /* font-weight: 900; */
+    }
+
+    p.book-page {
+      font-family: UD Shin Go Regular;
+      font-size: 16px;
+    }
+
+    li.book-list {
+      margin-bottom: 0.5em;
+      font-family: UD Shin Go Regular;
+      font-size: 16px;
+    }
+
+    .book-list a {
+      text-decoration: none;
+    }
+  </style>
 </head>
 
 <body>
@@ -73,35 +95,44 @@ if (!$_SESSION['email']) {
         <!-- スマホの場合に読み込むソースを記述 -->
         <div class="col-12" style="margin: 0 auto;">
         <?php } elseif ((strpos($ua, 'Android') !== false) || (strpos($ua, 'iPad') !== false)) { ?>
-        <!-- タブレットの場合に読み込むソースを記述 -->
-        <div class="col-10" style="margin: 10px auto 0;">
-        <?php } else { ?>
-        <!-- PCの場合に読み込むソースを記述 -->
-        <div class="col-10" style="margin: 20px auto;">
-        <?php } ?>
-            <h3 style="margin-bottom: 20px;">情報を本の形でパッケージして届ける</h3>
-            <p>情報の流通の主役がWEBに移って久しいです。</p>
-            <p>奪われ続ける商機を取り戻す方策の一つとして、畑違いだという批判は承知の上で、『WEBの技術』を使って『システム』を売ることを本気で考えてみてはいかがでしょうか。</p>
-            <p>現在、WordPressでWEB案件の自社開発を社長は進めておられます。</p>
-            <p>私は、それに加え『電子』と『紙』を同時で出力できる『CSS組版システム』に備えることも、京都大学をはじめ学校の『本づくり』に半世紀以上携わってきた北斗プリントにとって重要な鍵になると考えています。</p>
-
-            <p>『CSS組版システム』とは、どういうものか、昨年、東京で開催された技術書典11で「Vivliostyleユーザー会」が頒布した同人誌『Vivliostyleで本を作ろう Vol.5』という本を参考に見ていただこうと思います。</p>
+          <!-- タブレットの場合に読み込むソースを記述 -->
+          <div class="col-10" style="margin: 10px auto 0;">
+          <?php } else { ?>
+            <!-- PCの場合に読み込むソースを記述 -->
+            <div class="col-10" style="margin: 20px auto;">
+            <?php } ?>
+            <h3 style="margin-bottom: 20px;">本を届ける新しい形</h3>
+            <p class="book-page">情報流通の主役がWEBに移って久しいですが、社長が進めておられるWordPressでWEB案件の自社開発を目指す今を契機に、印刷業の私たちがあえて『WEBの技術』を使い『本』を届ける『新しい形』に取り組んでみてはいかがでしょうか。</p>
+            <p class="book-page">具体的な事例として、WEBサイト上でマルチフォーマットの書籍として制作・公開されたドイツ国立科学技術図書館が医学生に向けたコロナウイルス対策の公衆衛生教科書をご紹介します。</p>
             <ul>
-              <li>
-                <a href="./vivliostyle-viewer-latest/viewer/#src=http://quad9.sakura.ne.jp/sample/vivliostyle_doc/ja/vivliostyle-user-group-vol5/content/index.html" target=”_blank”>通常ウェブページ</a>として閲覧。</p>
+              <li class="book-list">
+                <a href="https://vivliostyle.org/ja/blog/2020/04/10/tib-book-against-covid19/" target="_blank">Krisenmanagement</a>
               </li>
-              <li>
-                <a href="./vivliostyle-viewer-latest/viewer/#src=http://quad9.sakura.ne.jp/sample/vivliostyle_doc/ja/vivliostyle-user-group-vol5/content/&bookMode=true" target=”_blank”>Vivliostyle Viewer</a>で閲覧です。</p>
+            </ul>
+            <p class="book-page">『WEBの技術』と言っても特別なことはしていません。HTML5とCSS3を使ったCSS組版とプラットフォームはGitHub。多人数の執筆者による本の編集に対応できるのがGitHubの利点ではありますが、取り扱いが難しいということであれば、代用としてWordPress（PHP）を載せた安価なレンタルサーバーでも十分に本を広報するシステムを作ることができます。</p>
+            <p class="book-page">最後に、参考として『CSS組版システム』とは、どういうものか、昨年、このOSSを作ったVivliostyleの「Vivliostyleユーザー会」が、東京で開催された技術書典11で頒布した同人誌『Vivliostyleで本を作ろう Vol.5』という本を掲載しておきますのでご興味があれば閲覧していただければと思います。</p>
+            <ul>
+              <li class="book-list">
+                <a href="./vivliostyle-viewer-latest/viewer/#src=https://kumihan.com/sample/vivliostyle_doc/ja/vivliostyle-user-group-vol5/content/index.html" target=”_blank”>通常ウェブページ</a>として閲覧。
               </li>
-              <li>
-                <a href="./vivliostyle-viewer-latest/viewer/#src=http://quad9.sakura.ne.jp/sample/vivliostyle_doc/ja/vivliostyle-user-group-vol5/content/&bookMode=true&userStyle=data:,/*<viewer>*/%0A/*</viewer>*/%0A@page%7Bmarks:crop%20cross;bleed:3mm%7D" target=”_blank”>Vivliostyle Viewer</a>でトンボ付き出力です。</p>
+              <li class="book-list">
+                <a href="./vivliostyle-viewer-latest/viewer/#src=https://kumihan.com/sample/vivliostyle_doc/ja/vivliostyle-user-group-vol5/content/index.html&bookMode=true" target=”_blank”>Vivliostyle Viewer</a>で閲覧です。
+              </li>
+              <li class="book-list">
+                <a href="./vivliostyle-viewer-latest/viewer/#src=https://kumihan.com/sample/vivliostyle_doc/ja/vivliostyle-user-group-vol5/content/index.html&bookMode=true&userStyle=data:,/*<viewer>*/%0A/*</viewer>*/%0A@page%7Bmarks:crop%20cross;bleed:3mm%7D" target=”_blank”>Vivliostyle Viewer</a>でトンボ付き出力です。
               </li>
             </ul>
             </div>
           </div>
+
 
           <script src="https://kit.fontawesome.com/678cad97f5.js" crossorigin="anonymous"></script>
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>
 
 </html>
+
+
+<!-- <p class="book-page">WEBに奪われ続ける商機を取り戻す方策の一つとして、畑違いだという批判は承知の上で、『WEBの技術』を使って『本』を『システム』にして売るというのはいかがでしょうか。</p> -->
+<!-- <p class="book-page">現在、WordPressでWEB案件の自社開発を社長は進めておられます。</p> -->
+<!-- <p class="book-page">私は、それに加えに備えることも、京都大学をはじめ学校の『本づくり』に半世紀以上携わってきた北斗プリントにとって、重要な鍵になるのではないだろうかと考えています。</p> -->
