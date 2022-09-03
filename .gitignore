@@ -9,6 +9,7 @@
 .DS_Store
 src/
 tmp/
+.vscode/
 LICENSE.txt
 README.txt
 # .env* # for dotenv アクセスキーの件で一旦外す
