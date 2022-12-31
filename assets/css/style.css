@@ -11,6 +11,19 @@ body {
   color: #555;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100vh;
+
+  font-size: 5rem;
+  font-family: 'Fredericka the Great', cursive;
+  text-transform: capitalize;
+}
+
 .swiper-slide {
   width: 100%;
   height: 100vh;
