@@ -11,8 +11,6 @@ menuBtn.addEventListener("click", () => {
 
 // for リンクメニューのリスト
 const parentMenu = document.querySelectorAll("#parent-link-list > li > a")
-console.log(parentMenu)
-
 
 parentMenu.forEach((element, idx) => {
   element.addEventListener("click", (tagEvent) => {
