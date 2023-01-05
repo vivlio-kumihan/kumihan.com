@@ -50,3 +50,10 @@ const swiper = new Swiper('.swiper', {
     prevEl: '.swiper-button-prev',
   }
 })
+
+const thisTime = new Date(), 
+      week = ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"]
+
+let year = thisTime.getFullYear()
+// 現在時間を表示させる。
+document.querySelector(".this-year").textContent = year
