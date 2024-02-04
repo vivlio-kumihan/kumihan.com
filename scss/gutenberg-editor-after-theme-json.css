@@ -1,0 +1,5 @@
+.wp-block,
+.edit-post-visual-editor__post-title-wrapper > :where(:not(.alignleft):not(.alignright):not(.alignfull)),
+.block-editor-block-list__layout.is-root-container > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+  max-width: 840px;
+}/*# sourceMappingURL=gutenberg-editor-after-theme-json.css.map */
