@@ -831,7 +831,7 @@ img.emoji {
 .logo-image span,
 .logo-image a {
   display: inline-block;
-  max-width: 100%;
+  max-width: 65%;
 }
 
 .site-name-text-link {
@@ -854,7 +854,7 @@ img.emoji {
 }
 
 .logo-image {
-  padding: 10px 0;
+  padding: 20px 0 0;
   font-size: inherit;
 }
 
@@ -997,21 +997,21 @@ img.emoji {
 .navi-in > ul li {
   display: block;
   width: 176px;
-  height: 30px;
-  line-height: 30px;
+  height: 50px;
+  line-height: 50px;
   position: relative;
 }
 .navi-in > ul li:hover > ul {
   display: block;
 }
 .navi-in > ul .menu-item-has-description > a > .caption-wrap {
-  line-height: 10.7142857143px;
+  line-height: 17.8571428571px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   align-content: center;
-  height: 30px;
+  height: 50px;
 }
 .navi-in > ul .menu-item-has-description > a > .caption-wrap > div {
   width: 100%;
@@ -1036,7 +1036,7 @@ img.emoji {
   padding-right: 16px;
 }
 .navi-in > ul .sub-menu ul {
-  top: -30px;
+  top: -50px;
   left: 240px;
   position: relative;
 }
@@ -11484,6 +11484,7 @@ _:-ms-lang(x), .mc-circle {
     top: 3px;
   }
   #header .site-name-text {
+    max-width: 100%;
     font-size: 18px;
   }
   .tagline {
