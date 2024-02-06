@@ -1,6 +1,9 @@
 /************************************
 ** アピールエリア
 ************************************/
+
+@use "./forwards" as fw;
+
 .appeal{
   @extend %background_image;
 }
@@ -35,10 +38,17 @@
   // flex-direction: column;
   // align-content: space-between;
   //color: #fff;
+  .appeal-message{
+    p {
+      line-height: 1.7em;
+    }
+
+  }
 }
 
 .appeal-title{
-  font-size: 1.1em;
+  font-family: fw.$Roboto;
+  font-size: 2.5em;
   font-weight: bold;
 }
 

@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+  ],
+  "settings": {
+    "extensions.ignoreRecommendations": false,
+    "terminal.integrated.profiles.osx": {
+      "zsh": {
+        "path": "/bin/zsh",
+        "args": [
+          "-l",
+          "-i"
+        ]
+      }
+    },
+    "terminal.integrated.profiles.linux": {
+      "bash": {
+        "path": "/bin/bash",
+        "args": [
+          "-l",
+          "-i"
+        ]
+      }
+    }
+  }
+}
