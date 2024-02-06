@@ -2630,7 +2630,6 @@ body.wp-admin {
 .admin-settings .demo .widget_block ul li a {
   color: var(--cocoon-text-color);
   text-decoration: none;
-  padding: 10px 0;
   display: block;
   padding-right: 4px;
   padding-left: 4px;
@@ -2912,7 +2911,7 @@ body.wp-admin {
   display: none;
 }
 .admin-settings .demo .widget h2 {
-  font-size: 20px;
+  font-size: 15px;
 }
 .admin-settings .demo .entry-content .main-widget-label {
   display: none;
@@ -5709,7 +5708,7 @@ body.wp-admin {
 .admin-settings .demo .related-entry-heading,
 .admin-settings .demo .comment-title {
   margin: 22px 0;
-  font-size: 24px;
+  font-size: 18px;
 }
 .admin-settings .demo .related-entry-card-content {
   margin-left: 170px;
@@ -5880,7 +5879,7 @@ body.wp-admin {
   border: 1px solid var(--cocoon-thin-color);
   color: var(--cocoon-text-color);
   display: block;
-  font-size: 1.2em;
+  font-size: 1em;
   text-decoration: none;
   width: 100%;
   text-align: center;
@@ -10708,7 +10707,6 @@ body.wp-admin {
 .admin-settings .demo .widget_block ul li a {
   color: var(--cocoon-text-color);
   text-decoration: none;
-  padding: 10px 0;
   display: block;
   padding-right: 4px;
   padding-left: 4px;
@@ -10990,7 +10988,7 @@ body.wp-admin {
   display: none;
 }
 .admin-settings .demo .widget h2 {
-  font-size: 20px;
+  font-size: 15px;
 }
 .admin-settings .demo .entry-content .main-widget-label {
   display: none;
@@ -13787,7 +13785,7 @@ body.wp-admin {
 .admin-settings .demo .related-entry-heading,
 .admin-settings .demo .comment-title {
   margin: 22px 0;
-  font-size: 24px;
+  font-size: 18px;
 }
 .admin-settings .demo .related-entry-card-content {
   margin-left: 170px;
@@ -13958,7 +13956,7 @@ body.wp-admin {
   border: 1px solid var(--cocoon-thin-color);
   color: var(--cocoon-text-color);
   display: block;
-  font-size: 1.2em;
+  font-size: 1em;
   text-decoration: none;
   width: 100%;
   text-align: center;

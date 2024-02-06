@@ -2352,7 +2352,6 @@ label.screen-reader-text {
 .widget_block ul li a {
   color: var(--cocoon-text-color);
   text-decoration: none;
-  padding: 10px 0;
   display: block;
   padding-right: 4px;
   padding-left: 4px;
@@ -2679,7 +2678,7 @@ label.screen-reader-text {
 }
 
 .widget h2 {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .entry-content .main-widget-label {
@@ -5925,7 +5924,7 @@ figcaption {
 .related-entry-heading,
 .comment-title {
   margin: 22px 0;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .related-entry-card-content {
@@ -6135,7 +6134,7 @@ figcaption {
   border: 1px solid var(--cocoon-thin-color);
   color: var(--cocoon-text-color);
   display: block;
-  font-size: 1.2em;
+  font-size: 1em;
   text-decoration: none;
   width: 100%;
   text-align: center;

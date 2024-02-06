@@ -45,7 +45,6 @@ label.screen-reader-text{
 
       a{
         @include link_cancel;
-        padding: 10px 0;
         display: block;
         padding-right: 4px;
         padding-left: 4px;
@@ -419,7 +418,7 @@ label.screen-reader-text{
 
 .widget{
   h2{
-    font-size: 20px;
+    font-size: 15px;
   }
 }
 
