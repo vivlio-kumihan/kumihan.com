@@ -1,13 +1,12 @@
-// /src/components/layout/Layout.jsx
-// import Header from "./Header";
-// import Footer from "./Footer";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const Layout = ({ children }) => {
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <main>{children}</main>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };

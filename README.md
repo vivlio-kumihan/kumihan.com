@@ -14,6 +14,7 @@ src/
 │   │   └── Layout.module.scss
 │   └── ui/
 │       └── Button.jsx (styled-components)
+│       └── MySwiper.jsx (styled-components)
 ├── pages/
 │   ├── Home.jsx
 │   ├── Home.module.scss

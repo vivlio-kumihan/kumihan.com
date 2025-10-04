@@ -1,8 +1,13 @@
-// /src/pages/Home.jsx
+import { react } from "react";
+import MySwiper from "../components/ui/MySwiper";
+
 const Home = () => {
   return (
     <>
-      <h1>hello</h1>
+      <div className="container">
+        <h1>Hello React!</h1>
+        <MySwiper />
+      </div>
     </>
   );
 };
