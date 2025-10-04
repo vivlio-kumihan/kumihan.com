@@ -26,10 +26,11 @@
   
   a {
     color: white;
-    text-decoration: none;
+
     
     &:hover {
-      text-decoration: underline;
+      opacity: .6;
+      // text-decoration: underline;
     }
   }
 }
