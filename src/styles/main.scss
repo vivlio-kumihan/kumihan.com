@@ -33,6 +33,12 @@ a {
   text-decoration: none;
 }
 
-.tume {
-  font-feature-settings: "palt" 1;
+.wrapper {
+  margin: 2em 0;
+}
+
+.catch-base {
+  @extend.tume;
+  font-size: 1.1rem;
+  line-height: 1.2;
 }

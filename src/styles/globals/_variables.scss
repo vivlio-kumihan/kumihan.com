@@ -13,6 +13,7 @@ $font-mincho: "Noto Serif JP", "Georgia", "Times New Roman", "Yu Mincho",
               "Hiragino Mincho ProN", serif;
 $font-mono: "SF Mono", "Monaco", "Inconsolata", "Fira Code", 
             "Consolas", "Courier New", monospace;
+$font-title-en: "Ysabeau";
 
 // font-size
 $fs-xs: 0.75rem;
@@ -33,3 +34,8 @@ $fw-bold: 700;
 $lh-tight: 1.25;
 $lh-normal: 1.5;
 $lh-relaxed: 1.75;
+
+// @extendで持ち運びできるようにクラスの定義をしておく。
+.tume {
+  font-feature-settings: "palt" 1;
+}
