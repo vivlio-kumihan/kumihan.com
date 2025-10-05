@@ -6,6 +6,7 @@ const Home = () => {
     <>
       <div className="container">
         <h1>Hello React!</h1>
+        <h2>こんにちは、リアクト！</h2>
         <MySwiper />
       </div>
     </>

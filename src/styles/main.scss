@@ -1,11 +1,38 @@
 @use './globals' as *;
 
+* {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: $font-family;
-  line-height: 1.5;
+  font-family: $font-gothic;
+  line-height: $lh-normal;
   color: $text-color;
+}
+
+.content-width {
+  margin: 0 auto;
+  max-width: $content-max-width;
+  @include mq(md) {
+    width: 90%;
+  }                                     
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @extend.tume;  
+  line-height: $lh-tight;
 }
 
 a {
   text-decoration: none;
+}
+
+.tume {
+  font-feature-settings: "palt" 1;
 }

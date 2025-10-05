@@ -1,29 +1,8 @@
-@mixin p-base(
-  $which: before,
-  $top: 0,
-  $left: 0,
-  $content: "",
-  $position: absolute,
-  $width: 100%,
-  $height: 100%,
-  $display: block
-) {
-  &::#{$which} {
-    display: $display;
-    content: $content;
-    position: $position;
-    top: $top;
-    left: $left;
-    width: $width;
-    height: $height;
-    @content;
-  }
-}
-
+// map-getメソッドが非推奨になったのでモジュールの追加
+@use "sass:map";  
 
 // メディア・クエリ
-//    設定のコツは、style.sacssを参照すること。
-//    sm => md => lg => xlの順になるようスタイリングをレイアウトすることが秘訣です。
+//  sm => md => lg => xlの順になるようスタイリングをレイアウトすることが秘訣です。
 // 『min-width』の設定を『map（js的で良い）』に保存する。
 $breakpoints: (
   // 480px以上 => スマホを横向きにした時の設定
@@ -36,14 +15,12 @@ $breakpoints: (
   "xl": "(min-width: 1280px)",
 );
 
-@mixin mq($bp: md) {
-  // 『#{}』=> 変数の展開
-  @media #{map-get($breakpoints, $bp)} {
-    // 各media query内で設定されたパラメータと値が入る。
+
+@mixin mq($bp) {
+  @media #{map.get($breakpoints, $bp)} {
     @content;
   }
 }
-
 
 // アニメーション
 @mixin anime(
