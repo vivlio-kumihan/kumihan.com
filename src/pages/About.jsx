@@ -4,9 +4,9 @@ import { ImageSwiper, GraphicSwiper } from "../components/ui/MySwiper";
 
 const About = () => {
   const myImages = [
-    { id: 1, src: "public/images/210712_G9_1130904.jpg", caption: "鉄塔と光" },
-    { id: 2, src: "public/images/210806_G9_1130937.jpg", caption: "丸い雲" },
-    { id: 3, src: "public/images/210806_G9_1130958.jpg", caption: "東山の夕景" },
+    { id: 1, src: "/images/210712_G9_1130904.jpg", caption: "鉄塔と光" },
+    { id: 2, src: "/images/210806_G9_1130937.jpg", caption: "丸い雲" },
+    { id: 3, src: "/images/210806_G9_1130958.jpg", caption: "東山の夕景" },
   ];
 
   const myGraphics = [
@@ -17,7 +17,7 @@ const About = () => {
   return (
     <>
       <div className="container">
-        <h1>Slider Test</h1>
+        <h1 className={styles.aboutHeading1}>Slider Test</h1>
         <div className="wrapper">
           {/* デフォルトデータで表示 */}
           <ImageSwiper />
