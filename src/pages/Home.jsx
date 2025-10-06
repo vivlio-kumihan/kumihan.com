@@ -1,5 +1,5 @@
 import { react } from "react";
-import MySwiper from "../components/ui/MySwiper";
+// import MySwiper from "../components/ui/MySwiper";
 import styles from "./Home.module.scss";
 
 const Home = () => {
@@ -11,9 +11,9 @@ const Home = () => {
             <span>You say Good Luck, I say Hello...</span>
             Studio Quad9
           </h1>
-          <div className={`catch-base ${styles.catch}`}>こんにちは、スタジオ・クアッド9のWEBサイトへようこそ。</div>
+          <div className={`catch ${styles.catch}`}>こんにちは、スタジオ・クアッド9のWEBサイトへようこそ。</div>
         </div>
-        <MySwiper />
+        {/* <MySwiper /> */}
       </div>
     </>
   );
