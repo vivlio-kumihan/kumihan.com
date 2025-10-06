@@ -14,7 +14,8 @@
 }
 
 .btn {
-  display: flex;
-  justify-content: center;
-  gap: 2em;
+  text-align: center;
+  & :not(:first-child) {
+    margin-left: 2em;
+  }
 }

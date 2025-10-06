@@ -11,10 +11,10 @@ const Home = () => {
     { id: 3, src: "/images/210806_G9_1130958.jpg", caption: "東山の夕景" },
   ];
 
-  const [playing, setPlaying] = useState(false);
-  const switchHandler = () => {
-    setPlaying((prevState) => !prevState);
-  };
+  // const [playing, setPlaying] = useState(false);
+  // const switchHandler = () => {
+  //   setPlaying((prevState) => !prevState);
+  // };
   const ref = useRef();
 
   return (
@@ -40,7 +40,9 @@ const Home = () => {
         />
         <Movie ref={ref} path="/movies/sample.mov" />
         <div className={`wrapper ${styles.btn}`}>
-          <MovieControlButton ref={ref} />
+          <MovieControlButton ref={ref}>
+            <div className="note">hello, hello, hello</div>
+          </MovieControlButton>
           <BaseButton>Base Button</BaseButton>
         </div>
       </div>
