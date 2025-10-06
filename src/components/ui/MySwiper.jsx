@@ -16,7 +16,7 @@ import { mq } from "./MediaQuerry";
 const StyledSwiper = styled(Swiper)`
   width: ${({ $width }) => $width || "100vw"};
   height: ${({ $height }) => $height || "80vh"};
-  ${mq.lg} {
+  ${ mq.lg } {
     width: ${({ $widthMqLg }) => $widthMqLg || "100vw"};
     height: ${({ $heightMqLg }) => $heightMqLg || "600px"};
   }
