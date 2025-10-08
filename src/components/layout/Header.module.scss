@@ -1,13 +1,18 @@
 @use '../../styles/globals' as *;
 
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: $primary-color;
   padding: 1rem 0;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1080px;
   margin: 0 auto;
   padding: 0 1rem;
   display: flex;
@@ -26,11 +31,8 @@
   
   a {
     color: white;
-
-    
     &:hover {
       opacity: .6;
-      // text-decoration: underline;
     }
   }
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { mq } from "./MediaQuerry";
+
 const StyledBaseButton = styled.button`
   /* レイアウト */
   display: inline-flex;
@@ -59,7 +60,6 @@ const StyledBaseButton = styled.button`
     padding: 0 28px;
   }
 `;
-
 
 const StyledMovieControlButton = styled(StyledBaseButton)`
 `;

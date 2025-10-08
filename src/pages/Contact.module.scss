@@ -1,0 +1,48 @@
+.contact {
+  max-width: 600px;
+  margin: 85px auto 0;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  &__heading2 {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+  }
+  &__formInner {
+    margin-bottom: 1.5rem;
+  }
+  &__lavel {
+    display: block;
+    margin-bottom: .5rem;
+    font-weight: 700;
+    & > span {
+      color: #e53e3e;
+    }
+  }
+  &__input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    box-sizing: border-box;    
+  }
+  &__warning {
+    margin-top: .25rem;
+    font-size: .875rem;
+    color: #e53e3e;
+  }
+  &__btn {
+    width: 100% !important;
+  }
+  &__message {
+    margin-top: 1rem;
+    padding: 1rem;
+    text-align: center,   ;
+    color: white;
+    background-color: #48bb78;
+    border-radius: 4px;
+    &.error {
+      background-color: #e53e3e;
+    }
+  }
+}

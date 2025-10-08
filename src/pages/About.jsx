@@ -15,24 +15,22 @@ const About = () => {
   ];
 
   return (
-    <>
-      <div className="container">
-        <h1 className={styles.aboutHeading1}>Slider Test</h1>
-        <div className="wrapper">
-          {/* デフォルトデータで表示 */}
-          <ImageSwiper />
+    <div className="container">
+      <h1 className={styles.aboutHeading1}>Slider Test</h1>
+      <div className="wrapper">
+        {/* デフォルトデータで表示 */}
+        <ImageSwiper />
 
-          {/* Swiperの設定もカスタマイズ可能 */}
-          <ImageSwiper autoplay={{ delay: 5000 }} />
+        {/* Swiperの設定もカスタマイズ可能 */}
+        <ImageSwiper autoplay={{ delay: 5000 }} />
 
-          {/* カスタムデータで表示 */}
-          <ImageSwiper images={myImages} />
+        {/* カスタムデータで表示 */}
+        <ImageSwiper images={myImages} />
 
-          {/* GraphicSwiperも同様 */}
-          <GraphicSwiper slides={myGraphics} />
-        </div>
+        {/* GraphicSwiperも同様 */}
+        <GraphicSwiper slides={myGraphics} />
       </div>
-    </>
+    </div>
   );
 };
 

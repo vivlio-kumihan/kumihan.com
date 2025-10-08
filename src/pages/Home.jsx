@@ -18,35 +18,33 @@ const Home = () => {
   const ref = useRef();
 
   return (
-    <>
-      <div className="container">
-        <div className="wrapper">
-          <h1>
-            <span className={styles.homeSpan}>
-              You say Good Luck, I say Hello...
-            </span>
-            Studio Quad9
-          </h1>
-          <div className={`catch ${styles.catch}`}>
-            こんにちは、スタジオ・クアッド9のWEBサイトへようこそ。
-          </div>
-        </div>
-        <ImageSwiper
-          useFade
-          autoplay={{ delay: 3000 }}
-          speed={3000}
-          images={myImages}
-          heightMqLg={"500px"}
-        />
-        <Movie ref={ref} path="/movies/sample.mov" />
-        <div className={`wrapper ${styles.btn}`}>
-          <MovieControlButton ref={ref}>
-            <div className="note">hello, hello, hello</div>
-          </MovieControlButton>
-          <BaseButton>Base Button</BaseButton>
+    <div className="container">
+      <div className="wrapper">
+        <h1>
+          <span className={styles.homeSpan}>
+            You say Good Luck, I say Hello...
+          </span>
+          Studio Quad9
+        </h1>
+        <div className={`catch ${styles.catch}`}>
+          こんにちは、スタジオ・クアッド9のWEBサイトへようこそ。
         </div>
       </div>
-    </>
+      <ImageSwiper
+        useFade
+        autoplay={{ delay: 3000 }}
+        speed={3000}
+        images={myImages}
+        heightMqLg={"500px"}
+      />
+      <Movie ref={ref} path="/movies/sample.mp4" />
+      <div className={`wrapper ${styles.btn}`}>
+        <MovieControlButton ref={ref}>
+          <div className="note">hello, hello, hello</div>
+        </MovieControlButton>
+        <BaseButton>Base Button</BaseButton>
+      </div>
+    </div>
   );
 };
 
