@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { ImageSwiper } from "../components/ui/MySwiper";
+import InstagramFeed from "../components/ui/InstagramFeed";
 import Movie from "../components/ui/Movie";
 import { BaseButton, MovieControlButton } from "../components/ui/Button";
 import styles from "./Home.module.scss";
@@ -37,6 +38,7 @@ const Home = () => {
         images={myImages}
         heightMqLg={"500px"}
       />
+      <InstagramFeed />
       <Movie ref={ref} path="/movies/sample.mp4" />
       <div className={`wrapper ${styles.btn}`}>
         <MovieControlButton ref={ref}>

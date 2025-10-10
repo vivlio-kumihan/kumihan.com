@@ -4,65 +4,97 @@ import { BaseButton } from "../components/ui/Button";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    message: "",
   });
-  const [status, setStatus] = useState('idle'); // idle, sending, success, error
+  const [status, setStatus] = useState("idle"); // idle, sending, success, error
   const [errors, setErrors] = useState({});
 
   // バリデーション
   const validate = () => {
     const newErrors = {};
-    
+
     if (!formData.name.trim()) {
-      newErrors.name = 'お名前を入力してください';
+      newErrors.name = "お名前を入力してください";
     }
-    
+
     if (!formData.email.trim()) {
-      newErrors.email = 'メールアドレスを入力してください';
+      newErrors.email = "メールアドレスを入力してください";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = '有効なメールアドレスを入力してください';
+      newErrors.email = "有効なメールアドレスを入力してください";
     }
-    
+
     if (!formData.message.trim()) {
-      newErrors.message = 'メッセージを入力してください';
+      newErrors.message = "メッセージを入力してください";
     }
-    
+
     return newErrors;
   };
 
   // フォーム送信
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
-    
-    setErrors({});
-    setStatus('sending');
 
-    // 実際のAPI送信(ここではダミー)
-    // 実務では fetch() で Formspree や EmailJS、自社APIに送信
+    setErrors({});
+    setStatus("sending");
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500)); // 送信をシミュレート
-      
-      // 成功時の処理
-      setStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      const response = await fetch("https://formspree.io/f/mjkaebkq", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
     } catch (error) {
-      setStatus('error');
+      setStatus("error");
     }
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   const validationErrors = validate();
+  //   if (Object.keys(validationErrors).length > 0) {
+  //     setErrors(validationErrors);
+  //     return;
+  //   }
+
+  //   setErrors({});
+  //   setStatus('sending');
+
+  //   // 実際のAPI送信(ここではダミー)
+  //   // 実務では fetch() で Formspree や EmailJS、自社APIに送信
+  //   try {
+  //     await new Promise(resolve => setTimeout(resolve, 1500)); // 送信をシミュレート
+
+  //     // 成功時の処理
+  //     setStatus('success');
+  //     setFormData({ name: '', email: '', message: '' });
+  //   } catch (error) {
+  //     setStatus('error');
+  //   }
+  // };
+
   // 成功メッセージを3秒後に自動で消す
   useEffect(() => {
-    if (status === 'success') {
+    if (status === "success") {
       const timer = setTimeout(() => {
-        setStatus('idle');
+        setStatus("idle");
       }, 3000);
 
       // クリーンアップ: タイマーをクリア
@@ -70,18 +102,12 @@ const Contact = () => {
     }
   }, [status]);
 
-  const handleChange = (e) => {
+  const handleInPut = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     // 入力中にエラーをクリア
     if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
@@ -101,7 +127,7 @@ const Contact = () => {
               type="text"
               name="name"
               value={formData.name}
-              onChange={handleChange}
+              onChange={handleInPut}
               style={{
                 border: errors.name ? "2px solid #e53e3e" : "1px solid #ddd",
               }}
@@ -122,7 +148,7 @@ const Contact = () => {
               type="email"
               name="email"
               value={formData.email}
-              onChange={handleChange}
+              onChange={handleInPut}
               style={{
                 border: errors.email ? "2px solid #e53e3e" : "1px solid #ddd",
               }}
@@ -134,15 +160,15 @@ const Contact = () => {
           </div>
 
           {/* メッセージ */}
-          <div style={{ marginBottom: "1.5rem" }}>
-            <label className={styles.contact__formInner}>
+          <div className={styles.contact__formInner}>
+            <label className={styles.contact__lavel}>
               メッセージ <span style={{ color: "red" }}>*</span>
             </label>
             <textarea
               className={styles.contact__input}
               name="message"
               value={formData.message}
-              onChange={handleChange}
+              onChange={handleInPut}
               rows="6"
               placeholder="お問い合わせ内容をご記入ください"
             />
