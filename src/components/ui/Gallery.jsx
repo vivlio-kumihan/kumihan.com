@@ -62,10 +62,9 @@ const PhotoInfo = styled.div`
 `;
 
 const PhotoLocation = styled.p`
-  font-size: 0.875rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: #333;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
 `;
 
 const PhotoCaption = styled.p`
@@ -119,7 +118,7 @@ const LoadMoreButton = styled.button`
   margin: 0 auto;
   padding: 1rem 3rem;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 700;
   color: white;
   background-color: #3182ce;
   border: none;
@@ -155,7 +154,7 @@ const Modal = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.9);
   transition: all 0.3s;
-  z-index: 50;
+  z-index: 1000;
   cursor: pointer;
   animation: appear .5s;
 
@@ -222,7 +221,6 @@ function Gallery() {
       try {
         setLoading(true);
         const newPhotos = await loadPhotos(page);
-
         // 新しい写真がない場合
         if (newPhotos.length === 0) {
           setHasMore(false);
@@ -236,16 +234,9 @@ function Gallery() {
           const uniqueNewPhotos = newPhotos.filter(
             (p) => !existingIds.has(p.id)
           );
-
           const updated = [...prev, ...uniqueNewPhotos];
-          console.log(
-            `Total photos: ${updated.length} / ${GalleryData.length}`
-          );
-
           // すべての写真を表示したかチェック
-          if (updated.length >= GalleryData.length) {
-            setHasMore(false);
-          }
+          updated.length >= GalleryData.length && setHasMore(false);
 
           return updated;
         });
@@ -267,7 +258,7 @@ function Gallery() {
     setModalImage(src);
   };
 
-  const closeLightbox = () => {
+  const closeModal = () => {
     setModalImage(null);
   };
 
@@ -285,9 +276,9 @@ function Gallery() {
             >
               <PhotoImage src={photo.src} alt={photo.caption} />
               <PhotoInfo>
-                <PhotoLocation>📍 {photo.location}</PhotoLocation>
                 <PhotoCaption>{photo.caption}</PhotoCaption>
                 <PhotoDate>{photo.date}</PhotoDate>
+                <PhotoLocation>📍 {photo.location}</PhotoLocation>
               </PhotoInfo>
             </PhotoCard>
           ))}
@@ -310,8 +301,8 @@ function Gallery() {
       </GallerySection>
 
       {modalImage && (
-        <Modal onClick={closeLightbox}>
-          <CloseButton onClick={closeLightbox}>×</CloseButton>
+        <Modal onClick={closeModal}>
+          <CloseButton onClick={closeModal}>×</CloseButton>
           <ModalImage src={modalImage} alt="拡大表示" />
         </Modal>
       )}

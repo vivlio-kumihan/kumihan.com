@@ -6,6 +6,19 @@
   font-weight: 800;
 }
 
+.home {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 4rem 0;
+}
+
+h2 {
+  margin: 0 0 .5em;
+  &:not(:first-of-type) {
+    margin-top: 1.5em;
+  }
+}
+
 .catch {
   margin-top: 2em;
   line-height: 1;

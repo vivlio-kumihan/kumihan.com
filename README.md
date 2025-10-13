@@ -1,37 +1,48 @@
 # Site Map
 
 ```
-src/
-├── main.jsx
-├── App.jsx
-├── components/
-│   ├── layout/
-│   │   ├── Header.jsx
-│   │   ├── Header.module.scss
-│   │   ├── Footer.jsx
-│   │   ├── Footer.module.scss
-│   │   ├── Layout.jsx
-│   │   └── Layout.module.scss
-│   └── ui/
-│       └── Button.jsx (styled-components)
-│       └── MySwiper.jsx (styled-components)
-├── pages/
-│   ├── Home.jsx
-│   ├── Home.module.scss
-│   ├── About.jsx
-│   ├── About.module.scss
-│   ├── Contact.jsx
-│   └── Contact.module.scss
-├── styles/
-│   ├── global.scss
-│   ├── _variables.scss
-│   ├── _mixins.scss
-│   └── _reset.scss
-└── assets/
-    ├── images/
-    └── fonts/
+├── src/
+│   ├── main.jsx
+│   ├── App.jsx
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── Header.jsx
+│   │   │   ├── Header.module.scss
+│   │   │   ├── Footer.jsx
+│   │   │   ├── Footer.module.scss
+│   │   │   ├── Layout.jsx
+│   │   │   └── Layout.module.scss
+│   │   └── ui/
+│   │       └── MediaQuerry.jsx
+│   │       └── Button.jsx (styled-components)
+│   │       └── MySwiper.jsx (styled-components)
+│   │       └── Movie.jsx
+│   │       └── Gallery.jsx (styled-components)
+│   │       └── GalleryData.jsx
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── Home.module.scss
+│   │   ├── About.jsx
+│   │   ├── About.module.scss
+│   │   ├── Contact.jsx
+│   │   └── Contact.module.scss
+│   ├── styles/
+│   │   ├── global.scss
+│   │   ├── _variables.scss
+│   │   ├── _mixins.scss
+│   │   └── _reset.scss
+│   │   └── fonts/
+│   └── assets/
+│ 
+└── public/
+    └── images/
+        └── gallery/
+            └── index.jsx
+            └── photo01.png
+            └── photo02.jpg
+            └── photo03.jpg
+            └── ...
 ```
-
 
 
 # React + Vite

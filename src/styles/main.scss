@@ -50,6 +50,16 @@ a {
   margin: 2em 0;
 }
 
+.img-wrapper {
+  margin: 2rem 0;
+  aspect-ratio: 16/9;
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
 .catch {
   @extend.tume;
   font-size: 1.1rem;
