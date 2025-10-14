@@ -13,10 +13,6 @@ const Home = () => {
     { id: 3, src: "/images/210806_G9_1130958.jpg", caption: "東山の夕景" },
   ];
 
-  const [playing, setPlaying] = useState(false);
-  const switchHandler = () => {
-    setPlaying((prevState) => !prevState);
-  };
   const ref = useRef();
 
   // スクロールアニメーションを有効化 (この1行だけ追加!)
@@ -112,9 +108,7 @@ const Home = () => {
       <Gallery />
       <Movie ref={ref} path="/movies/sample.mp4" />
       <div className={`wrapper ${styles.btn}`}>
-        <MovieControlButton ref={ref}>
-          <div className="note">hello, hello, hello</div>
-        </MovieControlButton>
+        <MovieControlButton ref={ref} />
         <BaseButton>Base Button</BaseButton>
       </div>
     </div>
@@ -123,3 +117,22 @@ const Home = () => {
 
 export default Home;
 
+/* 
+Next.jsを始める前に迷っている。
+写真ギャラリーのコンポーネントのように、
+複数の作品をインデックスさせて視聴できる音楽プレーヤーと動画プレーヤーのコンポーネントを作りたい。
+
+写真ギャラリーのコンポーネント => PhotoGalleryコンポーネントに取り込んで閲覧できるページにする。pages/PhotoGallery.jsx
+音楽プレーヤーのコンポーネント => ListenMusicコンポーネントに取り込んで視聴できるページにする。pages/ListenMusic.jsx
+動画プレーヤーのコンポーネント => WatchMovieコンポーネントに取り込んで視聴できるページにする。pages/WatchMovie.jsx
+
+Homeコンポーネントに
+写真ギャラリーのコンポーネントを取り込む。その際にここでは、最新の写真を四枚枚レイアウトさせる。その下のボタンはpages/PhotoGallery.jsxへのリンクとする。
+音楽プレーヤーのコンポーネントを取り込む。その際にここでは、最新で再生した曲名とレコードジャケットの写真を表示させる。クリックしたら再生させる。その下にpages/PhotoGallery.jsxへのリンクを設置する。
+動画プレーヤーのコンポーネントを取り込む。その際にここでは、最新で再生した動画のタイトルとサムネール表示させる。クリックしたら再生させる。その下にpages/PhotoGallery.jsxへのリンクを設置する。
+以上のようにしてHomeコンポーネントをインデックス・ページとして整理する。
+
+以上のようにポートフォリオサイトとして整理してからNext.jsへ移行したいと考えているが、もっと合理的でいい方法はありますか？
+そんなことしていたら、Next.jsへ移行するまでに力尽きる。ダラダラしてしまう。もっと根本的にシンプルなポートフォリオの構成にした方がいい
+模範的なサイトの提示など、教えていただけないだろうか？
+*/

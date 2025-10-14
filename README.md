@@ -11,7 +11,6 @@
 │   │   │   ├── Footer.jsx
 │   │   │   ├── Footer.module.scss
 │   │   │   ├── Layout.jsx
-│   │   │   └── Layout.module.scss
 │   │   └── ui/
 │   │       └── MediaQuerry.jsx
 │   │       └── Button.jsx (styled-components)
@@ -19,6 +18,8 @@
 │   │       └── Movie.jsx
 │   │       └── Gallery.jsx (styled-components)
 │   │       └── GalleryData.jsx
+│   ├── hooks/
+│   │   ├── useScrollAnimation.jsx
 │   ├── pages/
 │   │   ├── Home.jsx
 │   │   ├── Home.module.scss
@@ -27,21 +28,22 @@
 │   │   ├── Contact.jsx
 │   │   └── Contact.module.scss
 │   ├── styles/
-│   │   ├── global.scss
-│   │   ├── _variables.scss
-│   │   ├── _mixins.scss
-│   │   └── _reset.scss
-│   │   └── fonts/
+│   │   ├── main.scss
+│   │   └── globals
+│   │       ├── _index.scss
+│   │       ├── _variables.scss
+│   │       ├── _mixins.scss
+│   │       └── _reset.scss
 │   └── assets/
-│ 
 └── public/
-    └── images/
-        └── gallery/
-            └── index.jsx
-            └── photo01.png
-            └── photo02.jpg
-            └── photo03.jpg
-            └── ...
+    ├── images/
+    │   └── gallery/
+    │       └── index.jsx
+    │       └── photo01.png
+    │       └── photo02.jpg
+    │       └── photo03.jpg
+    │       └── ...
+    └── movies/       
 ```
 
 
@@ -176,3 +178,83 @@ ReactDOM.createRoot(document.getElementById('root')).render(
    - FTPクライアントの設定で「隠しファイルを表示」を有効に
 
 どうしても動かない場合は、レンタルサーバーの名前（さくら、ロリポップ、エックスサーバーなど）を教えてください。サービス固有の設定をお伝えします！
+
+
+伝えた構成が間違ってた。
+│   ├── styles/
+│   │   ├── main.scss
+│   │   └── globals
+│   │       ├── _variables.scss
+│   │       ├── _mixins.scss
+│   │       └── _reset.scss
+
+そして、main.scssの内容が以下だ。
+
+@use './globals' as *;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-gothic;
+  line-height: $lh-normal;
+  color: $text-color;
+}
+
+.content-width {
+  margin: 0 auto;
+  max-width: $content-max-width;
+  @include mq(md) {
+    width: 90%;
+  }                                     
+}
+
+.container {
+  margin-top: 85px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @extend.tume;  
+  line-height: $lh-tight;
+}
+
+h1 {
+  text-align: center;
+  font-family: $font-title-en;
+  font-size: 6em;
+  font-weight: 200;
+  line-height: 1;
+  color: rgba($color: #333, $alpha: .6);
+}
+
+a {
+  text-decoration: none;
+}
+
+.wrapper {
+  margin: 2em 0;
+}
+
+.img-wrapper {
+  margin: 2rem 0;
+  aspect-ratio: 16/9;
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.catch {
+  @extend.tume;
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
